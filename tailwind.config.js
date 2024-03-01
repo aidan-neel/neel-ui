@@ -5,7 +5,7 @@ const config = {
     mode: "jit",
 	darkMode: ["class"],
 	content: ["./src/**/*.{html,js,svelte,ts}"],
-  safelist: ["dark"],
+    safelist: ["dark"],
 	theme: {
 		container: {
 			center: true,
@@ -16,40 +16,42 @@ const config = {
 		},
 		extend: {
 			colors: {
-				border: "hsl(var(--border) / <alpha-value>)",
-				input: "hsl(var(--input) / <alpha-value>)",
-				ring: "hsl(var(--ring) / <alpha-value>)",
-				background: "hsl(var(--background) / <alpha-value>)",
-				foreground: "hsl(var(--foreground) / <alpha-value>)",
-				primary: {
-					DEFAULT: "hsl(var(--primary) / <alpha-value>)",
-					foreground: "hsl(var(--primary-foreground) / <alpha-value>)"
-				},
-				secondary: {
-					DEFAULT: "hsl(var(--secondary) / <alpha-value>)",
-					foreground: "hsl(var(--secondary-foreground) / <alpha-value>)"
-				},
-				destructive: {
-					DEFAULT: "hsl(var(--destructive) / <alpha-value>)",
-					foreground: "hsl(var(--destructive-foreground) / <alpha-value>)"
-				},
-				muted: {
-					DEFAULT: "hsl(var(--muted) / <alpha-value>)",
-					foreground: "hsl(var(--muted-foreground) / <alpha-value>)"
-				},
-				accent: {
-					DEFAULT: "hsl(var(--accent) / <alpha-value>)",
-					foreground: "hsl(var(--accent-foreground) / <alpha-value>)"
-				},
-				popover: {
-					DEFAULT: "hsl(var(--popover) / <alpha-value>)",
-					foreground: "hsl(var(--popover-foreground) / <alpha-value>)"
-				},
-				card: {
-					DEFAULT: "hsl(var(--card) / <alpha-value>)",
-					foreground: "hsl(var(--card-foreground) / <alpha-value>)"
-				}
-			},
+                border: "#27272a",
+                input: "#27272a",
+                ring: "#d3d3d7",
+                background: "#0a0a0a",
+                foreground: "#f9f9f9",
+                primary: {
+                    DEFAULT: "#36986b",
+                    foreground: "#17171b",
+                    border: "#3fce8e"
+                },
+                secondary: {
+                    DEFAULT: "#27272a",
+                    foreground: "#f9f9f9"
+                },
+                destructive: {
+                    DEFAULT: "#991b1b",
+                    foreground: "#991b1b"
+                },
+                muted: {
+                    DEFAULT: "#27272a",
+                    foreground: "#a1a1a9",
+                    destructive: "#991b1b"
+                },
+                accent: {
+                    DEFAULT: "#27272a",
+                    foreground: "#f9f9f9"
+                },
+                popover: {
+                    DEFAULT: "#08080a",
+                    foreground: "#f9f9f9"
+                },
+                card: {
+                    DEFAULT: "#08080a",
+                    foreground: "#f9f9f9"
+                }
+            },            
 			borderRadius: {
 				lg: "var(--radius)",
 				md: "calc(var(--radius) - 2px)",

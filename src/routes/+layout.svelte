@@ -2,6 +2,6 @@
     import '../global.css'
 </script>
 
-<body class="dark bg-zinc-950">
+<body class="flex items-center justify-center w-screen h-screen dark bg-background">
     <slot></slot>
 </body>

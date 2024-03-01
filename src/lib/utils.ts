@@ -14,6 +14,25 @@ type FlyAndScaleParams = {
     duration?: number;
 };
 
+export const clickOutside = (node: HTMLElement, callback: (event: MouseEvent) => void) => {
+    const handleClick = (event: MouseEvent) => {
+        // Check if the click was outside the node
+        if (node && !node.contains(event.target as Node)) {
+            callback(event);
+        }
+    };
+
+    // Listen for click events on the document
+    document.addEventListener('click', handleClick, true);
+
+    return {
+        destroy() {
+            // Remove event listener when the element is destroyed
+            document.removeEventListener('click', handleClick, true);
+        }
+    };
+};
+
 export const flyAndScale = (
     node: Element,
     params: FlyAndScaleParams = { y: -8, x: 0, start: 0.95, duration: 150 }
