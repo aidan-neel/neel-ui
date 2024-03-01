@@ -12,6 +12,4 @@
     setContext('popoverStateData', BuilderData)
 </script>
 
-<Popover builder={BuilderData} class={`${className}`}>
-    <slot></slot>
-</Popover>
+<slot></slot>

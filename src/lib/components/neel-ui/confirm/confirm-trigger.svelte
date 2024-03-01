@@ -1,12 +1,13 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button';
     import type { popoverStateType } from '../popover';
+    import { getContext } from 'svelte';
     import { popoverState } from '../popover';
 
     let className: string | undefined = undefined;
-    let BuilderData: popoverStateType;
     export { className as class }
-    export { BuilderData as builder }
+
+    const BuilderData = getContext<popoverStateType>('popoverStateData');
 
     function OpenPopover() {
         console.log(BuilderData);

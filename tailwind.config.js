@@ -26,6 +26,14 @@ const config = {
                     foreground: "#17171b",
                     border: "#3fce8e"
                 },
+                success: {
+                    DEFAULT: "#3bd18c",
+                    foreground: "#3bd18c",
+                }, 
+                warning: {
+                    DEFAULT: "#d1a93b",
+                    foreground: "#d1a93b"
+                },
                 secondary: {
                     DEFAULT: "#27272a",
                     foreground: "#f9f9f9"

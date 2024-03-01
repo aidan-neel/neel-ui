@@ -8,7 +8,7 @@
         "warning": "p-3 w-[600px] border-warning text-warning-foreground rounded-lg items-center flex flex-row border bg-background",
     }
 
-    let type: 'default' | 'destructive' = 'default';
+    let type: 'default' | 'destructive' | 'success' | 'warning' = 'default';
     let className: string | undefined = undefined;
     export { className as class }
     export { type }
