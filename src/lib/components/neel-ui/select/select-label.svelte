@@ -6,6 +6,6 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className} text-[14px] w-full pl-3 py-2 font-semibold border-b border-b-primary-border/30`}>
+<div {...$$restProps} class={`${className} text-[14px] w-full pl-3 py-2 font-semibold`}>
     <slot></slot>
 </div>

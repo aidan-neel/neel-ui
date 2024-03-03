@@ -10,7 +10,7 @@
     export { className as class }
     
     let BuilderData = getContext<TabStateType>("tabBuilderData");
-    $: selectedTab = $tabState[BuilderData.key].openTab
+    $: selectedTab = $tabState[BuilderData.key]?.openTab
 </script>
 
 {#if selectedTab === value}

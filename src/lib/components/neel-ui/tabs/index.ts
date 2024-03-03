@@ -32,11 +32,19 @@ function tabBuilderFunction(
         openTab: startingTab
     }
 
-        tabStateManagement.update((state) => {
-            return {
-                [tabStateObject.key]: tabStateObject
-            }
-        })
+    tabStateManagement.update((state) => {
+        // Create a copy of the state
+        const newState = { ...state };
+        
+        // Remove the existing entry if it exists
+        delete newState[tabStateObject.key];
+    
+        // Add the new entry
+        newState[tabStateObject.key] = tabStateObject;
+    
+        return newState;
+    });
+    
 
     return tabStateObject;
 }

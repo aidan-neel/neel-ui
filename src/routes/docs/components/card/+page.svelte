@@ -9,17 +9,12 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Card
-        </h1>
-        <p class="description_c">
-            Simple card component with header and description sub-components
-        </p>
-    </div>
-    
-    <DocCard heightClass="h-[30rem]">
+    <DocCard 
+    component="card"
+    desc="A card component with header and description sub-components"
+    header="Card"
+    heightClass="h-[30rem]"
+    >
         <Card.Root class="">
             <Card.Header>
                 Account settings

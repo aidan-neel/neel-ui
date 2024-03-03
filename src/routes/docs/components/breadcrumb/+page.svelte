@@ -8,17 +8,11 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Breadcrumb
-        </h1>
-        <p class="description_c">
-            Breadcrumb component designed for easy navigation within a page
-        </p>
-    </div>
-    
-    <DocCard>
+    <DocCard 
+    component="breadcrumb"
+    desc="Breadcrumb component designed for easy navigation within a page"
+    header="Breadcrumb"
+    >
         <Breadcrumb hidden={["Components"]} />
     </DocCard>
 </div>

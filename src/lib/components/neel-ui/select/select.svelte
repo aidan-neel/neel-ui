@@ -1,14 +1,16 @@
 <script lang="ts">
-    import { selectBuilder } from ".";
-    import { setContext } from "svelte";
+    import { selectBuilder, selectState } from ".";
+    import { getContext, setContext } from "svelte";
 
     let className: string | undefined = undefined;
 
     const BuilderData = selectBuilder()
     setContext("SelectBuilderData", BuilderData)
-    
+
+    export const key = BuilderData.key
+
     export {
-        className as class
+        className as class,
     }
 </script>
 

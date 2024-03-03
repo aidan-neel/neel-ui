@@ -22,6 +22,7 @@
         BuilderData.open = true
         selectState.update((state) => {
             return {
+                ...state,
                 [BuilderData.key]: BuilderData
             }
         })
@@ -31,6 +32,7 @@
         BuilderData.open = false
         selectState.update((state) => {
             return {
+                ...state,
                 [BuilderData.key]: BuilderData
             }
         })
@@ -43,5 +45,5 @@
     {:else}
         <slot />
     {/if}
-    <CaretSort class="w-4 h-4 ml-1" />
+    <CaretSort class="w-4 h-4 ml-1 opacity-50" />
 </Button>

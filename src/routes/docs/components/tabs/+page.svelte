@@ -9,17 +9,12 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Tabs
-        </h1>
-        <p class="description_c">
-            Displays a tab component with buttons to switch between tabs.
-        </p>
-    </div>
-    
-    <DocCard heightClass="h-[30rem]">
+    <DocCard 
+    component="tabs"
+    desc="Tabs component which allows you to swap between content displays"
+    header="Tabs"
+    heightClass="h-[30rem]"
+    >
         <Tabs.Root value="tab1" class="w-[400px]">
             <Tabs.Items>
                 <Tabs.Trigger value="tab1"> Tab 1 </Tabs.Trigger>

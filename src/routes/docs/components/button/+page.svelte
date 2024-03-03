@@ -8,17 +8,11 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Button
-        </h1>
-        <p class="description_c">
-            Displays a button element with a variety of styles.
-        </p>
-    </div>
-    
-    <DocCard>
+    <DocCard 
+    component="button"
+    desc="Displays a basic button with various styles and variants"
+    header="Button"
+    >
         <Button>
             Button
         </Button>

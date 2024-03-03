@@ -16,6 +16,7 @@
         BuilderData.selectedLabel = label
         selectState.update((state) => {
             return {
+                ...state,
                 [BuilderData.key]: BuilderData
             }
         })
@@ -27,7 +28,7 @@
     }
 </script>
 
-<button on:click={ChangeSelected} {...$$restProps} class={`${className} flex flex-row justify-between items-center text-left text-[14px] p-1.5 pl-2 rounded-md w-full hover:bg-primary/30 hover:cursor-default`}>
+<button on:click={ChangeSelected} {...$$restProps} class={`${className} flex flex-row justify-between items-center text-left text-[14px] p-1.5 pl-2 rounded-md w-full hover:bg-secondary hover:cursor-default`}>
     <slot></slot>
     {#if ItemIsSelected}
         <Check class="w-4 h-4" />

@@ -10,17 +10,11 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Confirm
-        </h1>
-        <p class="description_c">
-            A modal dialog required for confirmation of user action
-        </p>
-    </div>
-    
-    <DocCard>
+    <DocCard 
+    component="confirm"
+    desc="A modal dialog for confirmation of user destructive action"
+    header="Confirm"
+    >
         <Confirm.Root>
             <Confirm.Trigger>
                 Show Confirmation

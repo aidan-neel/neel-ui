@@ -21,26 +21,28 @@
     }
 
     let BuilderData = getContext<TabStateType>("tabBuilderData");
-    $: selectedTab = $tabState[BuilderData.key].openTab
-
+    $: selectedTab = $tabState[BuilderData.key]?.openTab
+    
     function ChangeTab() {
         BuilderData.openTab = value;
         tabState.update((state) => {
             return {
+                ...state,
                 [BuilderData.key]: BuilderData
             }
         })
-    }
 
-    $: inV = selectedTab === value
+    }
 </script>
 
-{#if selectedTab === value}
-    <Button useTransition={true} variant="primary" class={`${className} fade-in w-full h-[2rem] rounded-md`}>
-        <slot></slot>
-    </Button>
-{:else}
-    <Button useTransition={true} on:click={ChangeTab} variant="ghost" class={`${className} fade-in text-muted-foreground w-full h-[2rem] rounded-md`}>
-        <slot></slot>
-    </Button>
-{/if}
+{#key selectedTab}
+    {#if selectedTab === value}
+        <Button useTransition={true} variant="primary" class={`${className} w-full h-[2rem]`}>
+            <slot></slot>
+        </Button>
+    {:else}
+        <Button useTransition={true} on:click={ChangeTab} variant="ghost" class={`${className} text-muted-foreground w-full h-[2rem]`}>
+            <slot></slot>
+        </Button>
+    {/if}
+{/key}

@@ -7,17 +7,11 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Alert
-        </h1>
-        <p class="description_c">
-            Displays an alert component with a variety of styles.
-        </p>
-    </div>
-    
-    <DocCard>
+    <DocCard 
+    component="alert"
+    desc="An alert component to give the user a heads-up about an issue"
+    header="Alert"
+    >
         <Alert.Root type="default">
             <Person class="w-5 h-5">
                 

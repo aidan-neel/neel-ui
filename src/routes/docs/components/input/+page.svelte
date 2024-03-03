@@ -8,17 +8,11 @@
 </script>
 
 <div class="flex flex-col">
-    <div class="mb-4">
-        <Breadcrumb hidden={["Components"]} />
-        <h1 class="header_c">
-            Input
-        </h1>
-        <p class="description_c">
-            An input component with an optional label
-        </p>
-    </div>
-    
-    <DocCard>
-        <Input placeholder="Input" label="Input" class="w-[350px]" />
+    <DocCard 
+    component="input"
+    desc="An input component with an optional label"
+    header="Input"
+    >
+        <Input placeholder="Input" label="Input" class="w-[250px]" />
     </DocCard>
 </div>

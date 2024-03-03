@@ -25,9 +25,9 @@ const config = {
                     DEFAULT: "#36986b",
                     foreground: "#17171b",
                     border: "#3fce8e",
-                    muted_bg: "#15261d",
-                    muted_border: "#255940",
-                    muted_bg_hovered: "#0f1814"
+                    muted_bg: "#0a0a0a",
+                    muted_border: "#27272a",
+                    muted_bg_hovered: "#1c1b1b"
                 },
                 success: {
                     DEFAULT: "#3bd18c",
@@ -40,6 +40,10 @@ const config = {
                 secondary: {
                     DEFAULT: "#27272a",
                     foreground: "#f9f9f9"
+                },
+                button: {
+                    DEFAULT: "#f9f9f9",
+                    hovered: "#c9c1c1"
                 },
                 destructive: {
                     DEFAULT: "#991b1b",

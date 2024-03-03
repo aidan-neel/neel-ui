@@ -15,9 +15,9 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className} gap-0.5 flex flex-col w-full`}>
+<div {...$$restProps} class={`${className} flex flex-col w-full`}>
     <slot></slot>
-    <div class="w-full flex flex-col gap-0.5 p-1">
+    <div class="w-full flex flex-col gap-0.5 px-1">
         {#each selectItems as item}
             <Item value={item.value} label={item.label}>
                 {item.label}
