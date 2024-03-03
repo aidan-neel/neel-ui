@@ -9,10 +9,10 @@
 <div class="flex flex-col">
     <div class="mb-4">
         <Breadcrumb hidden={["Components"]} />
-        <h1 class="mt-2 text-4xl font-bold">
+        <h1 class="header_c">
             Alert
         </h1>
-        <p class="text-lg text-zinc-500 max-w-[620px]">
+        <p class="description_c">
             Displays an alert component with a variety of styles.
         </p>
     </div>

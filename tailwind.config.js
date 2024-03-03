@@ -24,7 +24,10 @@ const config = {
                 primary: {
                     DEFAULT: "#36986b",
                     foreground: "#17171b",
-                    border: "#3fce8e"
+                    border: "#3fce8e",
+                    muted_bg: "#15261d",
+                    muted_border: "#255940",
+                    muted_bg_hovered: "#0f1814"
                 },
                 success: {
                     DEFAULT: "#3bd18c",

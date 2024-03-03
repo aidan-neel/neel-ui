@@ -5,21 +5,23 @@ import Root from './tabs.svelte';
 import { writable } from 'svelte/store';
 
 interface TabState {
-    open: boolean;
     key: string;
+    openTab: string;
 }
 
-let tabStateManagement = writable<string[]>([])
+let tabStateManagement = writable<TabState[]>([])
 /**
  * [
         "tabKey": {
-            open: false,
             key: "tab-tabKey"
+            openTab: "tabValue"
         }
     ]
  */
 
-function tabBuilderFunction() {
+function tabBuilderFunction(
+    startingTab: string
+): TabState {
     function generateTabKey() {
         // Returns a random string of 12 characters
         return "tab-" + Math.random().toString(36).substring(2, 15);
@@ -27,14 +29,14 @@ function tabBuilderFunction() {
 
     const tabStateObject: TabState = {
         key: generateTabKey(),
-        open: false
+        openTab: startingTab
     }
 
-    if(Array.isArray(tabStateManagement)) {
-        tabStateManagement.update((tabState) => {
-            return [...tabState, tabStateObject.key]
+        tabStateManagement.update((state) => {
+            return {
+                [tabStateObject.key]: tabStateObject
+            }
         })
-    }
 
     return tabStateObject;
 }

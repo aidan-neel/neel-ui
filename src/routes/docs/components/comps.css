@@ -1,0 +1,7 @@
+.header_c {
+    @apply mt-2 text-4xl font-bold
+}
+
+.description_c {
+    @apply text-lg text-zinc-500 max-w-[420px] mt-1
+}

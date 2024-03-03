@@ -11,14 +11,14 @@
     <div class="mb-4">
         <Breadcrumb hidden={["Components"]} />
         <h1 class="header_c">
-            Breadcrumb
+            Input
         </h1>
         <p class="description_c">
-            Breadcrumb component designed for easy navigation within a page
+            An input component with an optional label
         </p>
     </div>
     
     <DocCard>
-        <Breadcrumb hidden={["Components"]} />
+        <Input placeholder="Input" label="Input" class="w-[350px]" />
     </DocCard>
 </div>

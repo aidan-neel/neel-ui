@@ -3,6 +3,6 @@
     export { className as class }    
 </script>
 
-<div {...$$restProps} class={`${className} border p-6 rounded-lg`}>
+<div {...$$restProps} class={`${className} mt-6`}>
     <slot></slot>
 </div>

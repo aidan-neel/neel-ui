@@ -1,27 +1,44 @@
-<script lang="ts">
+<script lang="ts"> 
     import { Button } from '$lib/components/neel-ui/button';
-    import * as Confirm from '$lib/components/neel-ui/confirm';
-    import { popoverState } from '$lib/components/neel-ui/popover'
-
-    const ConfirmationBuilderData = Confirm.Builder();
+    import * as Alert from '$lib/components/neel-ui/alert';
+    import * as Card from '$lib/components/neel-ui/card';
+    import DocCard from '$lib/components/doc-card.svelte';
+    import { Person } from 'radix-icons-svelte';
+    import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
+    import { Input } from '$lib/components/neel-ui/input'
+    import * as Confirm from '$lib/components/neel-ui/confirm'
 </script>
 
-<Confirm.Root builder={ConfirmationBuilderData}>
-    <Confirm.Trigger>
-        Show Confirmation
-    </Confirm.Trigger>
-    <Confirm.Content>
-        <Confirm.Heading>
-            <Confirm.Title>
-                This is a confirm heading
-            </Confirm.Title>
-            <Confirm.Description>
-                This is a confirm description, it's a bit longer than the title
-            </Confirm.Description>
-        </Confirm.Heading>
-        <Confirm.Footer>
-            <Confirm.Action>Continue</Confirm.Action>
-            <Confirm.Cancel>Cancel</Confirm.Cancel>
-        </Confirm.Footer>
-    </Confirm.Content>
-</Confirm.Root>
+<div class="flex flex-col">
+    <div class="mb-4">
+        <Breadcrumb hidden={["Components"]} />
+        <h1 class="header_c">
+            Confirm
+        </h1>
+        <p class="description_c">
+            A modal dialog required for confirmation of user action
+        </p>
+    </div>
+    
+    <DocCard>
+        <Confirm.Root>
+            <Confirm.Trigger>
+                Show Confirmation
+            </Confirm.Trigger>
+            <Confirm.Content>
+                <Confirm.Heading>
+                    <Confirm.Title>
+                        This is a confirm heading
+                    </Confirm.Title>
+                    <Confirm.Description>
+                        This is a confirm description, it's a bit longer than the title
+                    </Confirm.Description>
+                </Confirm.Heading>
+                <Confirm.Footer>
+                    <Confirm.Action>Continue</Confirm.Action>
+                    <Confirm.Cancel>Cancel</Confirm.Cancel>
+                </Confirm.Footer>
+            </Confirm.Content>
+        </Confirm.Root>        
+    </DocCard>
+</div>

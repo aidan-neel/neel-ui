@@ -3,6 +3,8 @@
     import { TypographyHeading, TypographySubHeading, TypographyParagraph } from '$lib/components/neel-ui/typography';
     import * as Confirm from '$lib/components/neel-ui/confirm';
     import { Button } from '$lib/components/neel-ui/button';
+    import { page } from "$app/stores";
+    import './docs/components/comps.css'
 
     const excludedComponents = ['popover', 'typography'];
 
@@ -23,6 +25,10 @@
     const capitalizedComponentNames = filteredComponentNames.map((component) => {
         return component.charAt(0).toUpperCase() + component.slice(1);
     });
+
+    $: pathName = $page.url.pathname
+
+    $: isCurrentPage = (component: string) => pathName.includes(component.toLowerCase())
 </script>
 
 <main class="flex flex-row items-start justify-center w-screen h-screen pt-24 dark bg-background">
@@ -31,7 +37,7 @@
             Components
         </h1>
         {#each capitalizedComponentNames as component}
-            <Button class="text-[#a1a1a9]" href={`/docs/components/${component.toLowerCase()}`} variant="link">
+            <Button class={`${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
                 {component}
             </Button>
         {/each}
