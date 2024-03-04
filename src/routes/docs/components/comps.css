@@ -3,5 +3,5 @@
 }
 
 .description_c {
-    @apply text-lg text-zinc-500 max-w-[420px] mt-1
+    @apply text-lg text-muted-foreground max-w-[420px] mt-1
 }

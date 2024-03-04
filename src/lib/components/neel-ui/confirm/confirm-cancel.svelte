@@ -13,6 +13,7 @@
             popoverStateData.open = false;
             popoverState.update((state) => {
                 return {
+                    ...state,
                     [popoverStateData.key]: popoverStateData
                 };
             });

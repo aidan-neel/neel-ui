@@ -43,7 +43,7 @@ const config = {
                 },
                 button: {
                     DEFAULT: "#f9f9f9",
-                    hovered: "#c9c1c1"
+                    hovered: "#d6d6d6"
                 },
                 destructive: {
                     DEFAULT: "#991b1b",

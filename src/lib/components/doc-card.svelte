@@ -26,7 +26,7 @@
     export { className as class, heightClass, widthClass, component, componentDescription as desc, componentHeader as header, showHeading, showUsage }
 </script>
 
-<div class='flex flex-col gap-3'>
+<div class='flex flex-col gap-3 mt-24'>
     {#if showHeading}
         <div class="mb-4">
             <Breadcrumb hidden={["Components"]} />
@@ -46,8 +46,8 @@
             <h1 class="header_c border-b pb-4">
                 Usage
             </h1>
-            <div class={`${className} ${widthClass} ${heightClass} overflow-y-auto mb-24 overflow-x-auto min-h-[20rem] max-h-[25rem] mt-8 flex bg-secondary/20 items-center justify-center border rounded-xl`}>
-                <pre class='h-full w-full p-4 items-start flex justify-start'>
+            <div class={`${className} ${widthClass} ${heightClass} overflow-y-auto custom-scrollbar mb-24 overflow-x-auto h-auto mt-8 flex bg-secondary/20 items-center justify-center border rounded-xl`}>
+                <pre class='h-full w-full p-4 items-start flex text-[13px] justify-start'>
                     {@html html}
                 </pre>
             </div>

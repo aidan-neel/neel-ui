@@ -14,6 +14,17 @@
 @tailwind components;
 @tailwind utilities;
 
+/* Styles the entire scrollbar */
+::-webkit-scrollbar {
+    width: 6px; /* width of the entire scrollbar */
+    height: 6px;
+    @apply bg-transparent
+}
+
+::-webkit-scrollbar-thumb {
+    @apply rounded-lg border bg-secondary
+}
+
 .centered {
     @apply absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2
 }
@@ -53,6 +64,7 @@ p, h1, h2, h3, h4, h5, h6 {
  
 @layer base {
     :root {
+        color-scheme: dark;
         --background: #08080a;
         --foreground: #f9f9f9;
         --muted: #27272a;

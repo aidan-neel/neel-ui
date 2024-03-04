@@ -9,13 +9,11 @@
 <div class="flex flex-col">
     <DocCard 
     component="alert"
-    desc="An alert component to give the user a heads-up about an issue"
+    desc="Displays a callout message to the user."
     header="Alert"
     >
         <Alert.Root type="default">
-            <Person class="w-5 h-5">
-                
-            </Person>
+            <Person class="w-5 h-5" />
             <Alert.Content>
                 <Alert.Title>
                     Your email has been verified.
