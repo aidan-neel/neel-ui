@@ -17,7 +17,7 @@
             <span class="mr-2">🎉</span> Version 1 release is out now! <ArrowRight class="ml-2 text-muted-foreground" />
         </Badge>
     </a>
-    <h1 class="text-5xl font-bold fade-up text-center tracking-tighter">
+    <h1 class="md:text-5xl text-4xl font-bold fade-up text-center tracking-tighter">
         Make frontend development<br> a breeze with Neel UI
     </h1>
     <p class="text-xl text-muted-foreground fade-up w-full px-6 lg:w-[575px] mt-2 text-center">
