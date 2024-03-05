@@ -43,7 +43,7 @@
                 {componentDescription}
             </p>
             <a href={`https://github.com/aidan-neel/neel-ui/tree/main/src/lib/components/neel-ui/${component}`} class="w-auto">
-                <Badge variant="secondary" class="flex flex-row items-center max-w-[10rem] w-auto justify-center gap-1 mt-3">
+                <Badge variant="secondary" class="flex flex-row items-center max-w-[14rem] w-auto justify-center gap-1 mt-3">
                     <Code /> Component Source
                 </Badge>
             </a>
