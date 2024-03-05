@@ -17,7 +17,7 @@
     <h1 class="text-5xl font-bold text-center tracking-tighter">
         Beautifully crafted components
     </h1>
-    <p class="text-xl text-muted-foreground w-[575px] mt-2 text-center">
+    <p class="text-xl text-muted-foreground w-full px-6 lg:w-[575px] mt-2 text-center">
         Super accessible and customizable components that you can copy and paste into your SvelteKit apps.
     </p>
     <div class="flex flex-row gap-4 mt-4">
