@@ -3,6 +3,7 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import * as Select from '$lib/components/neel-ui/select';
     import { selectState } from '$lib/components/neel-ui/select';
+    import Seo from '$lib/components/seo.svelte';
 
     const fruits = [
         { value: "apple", label: "Apple" },
@@ -15,6 +16,8 @@
     let key: string
     $: selectedValue = $selectState[key]?.selectedValue; // Reactive statement to fetch selected value
 </script>
+
+<Seo name="select" />
 
 <div class="doc-card-parent">
     <DocCard 

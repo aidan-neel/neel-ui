@@ -6,7 +6,10 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
     import * as Tooltip from '$lib/components/neel-ui/tooltip'
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="tooltip" />
 
 <div class="doc-card-parent">
     <DocCard 

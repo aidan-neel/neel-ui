@@ -3,7 +3,10 @@
     import DocCard from '$lib/components/doc-card.svelte';
     import * as LinkPreview from '$lib/components/neel-ui/link-preview';
     import { Link2 } from 'radix-icons-svelte';
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="link preview" />
 
 <div class="doc-card-parent">
     <DocCard 

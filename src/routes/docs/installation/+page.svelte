@@ -1,7 +1,10 @@
 <script lang="ts">
     import {Breadcrumb} from "$lib/components/neel-ui/breadcrumb";
     import { ChevronRight } from "radix-icons-svelte";
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="install" />
 
 <main class="w-[45rem] flex flex-col mt-24 fade-up">
     <div class="flex flex-row items-center justify-start gap-1 text-[14px] text-muted-foreground"> 

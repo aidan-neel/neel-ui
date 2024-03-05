@@ -6,6 +6,7 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Button } from '$lib/components/neel-ui/button';
     import { Check, Copy, Image, Code, CheckCircled } from "radix-icons-svelte";
+    import { fade } from "svelte/transition";
     import VariantCard from "./variant-card.svelte";
     let heightClass: string = "h-[22.5rem]"
     let widthClass: string = "lg:w-[45rem] lg:max-w-[45rem]"

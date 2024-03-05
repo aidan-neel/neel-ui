@@ -34,7 +34,7 @@
     }
 </script>
 
-<nav class='w-screen hidden fade-up md:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-50 backdrop-blur-md border-b'>
+<nav class='w-screen hidden fade-up md:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-0 backdrop-blur-md border-b'>
     <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px]">
         <a href="/" class="flex flex-row items-center h-full gap-1">
             <img src={Logo} alt="Neel" class="h-6 w-6" />

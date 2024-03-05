@@ -5,7 +5,10 @@
     import { Person } from 'radix-icons-svelte';
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="breadcrumb" />
 
 <div class="doc-card-parent">
     <DocCard 

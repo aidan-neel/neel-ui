@@ -3,7 +3,10 @@
     import DocCard from '$lib/components/doc-card.svelte';
     import VariantCard from '$lib/components/variant-card.svelte';
     import { badgeExamples } from './badge';
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="badge" />
 
 <div class="doc-card-parent">
     <DocCard 

@@ -6,11 +6,12 @@
     import { fade } from 'svelte/transition';
 
     import DocCard from '$lib/components/doc-card.svelte';
+  import Seo from '$lib/components/seo.svelte';
 </script>
 
-<div transition:fade={{duration:100}} class="absolute opacity-50 top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black"><div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div class="absolute left-0 right-0 top-[-10%] h-[1000px] opacity-50 w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#000)]"></div></div>
+<Seo name="home" />
 
-<div transition:fade={{duration:100}} class="h-screen flex flex-col items-center pt-48 justify-start absolute">
+<div transition:fade={{duration:100}} class="h-screen flex flex-col items-center pt-32 lg:pt-48 justify-start absolute">
     <a href="/docs/components" class="fade-up">
         <Badge class="py-1 mb-2 flex flex-row items-center justify-center" variant="ghost">
             <span class="mr-2">🎉</span> Version 1 release is out now! <ArrowRight class="ml-2 text-muted-foreground" />

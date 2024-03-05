@@ -7,8 +7,11 @@
     import { Input } from '$lib/components/neel-ui/input'
     import VariantCard from '$lib/components/variant-card.svelte';
     import { alertExamples } from './alert';
-  import { examples } from '$lib/examples';
+    import { examples } from '$lib/examples';
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="alert" />
 
 <div class="doc-card-parent">
     <DocCard 

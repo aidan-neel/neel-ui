@@ -5,9 +5,12 @@
     import { Person } from 'radix-icons-svelte';
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
+    import Seo from '$lib/components/seo.svelte';
 
     let val = ""; // Input value
 </script>
+
+<Seo name="input" />
 
 <div class="doc-card-parent">
     <DocCard 

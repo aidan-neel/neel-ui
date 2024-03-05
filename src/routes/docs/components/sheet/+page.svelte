@@ -3,9 +3,12 @@
     import DocCard from '$lib/components/doc-card.svelte';
     import * as Sheet from '$lib/components/neel-ui/sheet';
     import { Input } from '$lib/components/neel-ui/input'
+    import Seo from '$lib/components/seo.svelte';
 
     const SIDES = ["Left", "Right"];
 </script>
+
+<Seo name="sheet" />
 
 <div class="doc-card-parent">
     <DocCard 

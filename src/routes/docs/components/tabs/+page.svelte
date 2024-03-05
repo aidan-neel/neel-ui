@@ -6,7 +6,10 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import * as Card from '$lib/components/neel-ui/card';
     import { Input } from '$lib/components/neel-ui/input';
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="tabs" />
 
 <div class="doc-card-parent">
     <DocCard 

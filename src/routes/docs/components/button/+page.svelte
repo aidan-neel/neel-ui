@@ -11,6 +11,7 @@
     import { onMount } from "svelte";
     import buttonExamples from './button';
     import VariantCard from '$lib/components/variant-card.svelte';
+    import Seo from '$lib/components/seo.svelte';
 
     let primaryHtml;
     let secondaryHtml;
@@ -25,6 +26,8 @@
         })
     })
 </script>
+
+<Seo name="button" />
 
 <div class="doc-card-parent">
     <DocCard 

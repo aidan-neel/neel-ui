@@ -7,7 +7,10 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
     import * as Confirm from '$lib/components/neel-ui/confirm'
+    import Seo from '$lib/components/seo.svelte';
 </script>
+
+<Seo name="confirm" />
 
 <div class="doc-card-parent">
     <DocCard 
