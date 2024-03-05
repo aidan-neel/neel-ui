@@ -15,7 +15,9 @@
 </script>
 <!-- Adjusted part -->
 {#if IsOpen}
-    <div bind:this={componentElement} transition:flyAndScale={{ y: isTop ? -8 : 0, x: 0, start: 0.9, duration: 150 }} {...$$restProps} class={`${className} absolute w-full bg-primary-muted_bg rounded-lg border border-primary-muted_border my-2 ${isTop ? `top-${offset}` : `bottom-${offset}`}`}>
+    <div use:clickOutside={() => {
+        $selectState[BuilderData.key].open = false;
+    }} bind:this={componentElement} transition:flyAndScale={{ y: isTop ? -8 : 0, x: 0, start: 0.9, duration: 150 }} {...$$restProps} class={`${className} absolute w-full bg-primary-muted_bg rounded-lg border border-primary-muted_border my-2 ${isTop ? `top-${offset}` : `bottom-${offset}`}`}>
         <slot></slot>
     </div>
 {/if}

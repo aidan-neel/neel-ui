@@ -39,7 +39,8 @@ const config = {
                 },
                 secondary: {
                     DEFAULT: "#27272a",
-                    foreground: "#f9f9f9"
+                    foreground: "#f9f9f9",
+                    muted: "#101010"
                 },
                 button: {
                     DEFAULT: "#f9f9f9",

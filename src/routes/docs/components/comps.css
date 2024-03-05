@@ -5,3 +5,11 @@
 .description_c {
     @apply text-lg text-muted-foreground max-w-[420px] mt-1
 }
+
+.header_2nd {
+    @apply text-3xl font-bold
+}
+
+.doc-card-parent {
+    @apply flex flex-col w-full lg:w-[45rem]
+}

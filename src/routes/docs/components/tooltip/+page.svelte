@@ -8,7 +8,7 @@
     import * as Tooltip from '$lib/components/neel-ui/tooltip'
 </script>
 
-<div class="flex flex-col">
+<div class="doc-card-parent">
     <DocCard 
     component="tooltip"
     desc="Display's a tooltip card whenever you hover something for 750ms."

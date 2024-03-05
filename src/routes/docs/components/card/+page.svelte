@@ -8,7 +8,7 @@
     import { Input } from '$lib/components/neel-ui/input'
 </script>
 
-<div class="flex flex-col">
+<div class="doc-card-parent">
     <DocCard 
     component="card"
     desc="A card component with header and description sub-components"

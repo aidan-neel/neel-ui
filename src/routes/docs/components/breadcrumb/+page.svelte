@@ -7,7 +7,7 @@
     import { Input } from '$lib/components/neel-ui/input'
 </script>
 
-<div class="flex flex-col">
+<div class="doc-card-parent">
     <DocCard 
     component="breadcrumb"
     desc="Breadcrumb component designed for easy navigation within a page"

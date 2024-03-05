@@ -9,7 +9,7 @@
     import * as Confirm from '$lib/components/neel-ui/confirm'
 </script>
 
-<div class="flex flex-col">
+<div class="doc-card-parent">
     <DocCard 
     component="confirm"
     desc="A modal dialog for confirmation of user destructive action"

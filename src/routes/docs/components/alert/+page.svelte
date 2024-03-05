@@ -6,14 +6,14 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
 </script>
 
-<div class="flex flex-col">
+<div class="doc-card-parent">
     <DocCard 
     component="alert"
     desc="Displays a callout message to the user."
     header="Alert"
     >
-        <Alert.Root type="default">
-            <Person class="w-5 h-5" />
+        <Alert.Root type="default" class="w-full">
+            <Person class="w-5 h-5 flex-shrink-0" />
             <Alert.Content>
                 <Alert.Title>
                     Your email has been verified.

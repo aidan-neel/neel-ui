@@ -2,8 +2,7 @@ import Button from "./button.svelte";
 
 interface DataBuilderType {
     key: string;
-    type: "tooltip";
-
+    type: "tooltip" | "link-preview" | "sheet";
 }
 
 export {

@@ -174,6 +174,78 @@ const AlertExample = `<script lang="ts">
     </Alert.Content>
 </Alert.Root>`
 
+const BadgeExample = `<script lang="ts">
+    import { Badge } from "$lib/components/neel-ui/badge";
+</script>
+
+<Badge variant="primary">
+    Verified
+</Badge>`
+
+const LinkPreviewExample = `<script lang="ts">
+    import * as LinkPreview from "$lib/components/neel-ui/link-preview";
+    import { Link2 } from "radix-icons-svelte";
+    import { Button } from "$lib/components/neel-ui/button";
+</script>
+
+<LinkPreview.Root>
+    <LinkPreview.Trigger let:data>
+        <Button data={data}  variant="link" href="https://twitter.com/huntabyte">
+            @huntabyte
+        </Button>
+    </LinkPreview.Trigger>
+    <LinkPreview.Content class="flex flex-row">
+        <img src="https://pbs.twimg.com/profile_images/1650336707026223104/7t1vlsTs_400x400.jpg" alt="Hunter Johnson" class="border rounded-full w-11 h-11" />
+        <div class="flex flex-col ml-3">
+            <h1 class="font-semibold">
+                @huntabyte
+            </h1>
+            <p class='text-[14px]'>
+                I do things on the internet.
+            </p>
+
+            <div class="flex flex-row-reverse items-center justify-end mt-1">
+                <Link2 class="w-4 h-4 text-muted-foreground" />
+                <Button href="https://github.com/huntabyte" class="mr-1 text-muted-foreground text-[12px]" variant="link">
+                    github.com/huntabyte
+                </Button>
+            </div>
+        </div>
+    </LinkPreview.Content>
+</LinkPreview.Root>`
+
+const SheetExample = `<script lang="ts">
+    import * as Sheet from "$lib/components/neel-ui/sheet";
+    import { Button } from "$lib/components/neel-ui/button";
+    import { Input } from "$lib/components/neel-ui/input";
+</script>
+
+<Sheet.Root side=Left>
+    <Sheet.Trigger let:data>
+        <Button variant="secondary" class="w-20" data={data}>
+            Left
+        </Button>
+    </Sheet.Trigger>
+    <Sheet.Content>
+        <Sheet.Header>
+            <Sheet.Title>
+                Left Sheet
+            </Sheet.Title>
+            <Sheet.Description>
+                This is a Left sheet, you can put anything here.
+            </Sheet.Description>
+        </Sheet.Header>
+        <Input placeholder="Username" label="Username" class="w-full" />
+        <div class='mt-4'></div>
+        <Input placeholder="Password" label="Password" class="w-full" />
+        <Sheet.Footer>
+            <Sheet.Cancel>
+                Save Changes
+            </Sheet.Cancel>
+        </Sheet.Footer>
+    </Sheet.Content>
+</Sheet.Root>`
+
 const examples = {
     "tabs": TabsExample,
     "tooltip": TooltipExample,
@@ -183,7 +255,10 @@ const examples = {
     "card": CardExample,
     "button": ButtonExample,
     "breadcrumb": BreadcrumbExample,
-    "alert": AlertExample
+    "alert": AlertExample,
+    "badge": BadgeExample,
+    "link-preview": LinkPreviewExample,
+    "sheet": SheetExample
 }
 
 export { examples }

@@ -32,29 +32,29 @@
 </script>
 
 <SiteNavigationBar />
-<main class="flex flex-row overflow-x-hidden items-start justify-center w-screen h-screen dark bg-background">
+<main class="flex flex-row items-start px-4 lg:px-0 justify-center w-screen h-screen overflow-x-hidden dark bg-background">
     {#if pathName !== "/"}
-    <div class="flex flex-col items-start gap-1 mt-24 w-[250px] text-foreground text-[14px]">
+    <div class="flex-col hidden lg:flex items-start gap-1 mt-24 w-[250px] text-foreground text-[14px]">
         <h1 class="text-foreground mb-1 text-[16px] font-semibold">
             Getting Started
         </h1>
         <Button href="/docs" class={`${pathName === "/docs" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
             Introduction
         </Button>
-        <Button href="/docs/about" class={`${pathName === "/docs/about" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
-            About
+        <Button href="/docs/installation" class={`${pathName === "/docs/installation" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+            Installation
         </Button>
         <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
             Components
         </h1>
         {#each capitalizedComponentNames as component}
             <Button class={`${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
-                {component}
+                {component === "Link-preview" ? "Link Preview" : component}
             </Button>
         {/each}
     </div>
     {/if}
     <slot></slot>
-    <div class="flex flex-col items-start w-[250px] md:flex hidden text-foreground text-[14px]">
+    <div class="flex flex-col items-start w-[250px] xl:flex hidden text-foreground text-[14px]">
     </div>
 </main>
