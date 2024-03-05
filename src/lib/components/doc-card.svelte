@@ -5,7 +5,7 @@
 	import { onMount } from "svelte";
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Button } from '$lib/components/neel-ui/button';
-    import { Check, Copy, Image, Code } from "radix-icons-svelte";
+    import { Check, Copy, Image, Code, CheckCircled } from "radix-icons-svelte";
     import VariantCard from "./variant-card.svelte";
     let heightClass: string = "h-[22.5rem]"
     let widthClass: string = "lg:w-[45rem] lg:max-w-[45rem]"
@@ -30,9 +30,9 @@
     export { className as class, heightClass, widthClass, component, componentDescription as desc, componentHeader as header, showHeading, showUsage }
 </script>
 
-<div class='flex flex-col gap-3 mt-24 lg:max-w-[45rem]'>
+<div class='flex flex-col gap-3 {showHeading ? 'mt-24' : ''} lg:max-w-[45rem]'>
     {#if showHeading}
-        <div class="mb-4">
+        <div class="mb-4 fade-up">
             <Breadcrumb hidden={["Components"]} />
             <h1 class="header_c">
                 {componentHeader}
@@ -42,16 +42,35 @@
             </p>
         </div>
     {/if}
-    <div class="lg:max-w-[45rem] lg:max-w-[45rem] flex items-center justify-center bg-secondary-muted rounded-lg border mt-4">
+    <div class="lg:max-w-[45rem] fade-up lg:max-w-[45rem] flex items-center justify-center bg-secondary-muted rounded-lg border mt-4">
         <VariantCard code={examples[component]}>
             <slot />
         </VariantCard>
     </div>
+    <h1 class="pb-4 mt-8 border-b header_2nd fade-up">
+        Installation
+    </h1>
+    <div class="lg:max-w-[45rem] flex items-center fade-up justify-start  font-mono text-[13px] p-4 bg-secondary-muted relative rounded-lg border mt-4">
+        <span class="text-[#6fb7a4] mr-2">npx</span> neel-ui <span class="text-[#6fb7a4] mx-2">add</span> {component}
+        <Button on:click={() => {
+            navigator.clipboard.writeText(`npx neel-ui add ${component}`)
+            copying = true;
+            setTimeout(() => {
+                copying = false;
+            }, 1000);
+        }} variant="ghost" class="absolute bg-secondary-muted rounded-md right-1.5">
+            {#if copying}
+                <CheckCircled class="w-4 h-4" />
+            {:else}
+                <Copy class="w-4 h-4" />
+            {/if}
+        </Button>
+    </div>
     {#if showUsage}
-        <h1 class="pb-4 mt-8 border-b header_2nd">
+        <h1 class="pb-4 mt-8 border-b header_2nd fade-up">
             Usage
         </h1>
-        <div class="lg:max-w-[45rem] flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+        <div class="lg:max-w-[45rem] flex items-center fade-up justify-center bg-secondary-muted relative rounded-lg border mt-4">
             <VariantCard code={examples[component]} defaultValue="code" showTriggers={false}>
                 <slot />
             </VariantCard>

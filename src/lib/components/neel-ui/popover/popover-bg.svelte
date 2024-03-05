@@ -4,7 +4,7 @@
 </script>
 
 {#if PopoverOpen}
-    <main {...$$restProps} out:fade={{ delay: 0, duration: 100 }} in:fade={{ delay: 0, duration: 100 }} class="h-screen w-screen absolute z-[50] bg-background bg-opacity-40 top-0 left-0 backdrop-blur-sm flex items-center justify-center">
+    <main {...$$restProps} out:fade={{ delay: 0, duration: 100 }} in:fade={{ delay: 0, duration: 100 }} class="h-screen w-screen absolute z-[50] centered bg-background bg-opacity-40 top-0 left-0 backdrop-blur-sm flex items-center justify-center">
         <slot></slot>
     </main>
 {/if}

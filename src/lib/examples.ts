@@ -220,7 +220,7 @@ const SheetExample = `<script lang="ts">
     import { Input } from "$lib/components/neel-ui/input";
 </script>
 
-<Sheet.Root side=Left>
+<Sheet.Root side="left">
     <Sheet.Trigger let:data>
         <Button variant="secondary" class="w-20" data={data}>
             Left

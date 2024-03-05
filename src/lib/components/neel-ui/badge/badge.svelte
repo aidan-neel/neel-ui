@@ -4,6 +4,7 @@
     const BadgeVariants = {
         primary: "bg-foreground text-secondary hover:bg-button-hovered",
         secondary: "bg-background border",
+        ghost: "bg-secondary",
     }
 
     export let variant: keyof typeof BadgeVariants = "secondary";

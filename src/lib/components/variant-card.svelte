@@ -21,7 +21,7 @@
     })
 </script>
 
-<Tabs.Root value={defaultValue} class="w-full h-full p-4">
+<Tabs.Root value={defaultValue} class="w-full h-full p-4 fade-up">
     {#if showTriggers}
         <div class='relative'>
             <Tabs.Items class='bg-secondary-muted w-auto z-10 absolute top-0 right-0 p-1'>

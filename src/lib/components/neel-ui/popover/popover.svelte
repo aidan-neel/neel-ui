@@ -41,7 +41,7 @@
 </script>
 
 <PopoverBg PopoverOpen={PopoverOpen} on:click={() => PopoverOpen = false}>
-    <main use:clickOutside={ClosePopover} transition:flyAndScale={{ y: 8, x: 0, start: 0.9, duration: 150 }} class="w-full {PopoverOpen ? 'flex' : 'hidden'} shadow-sm centered shadow-background/50 bg-background flex-col border p-6 rounded-[0.5rem] mx-2 sm:max-w-[500px]">
+    <main use:clickOutside={ClosePopover} transition:flyAndScale={{ y: 8, x: 0, start: 0.9, duration: 150 }} class="w-full {PopoverOpen ? 'flex' : 'hidden'} shadow-sm centered absolute shadow-background/50 bg-background flex-col border p-6 rounded-[0.5rem] sm:max-w-[500px]">
         <slot></slot>
     </main>
 </PopoverBg>

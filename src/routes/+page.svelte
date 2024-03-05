@@ -1,31 +1,67 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button';
-    import { GithubLogo } from 'radix-icons-svelte';
-    import Image1 from '$lib/assets/image.png'
-    import Image2 from '$lib/assets/image2.png'
-
-    import * as Card from "$lib/components/neel-ui/card";
-    import * as Alert from "$lib/components/neel-ui/alert";
+    import { ArrowLeft, ArrowRight, GithubLogo } from 'radix-icons-svelte';
     import * as Confirm from "$lib/components/neel-ui/confirm";
-    import * as Select from "$lib/components/neel-ui/select";
-    import * as Tabs from "$lib/components/neel-ui/tabs";
-    import { Breadcrumb } from "$lib/components/neel-ui/breadcrumb";
-    import { Input } from "$lib/components/neel-ui/input";
+    import { Badge } from "$lib/components/neel-ui/badge";
+    import { fade } from 'svelte/transition';
+
+    import DocCard from '$lib/components/doc-card.svelte';
 </script>
 
-<div class="h-screen w-screen flex flex-col items-center pt-48 justify-start absolute">
-    <h1 class="text-5xl font-bold text-center tracking-tighter">
-        Beautifully crafted components
+<div transition:fade={{duration:100}} class="absolute opacity-50 top-0 left-0 right-0 bottom-0 h-screen w-screen bg-black"><div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div class="absolute left-0 right-0 top-[-10%] h-[1000px] opacity-50 w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#000)]"></div></div>
+
+<div transition:fade={{duration:100}} class="h-screen flex flex-col items-center pt-48 justify-start absolute">
+    <a href="/docs/components" class="fade-up">
+        <Badge class="py-1 mb-2 flex flex-row items-center justify-center" variant="ghost">
+            <span class="mr-2">🎉</span> Version 1 release is out now! <ArrowRight class="ml-2 text-muted-foreground" />
+        </Badge>
+    </a>
+    <h1 class="text-5xl font-bold fade-up text-center tracking-tighter">
+        Make frontend development<br> a breeze with Neel UI
     </h1>
-    <p class="text-xl text-muted-foreground w-full px-6 lg:w-[575px] mt-2 text-center">
+    <p class="text-xl text-muted-foreground fade-up w-full px-6 lg:w-[575px] mt-2 text-center">
         Super accessible and customizable components that you can copy and paste into your SvelteKit apps.
     </p>
-    <div class="flex flex-row gap-4 mt-4">
+    <div class="flex flex-row gap-4 mt-4 fade-up">
         <Button href="/docs/components">
             Get Started
         </Button>
         <Button href="https://github.com/aidan-neel/neel-ui" variant="secondary">
             <GithubLogo class="w-4 h-4 mr-1" /> GitHub
         </Button>
+    </div>
+
+    <div class="w-full text-[14px] mt-8 flex items-start px-4 justify-center flex-col">
+        <!--
+            <div class="doc-card-parent">
+            <DocCard 
+            component="confirm"
+            desc="A modal dialog for confirmation of user destructive action"
+            header="Confirm"
+            showHeading={false}
+            showUsage={false}
+            >
+                <Confirm.Root>
+                    <Confirm.Trigger>
+                        Try it out!
+                    </Confirm.Trigger>
+                    <Confirm.Content>
+                        <Confirm.Heading>
+                            <Confirm.Title>
+                                Make frontend development a breeze
+                            </Confirm.Title>
+                            <Confirm.Description>
+                                Super accessible and customizable components that you can copy and paste into your SvelteKit apps.
+                            </Confirm.Description>
+                        </Confirm.Heading>
+                        <Confirm.Footer>
+                            <Confirm.Action>Continue</Confirm.Action>
+                            <Confirm.Cancel>Cancel</Confirm.Cancel>
+                        </Confirm.Footer>
+                    </Confirm.Content>
+                </Confirm.Root>        
+            </DocCard>
+        </div>
+        -->
     </div>
 </div>

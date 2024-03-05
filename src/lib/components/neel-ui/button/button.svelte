@@ -11,7 +11,7 @@
         "link": "hover:underline text-[14px]",
         "ghost": "hover:bg-muted border border-transparent hover:border-muted px-4 h-10 flex justify-center items-center text-[14px] rounded-lg text-foreground font-medium duration-100",
     }
-
+    
     export let variant: keyof typeof buttonVariants = "primary";
     export let useTransition: boolean = false;
     export let className: string | undefined = undefined;

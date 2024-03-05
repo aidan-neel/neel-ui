@@ -34,8 +34,8 @@
     }
 </script>
 
-<nav class='w-screen hidden md:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-50 backdrop-blur-md border-b'>
-    <div class="flex flex-row items-center justify-center lg:justify-start gap-6 mr-1 lg:w-[45rem] text-[14px]">
+<nav class='w-screen hidden fade-up md:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-50 backdrop-blur-md border-b'>
+    <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px]">
         <a href="/" class="flex flex-row items-center h-full gap-1">
             <img src={Logo} alt="Neel" class="h-6 w-6" />
             <h1 class="text-lg font-bold">Neel/UI</h1>
@@ -66,7 +66,7 @@
             <Sheet.Header>
                 <Sheet.Title>
                     <Sheet.Cancel class="bg-transparent hover:bg-transparent text-white border-none px-0 h-8">
-                        <a href="/" class="flex flex-row items-center h-full gap-1">
+                        <a on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/" class="flex flex-row items-center h-full gap-1">
                             <img src={Logo} alt="Neel" class="h-8 w-8" />
                             <h1 class="text-lg font-bold">Neel/UI</h1>
                         </a>
@@ -76,11 +76,11 @@
             <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
                 Getting Started
             </h1>
-            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs" class={`mt-3 ${pathName === "/docs" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
-                Installation
+            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs" class={`py-1 ${pathName === "/docs" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                Introduction
             </Button>
-            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/about" class={`py-2 ${pathName === "/docs/about" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
-                About
+            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/installation" class={`py-1 ${pathName === "/docs/installation" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                Installation
             </Button>
             <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
                 Components
