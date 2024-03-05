@@ -34,7 +34,7 @@
 <SiteNavigationBar />
 <main class="flex flex-row items-start px-4 lg:px-0 justify-center w-screen h-screen overflow-x-hidden dark bg-background">
     {#if pathName !== "/"}
-    <div class="flex-col hidden lg:flex items-start gap-1 mt-24 w-[250px] text-foreground text-[14px]">
+    <div class="flex-col hidden md:flex items-start gap-1 mt-24 w-[250px] text-foreground text-[14px]">
         <h1 class="text-foreground mb-1 text-[16px] font-semibold">
             Getting Started
         </h1>

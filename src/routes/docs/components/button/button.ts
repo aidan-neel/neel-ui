@@ -26,7 +26,7 @@ const LinkButtonExample = `<script lang="ts">
     import { Button } from "$lib/components/neel-ui/button";
 </script>
 
-<Button variant="link" href="https://aidan-neel.com/ui/docs/components/button">
+<Button variant="link" href="https://ui.aidan-neel.com/docs/components/button">
     Link
 </Button>`
     
