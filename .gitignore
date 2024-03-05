@@ -3,6 +3,8 @@ node_modules
 /build
 /.svelte-kit
 /package
+./src/lib/assets/components/typography
+./src/lib/assets/components/popover
 .env
 .env.*
 !.env.example
