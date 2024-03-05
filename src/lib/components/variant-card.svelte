@@ -31,7 +31,7 @@
         </div>
     {/if}
     <Tabs.Content value="preview">
-        <div class="flex flex-col items-center justify-center h-auto min-h-[20rem] p-8 py-12">
+        <div class="flex flex-col items-center justify-center h-auto min-h-[20rem] p-8 py-16">
             <slot />
         </div>
     </Tabs.Content>

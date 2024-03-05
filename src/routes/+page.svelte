@@ -17,10 +17,10 @@
             <span class="mr-2">🎉</span> Version 1 release is out now! <ArrowRight class="ml-2 text-muted-foreground" />
         </Badge>
     </a>
-    <h1 class="md:text-5xl text-4xl font-bold fade-up text-center tracking-tighter">
-        Make frontend development<br> a breeze with Neel UI
+    <h1 class="md:text-5xl text-4xl max-w-[40rem] text-5xl font-bold fade-up text-center tracking-tighter">
+        Make frontend development a breeze with Neel UI
     </h1>
-    <p class="text-xl text-muted-foreground fade-up w-full px-6 lg:w-[575px] mt-2 text-center">
+    <p class="text-xl text-muted-foreground fade-up max-w-[40rem] px-6 mt-2 text-center">
         Super accessible and customizable components that you can copy and paste into your SvelteKit apps.
     </p>
     <div class="flex flex-row gap-4 mt-4 fade-up">

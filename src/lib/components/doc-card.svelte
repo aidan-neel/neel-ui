@@ -10,7 +10,7 @@
     import { fade } from "svelte/transition";
     import VariantCard from "./variant-card.svelte";
     let heightClass: string = "h-[22.5rem]"
-    let widthClass: string = "lg:w-[45rem] lg:max-w-[45rem]"
+    let widthClass: string = "lg:w-[45rem] xl:max-w-[45rem]"
     let className: string | undefined = undefined;
     let component: string;
     let componentDescription: string;
@@ -32,7 +32,7 @@
     export { className as class, heightClass, widthClass, component, componentDescription as desc, componentHeader as header, showHeading, showUsage }
 </script>
 
-<div class='flex flex-col gap-3 {showHeading ? 'lg:mt-24 mt-32' : ''} lg:max-w-[45rem]'>
+<div class='flex flex-col gap-3 {showHeading ? 'lg:mt-24 mt-32' : ''} xl:max-w-[45rem]'>
     {#if showHeading}
         <div class="mb-4 fade-up">
             <Breadcrumb hidden={["Components"]} />
@@ -43,21 +43,21 @@
                 {componentDescription}
             </p>
             <a href={`https://github.com/aidan-neel/neel-ui/tree/main/src/lib/components/neel-ui/${component}`} class="w-auto">
-                <Badge variant="ghost" class="flex flex-row items-center max-w-[10rem] justify-center gap-1 mt-3">
+                <Badge variant="secondary" class="flex flex-row items-center max-w-[10rem] w-auto justify-center gap-1 mt-3">
                     <Code /> Component Source
                 </Badge>
             </a>
         </div>
     {/if}
-    <div class="lg:max-w-[45rem] fade-up lg:max-w-[45rem] flex items-center justify-center bg-secondary-muted rounded-lg border mt-4">
+    <div class="xl:max-w-[45rem] fade-up xl:max-w-[45rem] flex items-center justify-center bg-secondary-muted rounded-lg border mt-4">
         <VariantCard code={examples[component]}>
             <slot />
         </VariantCard>
     </div>
-    <h1 class="pb-4 mt-8 border-b header_2nd fade-up">
+    <h1 class="pb-4 mt-8 border-b tracking-tighter header_2nd fade-up">
         Installation
     </h1>
-    <div class="lg:max-w-[45rem] flex items-center fade-up justify-start  font-mono text-[13px] p-4 bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="xl:max-w-[45rem] flex items-center fade-up justify-start  font-mono text-[13px] p-4 bg-secondary-muted relative rounded-lg border mt-4">
         <span class="text-[#6fb7a4] mr-2">npx</span> neel-ui <span class="text-[#6fb7a4] mx-2">add</span> {component}
         <Button on:click={() => {
             navigator.clipboard.writeText(`npx neel-ui add ${component}`)
@@ -77,7 +77,7 @@
         <h1 class="pb-4 mt-8 border-b header_2nd fade-up">
             Usage
         </h1>
-        <div class="lg:max-w-[45rem] flex items-center fade-up justify-center bg-secondary-muted relative rounded-lg border mt-4">
+        <div class="xl:max-w-[45rem] flex items-center fade-up justify-center bg-secondary-muted relative rounded-lg border mt-4">
             <VariantCard code={examples[component]} defaultValue="code" showTriggers={false}>
                 <slot />
             </VariantCard>

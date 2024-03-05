@@ -34,7 +34,7 @@
     }
 </script>
 
-<nav class='w-screen hidden fade-up md:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-0 backdrop-blur-md border-b'>
+<nav class='w-screen hidden fade-up lg:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-0 backdrop-blur-md border-b'>
     <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px]">
         <a href="/" class="flex flex-row items-center h-full gap-1">
             <img src={Logo} alt="Neel" class="h-6 w-6" />
@@ -55,7 +55,7 @@
     </div>
 </nav>
 
-<nav class="w-screen flex md:hidden absolute top-0 h-16 z-20 left-0 items-center justify-between px-3 bg-background bg-opacity-50 backdrop-blur-md border-b">
+<nav class="w-screen flex lg:hidden absolute top-0 h-16 z-20 left-0 items-center justify-between px-3 bg-background bg-opacity-50 backdrop-blur-md border-b">
     <Sheet.Root let:BuilderData side="left">
         <Sheet.Trigger let:data>
             <Button data={data} variant="ghost" class="h-10 w-10">
@@ -92,7 +92,7 @@
             {/each}
         </Sheet.Content>
     </Sheet.Root>
-    <Button href="https://github.com/aidan-neel/neel-ui/" class="h-10 w-10" variant="ghost">
+    <Button href="https://github.com/aidan-neel/neel-ui/" class="h-10 w-10 mr-2" variant="ghost">
         <GithubLogo class="w-5 h-5 absolute text-white" />
     </Button>
 </nav>

@@ -8,6 +8,6 @@
     export { className as class }
 </script>
 
-<Popover builder={BuilderData} class={`${className}`}>
+<Popover builder={BuilderData} class={`${className} z-[999]`}>
     <slot></slot>
 </Popover>

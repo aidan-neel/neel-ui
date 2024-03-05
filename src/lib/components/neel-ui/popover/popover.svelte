@@ -41,7 +41,7 @@
 </script>
 
 <PopoverBg PopoverOpen={PopoverOpen} on:click={() => PopoverOpen = false}>
-    <main aria-describedby="alert-message" aria-labelledby="alert-title" aria-label="alert-dialog" role="alertdialog" use:clickOutside={ClosePopover} transition:flyAndScale={{ y: 8, x: 0, start: 0.9, duration: 150 }} class="w-full {PopoverOpen ? 'flex' : 'hidden'} shadow-sm centered absolute shadow-background/50 bg-background flex-col border p-6 rounded-[0.5rem] sm:max-w-[500px]">
+    <main aria-describedby="alert-message" aria-labelledby="alert-title" aria-label="alert-dialog" role="alertdialog" use:clickOutside={ClosePopover} transition:flyAndScale={{ y: 8, x: 2, start: 0.9, duration: 150 }} class="w-full {PopoverOpen ? 'flex' : 'hidden'} shadow-sm centered absolute shadow-background/50 bg-background flex-col border p-6 z-[999] rounded-[0.5rem] sm:max-w-[500px]">
         <slot></slot>
     </main>
 </PopoverBg>
