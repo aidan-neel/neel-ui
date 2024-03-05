@@ -30,7 +30,7 @@
     export { className as class, heightClass, widthClass, component, componentDescription as desc, componentHeader as header, showHeading, showUsage }
 </script>
 
-<div class='flex flex-col gap-3 {showHeading ? 'lg:mt-24 mt-48' : ''} lg:max-w-[45rem]'>
+<div class='flex flex-col gap-3 {showHeading ? 'lg:mt-24 mt-32' : ''} lg:max-w-[45rem]'>
     {#if showHeading}
         <div class="mb-4 fade-up">
             <Breadcrumb hidden={["Components"]} />
