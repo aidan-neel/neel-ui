@@ -14,7 +14,7 @@
 <div transition:fade={{duration:100}} class="h-screen flex flex-col items-center pt-32 lg:pt-48 justify-start absolute">
     <a href="/docs/components" class="fade-up">
         <Badge class="py-1 mb-2 flex flex-row items-center justify-center" variant="ghost">
-            <span class="mr-2">🎉</span> Version 1 release is out now! <ArrowRight class="ml-2 text-muted-foreground" />
+            <span class="mr-2">🎉</span> Beta 0.0.1 has been released! <ArrowRight class="ml-2 text-muted-foreground" />
         </Badge>
     </a>
     <h1 class="md:text-5xl text-4xl max-w-[40rem] text-5xl font-bold fade-up text-center tracking-tighter">
