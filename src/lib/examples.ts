@@ -155,7 +155,7 @@ const BreadcrumbExample = `<script lang="ts">
     import { Breadcrumb } from "$lib/components/neel-ui/breadcrumb";
 </script>
 
-<Breadcrumb hidden={["Components"]} />`
+<Breadcrumb hidden={["components"]} />`
 
 const AlertExample = `<script lang="ts">
     import * as Alert from "$lib/components/neel-ui/alert";

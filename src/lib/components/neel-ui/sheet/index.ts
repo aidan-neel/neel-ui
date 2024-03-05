@@ -38,7 +38,6 @@ function sheetBuilderFunction(side: "left" | "right"): SheetState {
     });
 
     return sheetStateObject;
-
 }
 
 export {

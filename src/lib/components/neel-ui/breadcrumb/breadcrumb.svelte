@@ -1,26 +1,28 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import { ChevronRight } from "radix-icons-svelte";
+    import { onMount } from "svelte";
   
     const pathNames = $page.url.pathname.split("/").filter(path => path !== "");
   
     let hiddenPaths: string[] = [];
     export { hiddenPaths as hidden };
-  
+    
     function capitalizeFirstLetter(string: string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     }
   
     // Generate shownPaths with proper capitalization and spacing, and keep original path for href
     let shownPaths = pathNames.reduce((acc, current, index) => {
-      if (!hiddenPaths.includes(current.toLowerCase())) {
-        const title = capitalizeFirstLetter(current.replace(/-/g, ' '));
-        const fullPath = '/' + pathNames.slice(0, index + 1).join('/');
-        acc.push({ title, fullPath });
-      }
+        console.log(current)
+        if (!hiddenPaths.includes(current.toLowerCase())) {
+            const title = capitalizeFirstLetter(current.replace(/-/g, ' '));
+            const fullPath = '/' + pathNames.slice(0, index + 1).join('/');
+            acc.push({ title, fullPath });
+        }
       return acc;
     }, []);
-  
+
     let className: string | undefined = undefined;
     export { className as class };
   

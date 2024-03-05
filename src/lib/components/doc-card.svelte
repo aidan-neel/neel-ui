@@ -35,7 +35,7 @@
 <div class='flex flex-col gap-3 {showHeading ? 'lg:mt-24 mt-32' : ''} xl:max-w-[45rem]'>
     {#if showHeading}
         <div class="mb-4 fade-up">
-            <Breadcrumb hidden={["Components"]} />
+            <Breadcrumb hidden={["components"]} />
             <h1 class="header_c">
                 {componentHeader}
             </h1>

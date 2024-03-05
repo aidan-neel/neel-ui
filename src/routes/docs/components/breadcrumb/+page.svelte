@@ -16,6 +16,6 @@
     desc="Breadcrumb component designed for easy navigation within a page"
     header="Breadcrumb"
     >
-        <Breadcrumb hidden={["Components"]} />
+        <Breadcrumb hidden={["components"]} />
     </DocCard>
 </div>
