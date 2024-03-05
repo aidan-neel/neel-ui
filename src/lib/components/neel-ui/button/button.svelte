@@ -87,23 +87,20 @@
 </script>
 
 {#if hrefName}
-    {#if useTransition}
-        <a href={hrefName} on:click={MouseClick}  on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} transition:fly={{ duration: 100, x: 10 }} on:click class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
-            <slot></slot>
-        </a>
-    {:else}
-        <a href={hrefName} on:click={MouseClick}  on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} on:click class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
-            <slot></slot>
-        </a>
-    {/if}
+    <a
+    aria-label="Link"
+    aria-describedby="link"
+    role="link"
+    href={hrefName} on:click={MouseClick} id="link"  on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} transition:fly={{ duration: 100, x: 10 }} on:click class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
+        <slot></slot>
+    </a>
 {:else}
-    {#if useTransition}
-        <button on:click on:click={MouseClick} on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
-            <slot></slot>
-        </button>
-    {:else}
-        <button on:click on:click={MouseClick}  on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
-            <slot></slot>
-        </button>
-    {/if}
+    <button
+    role="button"
+    aria-label="Button"
+    aria-roledescription="Activates a button"
+    aria-describedby="button"
+    on:click on:click={MouseClick} id="button" on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
+        <slot></slot>
+    </button>
 {/if}

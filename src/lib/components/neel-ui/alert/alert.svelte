@@ -16,6 +16,8 @@
     setContext('alertType', type)
 </script>
 
-<div {...$$restProps} class={`${className} ${alertVariants[type]}`}>
+<div 
+    aria-label="Alert" role="alert"
+    {...$$restProps} class={`${className} ${alertVariants[type]}`}>
     <slot></slot>
 </div>

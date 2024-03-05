@@ -5,6 +5,7 @@
 	import { onMount } from "svelte";
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Button } from '$lib/components/neel-ui/button';
+    import { Badge } from '$lib/components/neel-ui/badge';
     import { Check, Copy, Image, Code, CheckCircled } from "radix-icons-svelte";
     import { fade } from "svelte/transition";
     import VariantCard from "./variant-card.svelte";
@@ -41,6 +42,11 @@
             <p class="description_c">
                 {componentDescription}
             </p>
+            <a href={`https://github.com/aidan-neel/neel-ui/tree/main/src/lib/components/neel-ui/${component}`} class="w-auto">
+                <Badge variant="ghost" class="flex flex-row items-center max-w-[10rem] justify-center gap-1 mt-3">
+                    <Code /> Component Source
+                </Badge>
+            </a>
         </div>
     {/if}
     <div class="lg:max-w-[45rem] fade-up lg:max-w-[45rem] flex items-center justify-center bg-secondary-muted rounded-lg border mt-4">

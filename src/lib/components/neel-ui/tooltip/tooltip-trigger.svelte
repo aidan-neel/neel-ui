@@ -16,6 +16,6 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className}`}>
+<div aria-describedby="tooltip" {...$$restProps} class={`${className}`}>
     <slot data={data}></slot>
 </div>

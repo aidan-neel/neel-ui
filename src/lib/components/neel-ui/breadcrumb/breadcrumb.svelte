@@ -37,10 +37,13 @@
     }
   </style>
   
-  <div {...$$restProps} class={`${className} flex flex-row items-center justify-start text-[14px]`}>
+  <nav
+    aria-label="Breadcrumb"
+    {...$$restProps} class={`${className} flex flex-row items-center justify-start text-[14px]`}>
     {#each shownPaths as { title, fullPath }, i}
       <a
         href={fullPath}
+        aria-current={isCurrentPage(fullPath) ? 'page' : undefined}
         class={`text-muted-foreground hover:underline ${isCurrentPage(fullPath) ? 'current' : ''}`}
       >
         {title}
@@ -49,5 +52,5 @@
         <ChevronRight class="w-4 h-4 mx-1 text-muted-foreground" />
       {/if}
     {/each}
-  </div>
+  </nav>
   

@@ -6,6 +6,7 @@
     import { page } from "$app/stores";
     import './docs/components/comps.css'
     import SiteNavigationBar from '$lib/components/navbar.svelte';
+    import { fade } from 'svelte/transition';
 
     const excludedComponents = ['popover', 'typography'];
 

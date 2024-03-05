@@ -7,13 +7,15 @@
         ghost: "bg-secondary",
     }
 
-    export let variant: keyof typeof BadgeVariants = "secondary";
+    export let variant: keyof typeof BadgeVariants = "primary";
 
     export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className} ${BadgeVariants[variant]} font-semibold text-[12px] px-3 select-none duration-100 py-0.5 rounded-lg`}>
+<div
+    aria-label="Badge"
+    {...$$restProps} class={`${className} ${BadgeVariants[variant]} font-semibold text-[12px] px-3 select-none duration-100 py-0.5 rounded-lg`}>
     <slot></slot>
 </div>

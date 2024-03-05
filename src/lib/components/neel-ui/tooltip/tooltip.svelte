@@ -12,6 +12,6 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className} relative flex items-center justify-center`}>
+<div id="tooltip" role="tooltip" {...$$restProps} class={`${className} relative flex items-center justify-center`}>
     <slot></slot>
 </div>
