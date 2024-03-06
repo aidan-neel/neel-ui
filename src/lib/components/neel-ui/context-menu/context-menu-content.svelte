@@ -30,7 +30,7 @@
     }} 
     use:getContextMenuDimension
     {...$$restProps}
-    transition:flyAndScale={{ duration: 100 }}
+    transition:flyAndScale
     class={`${className} py-1 flex flex-col bg-background gap-1 shadow-class
     z-50 border rounded-lg absolute`} 
     style="position: absolute; top:{position.y}px; left:{position.x}px">
