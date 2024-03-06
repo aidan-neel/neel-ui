@@ -7,10 +7,6 @@
     let key: string | undefined = undefined;
     export { className as class, key };
 
-    function handleClick() {
-        console.log('clicked');
-    }
-
     const excludedComponents = ['popover', 'typography', 'shortcut'];
 
     // Search for all the component folders in the $lib/components/neel-ui, but not the .svelte files just the name of the folders containing the .svelte files
@@ -58,13 +54,13 @@
         <Command.Results>
             <!-- <Command.Empty /> -->
             <Command.Group heading="Links">
-                <Command.Item href="/docs" icon={File} name="Documentation" onclick={handleClick}>
+                <Command.Item href="/docs" icon={File} name="Documentation">
                     <span class="flex flex-row items-center justify-center">
                         <File class="mr-2 h-4 w-4" />
                         Documentation
                     <span/>
                 </Command.Item>
-                <Command.Item href="/docs/components/alert" icon={File} name="Components" onclick={handleClick}>
+                <Command.Item href="/docs/components/alert" icon={File} name="Components">
                     <span class="flex flex-row items-center justify-center">
                         <File class="mr-2 h-4 w-4" />
                         Components
@@ -74,7 +70,9 @@
             <Command.Seperator />
             <Command.Group heading="Components">
                 {#each capitalizedComponentNames as component}
-                    <Command.Item href={`/docs/components/${component.toLowerCase()}`} icon={ComponentInstance} name={sanitizedComponent(component)} onclick={handleClick}>
+                    <Command.Item icon={ComponentInstance} name={sanitizedComponent(component)} onclick={() => {
+                        window.location.href = `/docs/components/${component.toLowerCase()}`
+                    }}>
                         <span class="flex flex-row items-center justify-center">
                             <ComponentInstance class="mr-2 h-4 w-4" />
                             {sanitizedComponent(component)}

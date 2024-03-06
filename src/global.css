@@ -9,7 +9,7 @@
 }
 
 .bg-popover-bg {
-    @apply bg-background bg-opacity-85 backdrop-blur-md
+    @apply bg-background bg-opacity-90 backdrop-blur-xl
 }
 
 @tailwind base;

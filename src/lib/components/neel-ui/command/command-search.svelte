@@ -19,6 +19,8 @@
         includeScore: true,
         threshold: 0.1
     }).search(searchValue).map((result) => result.item));
+
+    $: commandState.set(Key, "searchPerformed", searchValue.length > 0);
     
     // Export
     export {
@@ -27,6 +29,6 @@
 </script>
 
 <div class="flex flex-row items-center border-b pr-1">
-    <MagnifyingGlass class="w-5 h-5 text-muted-foreground mx-3 ml-4" />
-    <Input bind:value={searchValue} class="w-full border-none bg-transparent bg-none focus:border-none pl-0 h-12" placeholder="Type a command or search..." />
+    <MagnifyingGlass class="w-5 h-5 text-muted-foreground z-20 left-4 absolute" />
+    <Input bind:value={searchValue} class="w-full border-none bg-transparent bg-none focus:border-none pl-12 h-12" placeholder="Type a command or search..." />
 </div>

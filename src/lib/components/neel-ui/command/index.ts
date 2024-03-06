@@ -20,6 +20,7 @@ interface CommandState {
         callback: Function;
         label?: string;
         heading: string;
+        searchPerformed: boolean;
     };
     results: string[];
 }
