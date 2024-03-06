@@ -28,5 +28,5 @@
 
 <div class="flex flex-row items-center border-b pr-1">
     <MagnifyingGlass class="w-5 h-5 text-muted-foreground mx-3 ml-4" />
-    <Input bind:value={searchValue} class="w-full border-none focus:border-none pl-0 h-12" placeholder="Type a command or search..." />
+    <Input bind:value={searchValue} class="w-full border-none bg-transparent bg-none focus:border-none pl-0 h-12" placeholder="Type a command or search..." />
 </div>
