@@ -54,7 +54,7 @@
 <div transition:fade={{duration:100}} class="fixed opacity-40 z-[-1] top-0 left-0 right-0 bottom-0 overflow-hidden h-screen w-screen shadow-class"><div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div class="absolute left-0 right-0 top-[-10%] h-[1000px] opacity-50 w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#0a0a0a)]"></div></div>
 <main class="flex flex-row items-start px-4 lg:px-0 pb-96 justify-center w-screen h-full dark">
     {#if pathName !== "/"}
-    <div class="flex-col hidden lg:flex items-start gap-1 mt-24 w-[15rem] flex-shrink-0 text-foreground text-[14px]">
+    <div class="flex-col hidden lg:flex items-start gap-1 mt-24 w-[15rem] fade-up flex-shrink-0 text-foreground text-[14px]">
         <h1 class="text-foreground mb-1 text-[16px] font-semibold">
             Getting Started
         </h1>
