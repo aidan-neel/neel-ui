@@ -73,7 +73,7 @@
     </div>
 </nav>
 
-<nav class="w-screen flex lg:hidden absolute top-0 h-16 z-20 left-0 items-center justify-between px-3 shadow-class bg-opacity-50 backdrop-blur-md border-b">
+<nav class="w-screen flex lg:hidden fixed top-0 h-16 z-20 left-0 items-center justify-between px-3 shadow-class bg-opacity-50 backdrop-blur-md border-b">
     <Sheet.Root let:BuilderData side="left">
         <Sheet.Trigger let:data>
             <Button data={data} variant="ghost" class="h-10 w-10">
