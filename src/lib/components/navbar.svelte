@@ -85,7 +85,7 @@
                     <HamburgerMenu class="w-5 h-5 absolute text-muted-foreground" />
                 </Button>
             </Sheet.Trigger>
-            <Sheet.Content>
+            <Sheet.Content class="pb-24">
                 <Sheet.Header>
                     <Sheet.Title>
                         <Sheet.Cancel class="bg-transparent hover:bg-transparent text-white border-none px-0 h-8">
