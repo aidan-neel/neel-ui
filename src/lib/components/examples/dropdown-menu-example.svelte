@@ -14,7 +14,7 @@
             Open
         </Button>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content class="w-[226px]">
+    <DropdownMenu.Content>
         <DropdownMenu.Label>
             My Account
         </DropdownMenu.Label>
