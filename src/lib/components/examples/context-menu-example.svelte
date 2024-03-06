@@ -11,7 +11,7 @@
     <ContextMenu.Trigger class="lg:w-[20rem] bg-background rounded-lg border w-full h-[12.5rem] text-center flex items-center justify-center select-none shadow-class">
         Right click here
     </ContextMenu.Trigger>
-    <ContextMenu.Content class="w-[225px]">
+    <ContextMenu.Content class="w-[226px]">
         <ContextMenu.Item onclick={callback} shortcut="CTRL+O" class="flex items-center justify-between flex-row">
             Open
             <Label>CTRL+O</Label>

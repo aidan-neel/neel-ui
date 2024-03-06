@@ -340,6 +340,10 @@ const ContextMenuExample = `<script lang="ts">
     </ContextMenu.Content>
 </ContextMenu.Root>`
 
+////////////////////////////////////////////////////////////////////////////////////
+
+import commandExample from '$lib/components/examples/command-example.svelte?raw'
+
 const examples = {
     "tabs": TabsExample,
     "tooltip": TooltipExample,
@@ -355,7 +359,8 @@ const examples = {
     "sheet": SheetExample,
     "dropdown-menu": DropdownMenuExample,
     "toggle": ToggleExample,
-    "context-menu": ContextMenuExample
+    "context-menu": ContextMenuExample,
+    "command": commandExample
 }
 
 export { examples }

@@ -8,6 +8,27 @@ export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
 }
 
+export function Builder(stateObject, name): any {
+    const stateManagement = CreateStateStore(stateObject)
+
+    function generateKey() {
+        return `${name}-` + Math.random().toString(36).substring(2, 15);
+    }
+
+    stateObject.key = generateKey()
+    stateManagement.update((state) => {
+        const newState = { ...state };
+        delete newState[stateObject.key];
+        newState[stateObject.key] = stateObject;
+        return newState;
+    });
+
+    return {
+        stateManagement,
+        stateObject
+    }
+}
+
 export function CreateStateStore(stateType): any {
     const state = writable<typeof stateType[]>([])
 

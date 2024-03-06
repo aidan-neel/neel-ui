@@ -12,6 +12,7 @@
     let focus: boolean = false;
 
     function handleEvent(event) {
+        console.log(hrefName)
         // Trigger action on Enter, Space, or specific shortcut key
         if (event.key === "Enter" || event.key === " " || event.type === "click") {
             triggerAction();
@@ -66,11 +67,25 @@
 
 <div class="px-1">
     {#if hrefName}
-        <a bind:this={button} href={hrefName} on:click={handleEvent} role="menuitem" {...$$restProps} class={`${className} flex flex-row justify-start items-center text-left text-[14px] p-1.5 pl-7 rounded-md w-full hover:bg-secondary hover:cursor-default`}>
+        <a bind:this={button}
+        href={hrefName}
+        on:click={handleEvent}
+        role="menuitem"
+        {...$$restProps}
+        class={`flex flex-row justify-start items-center text-left text-[14px] p-1.5 pl-7
+        rounded-md w-full hover:bg-secondary hover:cursor-default ${className} `}>
             <slot></slot>
         </a>
     {:else}
-        <button bind:this={button} tabindex="0" on:click={handleEvent} role="menuitem" {...$$restProps} class={`${className} flex flex-row justify-start items-center text-left text-[14px] p-1.5 pl-7 rounded-md w-full hover:bg-secondary focus:bg-secondary focus:outline-none focus:border border border-transparent focus:border-white/50 hover:cursor-default`}>
+        <button 
+        bind:this={button}
+        tabindex="0"
+        on:click={handleEvent}
+        role="menuitem"
+        {...$$restProps}
+        class={`flex flex-row justify-start items-center text-left text-[14px] p-1.5 pl-7
+        rounded-md w-full hover:bg-secondary focus:bg-secondary focus:outline-none focus:border border
+        border-transparent focus:border-white/50 hover:cursor-default ${className} `}>
             <slot></slot>
         </button>
     {/if}

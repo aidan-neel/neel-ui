@@ -13,6 +13,6 @@
     export { className as class, callback as onclick, hrefName as href, shortcut };
 </script>
 
-<Shortcut key={BuilderData.key} onclick={onclick} state={contextState} shortcut={shortcut} hrefName={hrefName} callback={callback} class={`${className}`}>
+<Shortcut key={BuilderData.key} onclick={callback} state={contextState} shortcut={shortcut} hrefName={hrefName} callback={callback} class={`${className}`}>
     <slot />
 </Shortcut>

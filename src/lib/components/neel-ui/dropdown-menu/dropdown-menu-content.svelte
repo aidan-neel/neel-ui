@@ -47,7 +47,7 @@
     on:mouseleave={() => {entered = false;} }
     bind:this={componentElement}
     {...$$restProps}
-    class={`${className} shadow-class rounded-lg z-50 py-1 border bg-background ${openSide} absolute min-w-[12.5rem] max-w-[45rem]`}>
+    class={`${className} shadow-class rounded-lg z-50 py-1 border bg-popover-bg ${openSide} absolute min-w-[12.5rem] max-w-[45rem]`}>
         <slot></slot>
     </div>
 {/if}

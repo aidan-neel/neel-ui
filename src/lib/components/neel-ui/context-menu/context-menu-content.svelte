@@ -31,7 +31,7 @@
     use:getContextMenuDimension
     {...$$restProps}
     transition:flyAndScale
-    class={`${className} py-1 flex flex-col bg-background gap-1 shadow-class
+    class={`${className} py-1 flex flex-col bg-popover-bg gap-1 shadow-class
     z-50 border rounded-lg absolute`} 
     style="position: absolute; top:{position.y}px; left:{position.x}px">
         <slot></slot>

@@ -8,6 +8,7 @@
     import { toggleExamples } from "../components/toggle/toggle";
     import ContextMenuExample from "$lib/components/examples/context-menu-example.svelte";
     import DocCard from "$lib/components/doc-card.svelte";
+    import CommandExample from "$lib/components/examples/command-example.svelte";
 </script>
 
 <Seo name="changelog" />
@@ -22,6 +23,29 @@
     <p class="description_c fade-up">
         The latest updates to Neel UI
     </p>
+
+    <h2 class='header_2nd mt-8 fade-up border-b pb-4'>
+        March 2024 - Update 2
+    </h2>
+
+    <h3 class="header_3rd mt-4 fade-up">
+        Component: Command
+    </h3>
+
+    <p class="text-[16px] fade-up mt-2">
+        The <span class="bg-secondary-muted shadow-class border p-1 rounded-lg text-[14px]">command</span> is a fast and easy way to search and execute commands within a page.
+    </p>
+
+    <DocCard 
+    component="context-menu"
+    desc="Context Menu is a type of menu that appears upon right clicking on an element."
+    header="Context Menu"
+    showHeading={false}
+    showUsage={false}
+    showInstallation={false}
+    >
+        <CommandExample />
+    </DocCard>
 
     <h2 class='header_2nd mt-8 fade-up border-b pb-4'>
         March 2024 - Update 1

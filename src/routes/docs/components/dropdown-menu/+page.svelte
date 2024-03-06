@@ -16,7 +16,7 @@
 <div class="doc-card-parent">
     <DocCard
     component="dropdown-menu"
-    desc="Dropdown Menu component designed for easy navigation within a page"
+    desc="Dropdown Menu component designed for showing a list of options when a user clicks on a trigger button."
     header="Dropdown Menu"
     >   
         <DropdownMenuExample />

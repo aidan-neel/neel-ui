@@ -47,8 +47,7 @@
     bind:this={componentElement}
     transition:flyAndScale
     {...$$restProps}
-    class={`${className} absolute w-full z-50 bg-primary-muted_bg rounded-lg border
-    border-primary-muted_border my-2 ${openSide}`}>
+    class={`${className} absolute w-full z-50 bg-popover-bg rounded-lg border  my-2 ${openSide}`}>
         <slot></slot>
     </div>
 {/if}

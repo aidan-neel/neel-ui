@@ -2,7 +2,7 @@
     import * as Tabs from "./neel-ui/tabs";
     import { Button } from "./neel-ui/button";
 
-    import { Code, Image, Copy, CheckCircled } from 'radix-icons-svelte';
+    import { Code, Image, Copy, CheckCircled, Half2, Slash, ComponentInstance } from 'radix-icons-svelte';
 
     import { onMount } from "svelte";
     import { codeToHtml } from 'shiki'
@@ -41,22 +41,30 @@
     </Tabs.Content>
     <Tabs.Content value="code" class="w-full relative">
         <div class="flex flex-col shadow-class max-w-full relative w-full items-start justify-start p-1 text-[13px] h-auto">
-            <div class="w-full overflow-auto pb-2">
-                {@html html}
-            </div>
-            <Button on:click={() => {
-                navigator.clipboard.writeText(code)
-                copying = true;
-                setTimeout(() => {
-                    copying = false;
-                }, 1000);
-            }} variant="ghost" class="absolute bg-secondary-muted shadow-class top-0 right-0">
-                {#if copying}
-                    <CheckCircled class="w-4 h-4" />
+            <div class="w-full overflow-auto {html !== "" || undefined ? "pb-2" : 'pb-0'}">
+                {#if html === undefined}
+                    <span class="w-full flex items-center justify-center text-muted-foreground text-[13px]">
+                        Loading...
+                    </span>
                 {:else}
-                    <Copy class="w-4 h-4" />
+                    {@html html}
                 {/if}
-            </Button>
+            </div>
+            {#if html !== "" || undefined}
+                <Button on:click={() => {
+                    navigator.clipboard.writeText(code)
+                    copying = true;
+                    setTimeout(() => {
+                        copying = false;
+                    }, 1000);
+                }} variant="ghost" class="absolute bg-secondary-muted shadow-class top-0 right-0">
+                    {#if copying}
+                        <CheckCircled class="w-4 h-4" />
+                    {:else}
+                        <Copy class="w-4 h-4" />
+                    {/if}
+                </Button>
+            {/if}
         </div>
     </Tabs.Content>
 </Tabs.Root>

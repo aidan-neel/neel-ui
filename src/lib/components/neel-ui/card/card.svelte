@@ -3,6 +3,6 @@
     export { className as class }    
 </script>
 
-<div {...$$restProps} class={`${className} bg-background shadow-class border p-6 rounded-lg`}>
+<div {...$$restProps} class={`${className} bg-popover-bg shadow-class border p-6 rounded-lg`}>
     <slot></slot>
 </div>

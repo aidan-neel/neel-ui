@@ -8,7 +8,9 @@
     src: url('/fonts/GeistMonoVariableVF.ttf') format('truetype-variations');
 }
 
-.h1 {}
+.bg-popover-bg {
+    @apply bg-background bg-opacity-85 backdrop-blur-md
+}
 
 @tailwind base;
 @tailwind components;

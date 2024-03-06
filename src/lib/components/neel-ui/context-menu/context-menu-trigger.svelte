@@ -1,7 +1,7 @@
 <script lang="ts">
     import { setContext, getContext } from "svelte";
     import { type contextStateType, type contextPositionType, contextState } from ".";
-    
+
     let className: string | undefined = undefined;
     const BuilderData = getContext<contextStateType>("BuilderData");
 
@@ -15,22 +15,18 @@
             w: window.innerWidth,
             h: window.innerHeight
         };
+        // Include scroll offsets here
         pos = {
-            x: e.clientX,
-            y: e.clientY
+            x: e.clientX + window.scrollX,
+            y: e.clientY + window.scrollY
         };
-        // If bottom part of context menu will be displayed
-        // after right-click, then change the position of the
-        // context menu. This position is controlled by `top` and `left`
-        // at inline style. 
-        // Instead of context menu is displayed from top left of cursor position
-        // when right-click occur, it will be displayed from bottom left.
-        if (browser.h -  pos.y < menu.h)
-            pos.y = pos.y - menu.h
-        if (browser.w -  pos.x < menu.w)
-            pos.x = pos.x - menu.w
+        // Adjusting the position based on the menu dimensions and browser window size
+        if (browser.h - (e.clientY + window.scrollY) < menu.h)
+            pos.y -= menu.h;
+        if (browser.w - (e.clientX + window.scrollX) < menu.w)
+            pos.x -= menu.w;
 
-        // Offset position slightly so theres some space between the cursor and the context menu
+        // Offset position slightly so there's some space between the cursor and the context menu
         pos.x += 10;
         pos.y += 10;
 
@@ -44,8 +40,8 @@
         });
     }
     
-    export { className as class }
-    </script>
+    export { className as class };
+</script>
     
 <div on:contextmenu|preventDefault={context} {...$$restProps} class={`${className}`}>
     <slot></slot>

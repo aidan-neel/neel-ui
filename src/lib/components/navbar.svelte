@@ -7,6 +7,8 @@
     import { sheetStateManagement } from '$lib/components/neel-ui/sheet';
     import { Badge } from '$lib/components/neel-ui/badge';
     import { new_labeled_components } from '$lib/navbar';
+    import NavbarCommand from './navbar-command.svelte';
+    import { writable } from 'svelte/store';
 
     const excludedComponents = ['popover', 'typography', 'shortcut'];
 
@@ -52,8 +54,8 @@
     }
 </script>
 
-<nav class='w-screen hidden fade-up lg:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 shadow-class bg-opacity-0 backdrop-blur-md border-b'>
-    <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px]">
+<nav class='w-screen hidden fade-up lg:flex h-16 z-20 fixed top-0 items-center text-[14px] justify-center  left-0 blurring shadow-class bg-background border-b'>
+    <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px] px-8">
         <a href="/" class="flex flex-row items-center h-full gap-1">
             <img src={Logo} alt="Neel" class="h-6 w-6" />
             <h1 class="text-lg font-bold">Neel/UI</h1>
@@ -70,54 +72,59 @@
         <a class="text-zinc-400 hover:text-zinc-500 duration-100" href="https://ui.shadcn.com/">
             Inspiration
         </a>
+
+        <NavbarCommand class="ml-56" />
     </div>
 </nav>
 
-<nav class="w-screen flex lg:hidden fixed top-0 h-16 z-20 left-0 items-center justify-between px-3 shadow-class bg-opacity-50 backdrop-blur-md border-b">
-    <Sheet.Root let:BuilderData side="left">
-        <Sheet.Trigger let:data>
-            <Button data={data} variant="ghost" class="h-10 w-10">
-                <HamburgerMenu class="w-5 h-5 absolute text-muted-foreground" />
-            </Button>
-        </Sheet.Trigger>
-        <Sheet.Content>
-            <Sheet.Header>
-                <Sheet.Title>
-                    <Sheet.Cancel class="bg-transparent hover:bg-transparent text-white border-none px-0 h-8">
-                        <a on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/" class="flex flex-row items-center h-full gap-1">
-                            <img src={Logo} alt="Neel" class="h-8 w-8" />
-                            <h1 class="text-lg font-bold">Neel/UI</h1>
-                        </a>
-                    </Sheet.Cancel>
-                </Sheet.Title>
-            </Sheet.Header>
-            <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
-                Getting Started
-            </h1>
-            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs" class={`py-1 ${pathName === "/docs" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
-                Introduction
-            </Button>
-            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/installation" class={`py-1 ${pathName === "/docs/installation" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
-                Installation
-            </Button>
-            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/changelog" class={`py-1 ${pathName === "/docs/changelog" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
-                Changelog
-            </Button>
-            <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
-                Components
-            </h1>
-            {#each capitalizedComponentNames as component}
-                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`py-1 flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
-                    {sanitizedComponent(component)}
-                    {#if new_labeled_components.includes(sanitizedComponent(component))}
-                        <Badge variant="secondary" class="ml-2 h-5 w-10 text-[10px] flex items-center justify-center">
-                            New
-                        </Badge>
-                    {/if}
+<nav class="w-screen flex lg:hidden fixed top-0 h-16 z-20 left-0 items-center px-3 shadow-class bg-background border-b">
+    <div class="flex flex-row items-center justify-start w-full">
+        <Sheet.Root let:BuilderData side="left">
+            <Sheet.Trigger let:data>
+                <Button data={data} variant="ghost" class="h-10 w-10">
+                    <HamburgerMenu class="w-5 h-5 absolute text-muted-foreground" />
                 </Button>
-            {/each}
-        </Sheet.Content>
-    </Sheet.Root>
+            </Sheet.Trigger>
+            <Sheet.Content>
+                <Sheet.Header>
+                    <Sheet.Title>
+                        <Sheet.Cancel class="bg-transparent hover:bg-transparent text-white border-none px-0 h-8">
+                            <a on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/" class="flex flex-row items-center h-full gap-1">
+                                <img src={Logo} alt="Neel" class="h-8 w-8" />
+                                <h1 class="text-lg font-bold">Neel/UI</h1>
+                            </a>
+                        </Sheet.Cancel>
+                    </Sheet.Title>
+                </Sheet.Header>
+                <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
+                    Getting Started
+                </h1>
+                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs" class={`py-1 ${pathName === "/docs" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                    Introduction
+                </Button>
+                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/installation" class={`py-1 ${pathName === "/docs/installation" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                    Installation
+                </Button>
+                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/changelog" class={`py-1 ${pathName === "/docs/changelog" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                    Changelog
+                </Button>
+                <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
+                    Components
+                </h1>
+                {#each capitalizedComponentNames as component}
+                    <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`py-1 flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
+                        {sanitizedComponent(component)}
+                        {#if new_labeled_components.includes(sanitizedComponent(component))}
+                            <Badge variant="secondary" class="ml-2 h-5 w-10 text-[10px] flex items-center justify-center">
+                                New
+                            </Badge>
+                        {/if}
+                    </Button>
+                {/each}
+            </Sheet.Content>
+        </Sheet.Root>
+        <NavbarCommand class="sm:min-w-[18rem] ml-2 mr-2 w-full md:w-[24rem]" />
+    </div>
     <Button href="https://github.com/aidan-neel/neel-ui/" class="h-10 w-10 mr-2" variant="ghost">
         <GithubLogo class="w-5 h-5 absolute text-white" />
     </Button>
