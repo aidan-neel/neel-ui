@@ -6,6 +6,6 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className}`}>
+<div {...$$restProps} class={`${className} border-t pt-2 pb-1`}>
     <slot></slot>
 </div>

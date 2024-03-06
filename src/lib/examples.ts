@@ -102,8 +102,10 @@ const ConfirmExample = `<script lang="ts">
 </script>
 
 <Confirm.Root>
-    <Confirm.Trigger>
-        Show Confirmation
+    <Confirm.Trigger let:data>
+        <Button variant="secondary" data={data}>
+            Show
+        </Button>
     </Confirm.Trigger>
     <Confirm.Content>
         <Confirm.Heading>
@@ -111,7 +113,7 @@ const ConfirmExample = `<script lang="ts">
                 This is a confirm heading
             </Confirm.Title>
             <Confirm.Description>
-                This is a confirm description, it"s a bit longer than the title
+                This is a confirm description, it's a bit longer than the title
             </Confirm.Description>
         </Confirm.Heading>
         <Confirm.Footer>
@@ -246,6 +248,98 @@ const SheetExample = `<script lang="ts">
     </Sheet.Content>
 </Sheet.Root>`
 
+const DropdownMenuExample = `<script lang="ts">
+    import * as DropdownMenu from "$lib/components/neel-ui/dropdown-menu";
+    import { Button } from "$lib/components/neel-ui/button";
+</script>
+
+<DropdownMenu.Root>
+    <DropdownMenu.Trigger let:data>
+        <Button variant="secondary" data={data}>
+            Open
+        </Button>
+    </DropdownMenu.Trigger>
+    <DropdownMenu.Content class="w-56">
+        <DropdownMenu.Label>
+            My Account
+        </DropdownMenu.Label>
+        <DropdownMenu.Item>
+            Profile
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+            Billing
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+            Settings
+        </DropdownMenu.Item>
+        <DropdownMenu.Seperator />
+        <DropdownMenu.Item>
+            GitHub
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+            Support
+        </DropdownMenu.Item>
+        <DropdownMenu.Item>
+            API
+        </DropdownMenu.Item>
+        <DropdownMenu.Seperator />
+        <DropdownMenu.Item>
+            Log Out
+        </DropdownMenu.Item>
+    </DropdownMenu.Content>
+</DropdownMenu.Root>`
+
+const ToggleExample = `<script lang="ts">
+    import { Toggle } from "$lib/components/neel-ui/toggle";
+
+    let toggle: boolean = false;
+</script>
+
+<Toggle bind:toggled={toggle} aria-label="toggled">
+    Toggle
+</Toggle>`
+
+const ContextMenuExample = `<script lang="ts">
+    import * as ContextMenu from "$lib/components/neel-ui/context-menu";
+    import { Label } from "$lib/components/neel-ui/shortcut";
+
+    function callback() {
+        // Your callback function here
+    }
+</script>
+
+<ContextMenu.Root class="w-full flex items-center justify-center">
+    <ContextMenu.Trigger class="lg:w-[20rem] bg-background rounded-lg border w-full h-[12.5rem] text-center flex items-center justify-center select-none shadow-class">
+        Right click here
+    </ContextMenu.Trigger>
+    <ContextMenu.Content class="w-[225px]">
+        <ContextMenu.Item onclick={callback} shortcut="CTRL+O" class="flex items-center justify-between flex-row">
+            Open
+            <Label>CTRL+O</Label>
+        </ContextMenu.Item>
+        <ContextMenu.Seperator />
+        <ContextMenu.Item onclick={callback}>
+            Get Info
+        </ContextMenu.Item>
+        <ContextMenu.Item onclick={callback}>
+            Rename
+        </ContextMenu.Item>
+        <ContextMenu.Item onclick={callback}>
+            Compress
+        </ContextMenu.Item>
+        <ContextMenu.Item onclick={callback}>
+            Duplicate
+        </ContextMenu.Item>
+        <ContextMenu.Seperator />
+        <ContextMenu.Item onclick={callback}>
+            Copy
+        </ContextMenu.Item>
+        <ContextMenu.Item onclick={callback}>
+            Share
+        </ContextMenu.Item>
+    </ContextMenu.Content>
+</ContextMenu.Root>`
+
 const examples = {
     "tabs": TabsExample,
     "tooltip": TooltipExample,
@@ -258,7 +352,10 @@ const examples = {
     "alert": AlertExample,
     "badge": BadgeExample,
     "link-preview": LinkPreviewExample,
-    "sheet": SheetExample
+    "sheet": SheetExample,
+    "dropdown-menu": DropdownMenuExample,
+    "toggle": ToggleExample,
+    "context-menu": ContextMenuExample
 }
 
 export { examples }

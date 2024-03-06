@@ -5,19 +5,50 @@
     import { Builder } from "../confirm";
     import { onMount } from "svelte";
     let className: string | undefined = undefined;
-    export let offset: number = 12
+    export let offset: number = 10
     let componentElement: HTMLElement; // Added line
-
+    
     const BuilderData = getContext("SelectBuilderData");
-    let isTop: boolean = true; // Initial state: Open at the top
+    let entered = false;
 
     $: IsOpen = $selectState[BuilderData.key]?.open || false;
+    $: openSide = $selectState[BuilderData.key].openSide === "top" ? `top-${offset}` : `bottom-${offset}`;
+    
+    onMount(() => {
+        const handleClick = event => {
+            if (componentElement && !componentElement.contains(event.target) && !entered) {
+                BuilderData.open = false;
+                selectState.update((state) => {
+                    return {
+                        ...state,
+                        [BuilderData.key]: BuilderData
+                    }
+                });
+            }
+        };
+
+        document.addEventListener('click', handleClick);
+        return () => {
+            // Cleanup the listener when the component is destroyed
+            document.removeEventListener('click', handleClick);
+        };
+    });
 </script>
-<!-- Adjusted part -->
+
 {#if IsOpen}
-    <div use:clickOutside={() => {
-        $selectState[BuilderData.key].open = false;
-    }} bind:this={componentElement} transition:flyAndScale={{ y: isTop ? -8 : 0, x: 0, start: 0.9, duration: 150 }} {...$$restProps} class={`${className} absolute w-full bg-primary-muted_bg rounded-lg border border-primary-muted_border my-2 ${isTop ? `top-${offset}` : `bottom-${offset}`}`}>
+    <div 
+    role="menu"
+    tabindex="-1"
+    aria-roledescription="menu"
+    aria-labelledby="select"
+    id={`select-${BuilderData.key}`}
+    on:mouseenter={() => { entered = true; }}
+    on:mouseleave={() => {entered = false;} }
+    bind:this={componentElement}
+    transition:flyAndScale
+    {...$$restProps}
+    class={`${className} absolute w-full z-50 bg-primary-muted_bg rounded-lg border
+    border-primary-muted_border my-2 ${openSide}`}>
         <slot></slot>
     </div>
 {/if}

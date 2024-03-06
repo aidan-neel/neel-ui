@@ -19,8 +19,10 @@
     header="Confirm"
     >
         <Confirm.Root>
-            <Confirm.Trigger>
-                Show Confirmation
+            <Confirm.Trigger let:data>
+                <Button variant="secondary" data={data}>
+                    Show
+                </Button>
             </Confirm.Trigger>
             <Confirm.Content>
                 <Confirm.Heading>

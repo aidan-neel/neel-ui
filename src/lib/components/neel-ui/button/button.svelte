@@ -4,21 +4,40 @@
     import { type DataBuilderType } from ".";
     import { linkPreviewState, type linkPreviewStateType } from "../link-preview";
     import { sheetStateManagement, type SheetState } from "../sheet";
-
-    const buttonVariants = {
-        "primary": "bg-button text-secondary border border-border h-10 px-4 flex justify-center items-center text-[14px] rounded-lg text-foreground font-medium hover:bg-button-hovered duration-100",
-        "secondary": "hover:bg-primary-muted_bg_hovered border border-primary-muted_border px-4  h-10 flex justify-center items-center text-[14px] rounded-lg text-foreground font-medium bg-primary-muted_bg duration-100",
-        "link": "hover:underline text-[14px]",
-        "ghost": "hover:bg-muted border border-transparent hover:border-muted px-4 h-10 flex justify-center items-center text-[14px] rounded-lg text-foreground font-medium duration-100",
-    }
+    import { dropdownState } from "../dropdown-menu";
+    import { openSide } from '$lib/utils'
+    import { buttonVariants } from ".";
+    import { popoverState } from "../popover";
+  import { onMount } from "svelte";
     
     export let variant: keyof typeof buttonVariants = "primary";
     export let useTransition: boolean = false;
     export let className: string | undefined = undefined;
     export let hrefName: string | undefined = undefined;
     export let data: DataBuilderType | undefined = undefined;
+    export let disabled: boolean = false;
     export { hrefName as href }
     export { className as class }
+
+    let button: HTMLButtonElement | HTMLAnchorElement;
+
+    $: if(disabled) {
+        variant = variant + "-disabled"
+        console.log(variant)
+    }
+
+    function onFocus() {
+        MouseEnter()
+    }
+
+    function onBlur() {
+        MouseLeave()
+    }
+
+    onMount(() => {
+        button.addEventListener('focus', onFocus);
+        button.addEventListener('blur', onBlur);
+    });
 
     let mouseHovering: boolean = false;
 
@@ -35,9 +54,7 @@
         }
 
         function HandleLinkPreview() {
-            console.log(data)
             if(data === undefined || data?.key === undefined) { return };
-
             setTimeout(() => {
                 if(mouseHovering) {
                     $linkPreviewState[data?.key].open = true;
@@ -73,34 +90,86 @@
         }
     }
 
-    function MouseClick() {
+    function MouseClick(event) {
+        if(disabled) {
+            event.preventDefault();
+            event.stopPropagation();
+            return;
+        }
+        event.stopPropagation();
         function HandleSheet() {
             if(data === undefined || data?.key === undefined) { return };
 
             $sheetStateManagement[data?.key].open = true
         }
 
+        function HandleDropdown() {
+            openSide(`dropdown-${data?.key}`, dropdownState, data?.key)
+            if(data === undefined || data?.key === undefined) { return };
+            const open = dropdownState.getOpenState(data?.key);
+            dropdownState.setOpenState(data?.key, !open);
+
+            Object.keys($dropdownState).forEach((key) => {
+                if(key !== data?.key) {
+                    dropdownState.setOpenState(key, false);
+                }
+            });
+        }
+
+        function HandleConfirm() {
+            if(data === undefined || data?.key === undefined) { return };
+            
+            $popoverState[data?.key].open = true;
+        }
+
         if(data?.type === "sheet") {
             HandleSheet()
+        }
+
+        if(data?.type === "confirm") {
+            HandleConfirm()
+        }
+
+        if(data?.type === "dropdown") {
+            HandleDropdown()
         }
     }
 </script>
 
 {#if hrefName}
     <a
+    bind:this={button}
+    disabled={disabled}
     aria-label="Link"
     aria-describedby="link"
     role="link"
-    href={hrefName} on:click={MouseClick} id="link"  on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} transition:fly={{ duration: 100, x: 10 }} on:click class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
+    href={hrefName}
+    on:click|stopPropagation
+    on:click|stopPropagation={MouseClick}
+    id="link"  on:mouseenter={MouseEnter}
+    on:mouseleave={MouseLeave}
+    transition:fly={{ duration: 100, x: 10 }}
+    on:click
+    class={`${buttonVariants[variant]} ${className}`}
+    {...$$restProps}>
         <slot></slot>
     </a>
 {:else}
     <button
+    bind:this={button}
+    disabled={disabled}
     role="button"
     aria-label="Button"
     aria-roledescription="Activates a button"
     aria-describedby="button"
-    on:click on:click={MouseClick} id="button" on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} class={`${buttonVariants[variant]} ${className}`} {...$$restProps}>
+    on:click|stopPropagation
+    on:click|stopPropagation={MouseClick}
+    id="button" 
+    on:mouseenter={MouseEnter}
+    on:mouseleave={MouseLeave}
+    on:focus={MouseEnter}
+    class={`${buttonVariants[variant]} ${className}`}
+    {...$$restProps}>
         <slot></slot>
     </button>
 {/if}

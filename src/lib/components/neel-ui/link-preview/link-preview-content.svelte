@@ -24,7 +24,7 @@
 
 {#if isOpen}
     <div on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} class="absolute p-2 top-5">
-        <div {...$$restProps} transition:flyAndScale={{ y: isTop ? -8 : 0, x: 0, start: 0.9, duration: 150 }} class={`${className} border outline-4 bg-background p-4 rounded-lg min-w-[18rem]`}>
+        <div {...$$restProps} transition:flyAndScale={{ y: isTop ? -8 : 0, x: 0, start: 0.9, duration: 150 }} class={`${className} border outline-4 bg-background shadow-class p-4 rounded-lg min-w-[18rem]`}>
             <slot></slot>
         </div>
     </div>

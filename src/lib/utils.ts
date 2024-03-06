@@ -2,9 +2,117 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
+import { writable } from "svelte/store";
 
 export function cn(...inputs: ClassValue[]) {
     return twMerge(clsx(inputs));
+}
+
+export function CreateStateStore(stateType): any {
+    const state = writable<typeof stateType[]>([])
+
+    function open() {
+        state.update((state) => {
+            const newState = { ...state };
+            newState.open = true;
+            return newState;
+        });
+    }
+
+    function close() {
+        state.update((state) => {
+            const newState = { ...state };
+            newState.open = false;
+            return newState;
+        });
+    }
+
+    function getOpenState(key: string) {
+        let open = false;
+        state.subscribe((state) => {
+            open = state[key].open;
+        });
+        return open;
+    }
+
+    function setOpenState(key: string, open: boolean) {
+        state.update((state) => {
+            const newState = { ...state };
+            newState[key].open = open;
+            return newState;
+        });
+    }
+
+    function setOpenSide(key: string, openSide: "top" | "bottom") {
+        state.update((state) => {
+            const newState = { ...state };
+            newState[key].openSide = openSide;
+            return newState;
+        });
+    }
+
+    function set(key: string, property: string, value: any) {
+        state.update((state) => {
+            const newState = { ...state };
+            newState[key][property] = value;
+            return newState;
+        });
+    } 
+
+    function getValue(key: string, property: string) {
+        let result = null;
+        state.subscribe((state) => {
+            result = state[key][property];
+        });
+        return result;
+    }
+
+    function get(key: string) {
+        let result = null;
+        state.subscribe((state) => {
+            result = state[key];
+        });
+        return result;
+    }
+
+    function getAll() {
+        let result = null;
+        state.subscribe((state) => {
+            result = state;
+        });
+        return result;
+    }
+
+    return {
+        ...state,
+        open,
+        close,
+        getOpenState,
+        setOpenState,
+        setOpenSide,
+        set,
+        get,
+        getAll,
+        getValue
+    }
+}
+
+export const openSide = (elementId: string, state: any, key: string) => {
+    const element = document.getElementById(elementId);
+    if (element) {
+        const rect = element.getBoundingClientRect();
+        const spaceBelow = window.innerHeight - rect.bottom;
+
+        // Define the minimum space required to open the dropdown at the bottom
+        const requiredSpace = 100; // Adjust based on the dropdown's height
+
+        // Check if there's enough space below, otherwise open on top as the last resort
+        if (spaceBelow >= requiredSpace) {
+            state.setOpenSide(key, "top");
+        } else {
+            state.setOpenSide(key, "bottom");
+        }
+    }
 }
 
 type FlyAndScaleParams = {
@@ -35,7 +143,7 @@ export const clickOutside = (node: HTMLElement, callback: (event: MouseEvent) =>
 
 export const flyAndScale = (
     node: Element,
-    params: FlyAndScaleParams = { y: -8, x: 0, start: 0.95, duration: 150 }
+    params: FlyAndScaleParams = { y: -8, x: 0, start: 0.95, duration: 100 }
 ): TransitionConfig => {
     const style = getComputedStyle(node);
     const transform = style.transform === "none" ? "" : style.transform;

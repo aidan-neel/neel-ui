@@ -20,7 +20,10 @@ const config = {
                 input: "#27272a",
                 ring: "#d3d3d7",
                 background: "#0a0a0a",
-                foreground: "#f9f9f9",
+                foreground: {
+                    DEFAULT: "#f9f9f9",
+                    disabled: "#8a8a8a",
+                },
                 primary: {
                     DEFAULT: "#36986b",
                     foreground: "#17171b",
@@ -44,11 +47,12 @@ const config = {
                 },
                 button: {
                     DEFAULT: "#f9f9f9",
-                    hovered: "#d6d6d6"
+                    hovered: "#d6d6d6",
+                    disabled: "#8a8a8a",
                 },
                 destructive: {
                     DEFAULT: "#991b1b",
-                    foreground: "#991b1b"
+                    foreground: "#991b1b",
                 },
                 muted: {
                     DEFAULT: "#27272a",

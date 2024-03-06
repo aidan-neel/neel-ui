@@ -4,6 +4,7 @@
     import { getContext } from 'svelte';
     import { Item, selectState, type selectStateType } from '.';
 	import { Builder } from '../confirm';
+    import { openSide } from '$lib/utils';
 
     let className: string | undefined = undefined;
 
@@ -16,6 +17,7 @@
     }
 
     function HandleClick() {
+        openSide(`select-${BuilderData.key}`, selectState, BuilderData.key)
         BuilderData.open = !ItemIsOpen
         selectState.update((state) => {
             return {

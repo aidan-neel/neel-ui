@@ -29,13 +29,22 @@ const LinkButtonExample = `<script lang="ts">
 <Button variant="link" href="https://ui.aidan-neel.com/docs/components/button">
     Link
 </Button>`
+
+const DisabledButtonExample =`<script lang="ts">
+    import { Button } from "$lib/components/neel-ui/button";
+</script>
+    
+<Button variant="primary" disabled={true}>
+    Disabled
+</Button>`
     
 
 const buttonExamples = {
     primary: PrimaryButtonExample,
     secondary: SecondaryButtonExample,
     ghost: GhostButtonExample,
-    link: LinkButtonExample
+    link: LinkButtonExample,
+    disabled: DisabledButtonExample
 }
 
 export default buttonExamples;

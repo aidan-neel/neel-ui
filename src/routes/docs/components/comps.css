@@ -10,6 +10,11 @@
     @apply text-3xl font-bold
 }
 
+.header_3rd {
+    @apply text-2xl font-bold
+}
+
+
 .doc-card-parent {
     @apply flex flex-col w-full lg:w-[45rem]
 }

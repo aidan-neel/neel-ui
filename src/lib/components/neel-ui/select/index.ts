@@ -6,15 +6,19 @@ import Group from './select-group.svelte'
 import Label from './select-label.svelte'
 import Item from './select-item.svelte'
 import { writable } from 'svelte/store'
+import { CreateStateStore } from '$lib/utils'
 
 interface SelectState {
     key: string;
     open: boolean;
     selectedValue: string | undefined;
     selectedLabel: string | undefined;
+    openSide: "top" | "bottom";
 }
 
-let selectStateManagement = writable<SelectState[]>([])
+const stateType: SelectState[] = []
+
+let selectStateManagement = CreateStateStore(stateType)
 
 function selectBuilderFunction(): SelectState {
     function generateSelectKey() {
@@ -26,7 +30,8 @@ function selectBuilderFunction(): SelectState {
         key: generateSelectKey(),
         open: false,
         selectedValue: undefined,
-        selectedLabel: undefined
+        selectedLabel: undefined,
+        openSide: "top"
     }
 
     selectStateManagement.update((state) => {

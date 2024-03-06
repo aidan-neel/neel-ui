@@ -26,7 +26,7 @@
     <h3 class="text-xl font-semibold">
         Primary
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={badgeExamples["primary"]}>
             <Badge variant="primary">
                 Primary
@@ -40,7 +40,7 @@
     <h3 class="text-xl font-semibold">
         Secondary
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={badgeExamples["secondary"]}>
             <Badge variant="secondary">
                 Secondary
@@ -54,7 +54,7 @@
     <h3 class="text-xl font-semibold">
         Ghost
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={badgeExamples["ghost"]}>
             <Badge variant="ghost">
                 Ghost

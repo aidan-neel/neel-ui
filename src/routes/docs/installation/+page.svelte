@@ -21,7 +21,7 @@
         Start by initializing a new SvelteKit app
     </p>
 
-    <div class="p-4 w-full fade-up bg-secondary-muted border rounded-lg mt-4 font-mono text-[13px]">
+    <div class="p-4 w-full fade-up bg-secondary-muted shadow-class border rounded-lg mt-4 font-mono text-[13px]">
         <span class="text-[#efba8f]">npm</span> create <span class="text-[#70b9a5]">svelte@latest</span>
     </div>
 
@@ -29,7 +29,7 @@
         Make sure that you have <b>TailwindCSS</b> installed, as Neel UI is built on top of it. Then, initialize Neel UI with the npx command.
     </p>
 
-    <div class="p-4 w-full fade-up bg-secondary-muted border rounded-lg mt-4 font-mono text-[13px]">
+    <div class="p-4 w-full fade-up bg-secondary-muted shadow-class border rounded-lg mt-4 font-mono text-[13px]">
         <span class="text-[#efba8f]">npx</span> neel-ui <span class="text-[#70b9a5]">init</span>
     </div>
 
@@ -41,7 +41,7 @@
         documentation for each component. To install a component, use the following command:
     </p>
 
-    <div class="p-4 w-full fade-up bg-secondary-muted border rounded-lg mt-4 font-mono text-[13px]">
+    <div class="p-4 w-full fade-up bg-secondary-muted shadow-class border rounded-lg mt-4 font-mono text-[13px]">
         <span class="text-[#efba8f]">npx</span> neel-ui <span class="text-[#70b9a5]">add button</span>
     </div>
 
@@ -49,7 +49,7 @@
         This will install the button component in your app. You can now use it in your Svelte files. The list of all available components can be found below.
     </p>
 
-    <div class="p-4 w-full flex flex-col fade-up gap-1 bg-secondary-muted border rounded-lg mt-4 font-mono text-[13px]">
+    <div class="p-4 w-full flex flex-col fade-up gap-1 bg-secondary-muted shadow-class border rounded-lg mt-4 font-mono text-[13px]">
         <span class="text-[#70b9a5]"> alert </span> - Displays a callout message to the user<br><br>
         <span class="text-[#70b9a5]"> badge </span> - Displays a basic component that looks like a badge<br><br>
         <span class="text-[#70b9a5]"> breadcrumb </span> - Breadcrumb component designed for easy navigation within a page<br><br>

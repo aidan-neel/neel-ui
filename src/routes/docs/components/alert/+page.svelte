@@ -42,7 +42,7 @@
     <h3 class="text-xl font-semibold">
         Default
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={examples["alert"]}>
             <Alert.Root type="default" class="w-full">
                 <Person class="w-5 h-5 flex-shrink-0" />
@@ -64,7 +64,7 @@
     <h3 class="text-xl font-semibold">
         Destructive
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={alertExamples["destructive"]}>
             <Alert.Root type="destructive" class="w-full">
                 <ExclamationTriangle class="w-5 h-5 flex-shrink-0" />
@@ -86,7 +86,7 @@
     <h3 class="text-xl font-semibold">
         Warning
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={alertExamples["warning"]}>
             <Alert.Root type="warning" class="w-full">
                 <ExclamationTriangle class="w-5 h-5 flex-shrink-0" />
@@ -108,7 +108,7 @@
     <h3 class="text-xl font-semibold">
         Success
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={alertExamples["success"]}>
             <Alert.Root type="success" class="w-full">
                 <CheckCircled class="w-5 h-5 flex-shrink-0" />

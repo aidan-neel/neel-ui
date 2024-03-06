@@ -10,7 +10,9 @@
         { value: "banana", label: "Banana" },
         { value: "blueberry", label: "Blueberry" },
         { value: "grapes", label: "Grapes" },
-        { value: "pineapple", label: "Pineapple" }
+        { value: "pineapple", label: "Pineapple" },
+        { value: "strawberry", label: "Strawberry" },
+        { value: "watermelon", label: "Watermelon" }
     ];
 
     let key: string

@@ -3,23 +3,19 @@
     import type { popoverStateType } from '../popover';
     import { getContext } from 'svelte';
     import { popoverState } from '../popover';
+    import { type DataBuilderType } from '$lib/components/neel-ui/button';
 
     let className: string | undefined = undefined;
     export { className as class }
 
     const BuilderData = getContext<popoverStateType>('popoverStateData');
 
-    function OpenPopover() {
-        console.log(BuilderData);
-        BuilderData.open = true;
-        popoverState.update((state) => {
-            return {
-                [BuilderData.key]: BuilderData
-            };
-        });
+    const data: DataBuilderType = {
+        type: "confirm",
+        key: BuilderData.key,
     }
 </script>
 
-<Button on:click={OpenPopover} class={`${className}`} variant="primary" {...$$restProps}>
-    <slot></slot>
-</Button>
+<div class={`${className}`} {...$$restProps}>
+    <slot data={data}></slot>
+</div>

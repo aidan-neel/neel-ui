@@ -14,7 +14,6 @@
   
     // Generate shownPaths with proper capitalization and spacing, and keep original path for href
     let shownPaths = pathNames.reduce((acc, current, index) => {
-        console.log(current)
         if (!hiddenPaths.includes(current.toLowerCase())) {
             const title = capitalizeFirstLetter(current.replace(/-/g, ' '));
             const fullPath = '/' + pathNames.slice(0, index + 1).join('/');
@@ -22,6 +21,9 @@
         }
       return acc;
     }, []);
+
+    // Capitalize every word in the title
+    shownPaths = shownPaths.map(({ title, fullPath }) => ({ title: title.split(' ').map(capitalizeFirstLetter).join(' '), fullPath }));
 
     let className: string | undefined = undefined;
     export { className as class };

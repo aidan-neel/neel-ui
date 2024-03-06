@@ -28,7 +28,7 @@
 
 {#if isOpen }
 
-    <div class="h-screen w-screen bg-background backdrop-blur-sm bg-opacity-60 z-[98] absolute top-0 left-0"
+    <div class="h-screen w-screen shadow-class backdrop-blur-sm bg-opacity-60 z-[98] absolute top-0 left-0"
         transition:fade={{ duration: 100 }}
         on:click={() => {
             if (!mouseEntered) {
@@ -36,7 +36,7 @@
             }
         }}>
 
-        <div on:mouseenter={() => { mouseEntered = true }} on:mouseleave={() => { mouseEntered = false }} transition:fly={{ x: side === "left" ? -80 : 80, duration: 300 }} {...$$restProps} class={`${className} flex flex-col p-8 absolute h-screen w-5/6 md:w-2/4 lg:w-[28rem] z-[99] top-0 ${side === "left" ? 'left-0 border-r' : 'right-0 border-l'} bg-background`}>
+        <div on:mouseenter={() => { mouseEntered = true }} on:mouseleave={() => { mouseEntered = false }} transition:fly={{ x: side === "left" ? -80 : 80, duration: 300 }} {...$$restProps} class={`${className} flex flex-col p-8 absolute bg-background h-screen w-5/6 md:w-2/4 lg:w-[28rem] z-[99] top-0 ${side === "left" ? 'left-0 border-r' : 'right-0 border-l'} shadow-class`}>
             <Button on:click={CloseSheet} class="h-8 w-8 absolute top-6 right-6 hover:bg-transparent group" variant="ghost">
                 <Cross1 class="h-4 w-4 absolute text-muted-foreground group-hover:text-foreground duration-100" />
             </Button>

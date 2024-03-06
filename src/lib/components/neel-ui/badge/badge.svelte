@@ -3,7 +3,7 @@
     
     const BadgeVariants = {
         primary: "bg-foreground text-secondary hover:bg-button-hovered",
-        secondary: "bg-background border",
+        secondary: "shadow-class border bg-background",
         ghost: "bg-secondary",
     }
 

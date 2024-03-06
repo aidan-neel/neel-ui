@@ -3,6 +3,6 @@
     export { className as class }    
 </script>
 
-<h1 {...$$restProps} class={`${className} font-medium`}>
+<p {...$$restProps} class={`${className} font-medium`}>
     <slot></slot>
-</h1>
+</p>

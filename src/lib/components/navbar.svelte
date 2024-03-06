@@ -5,8 +5,10 @@
     import { GithubLogo, HamburgerMenu } from 'radix-icons-svelte';
     import * as Sheet from '$lib/components/neel-ui/sheet';
     import { sheetStateManagement } from '$lib/components/neel-ui/sheet';
+    import { Badge } from '$lib/components/neel-ui/badge';
+    import { new_labeled_components } from '$lib/navbar';
 
-    const excludedComponents = ['popover', 'typography'];
+    const excludedComponents = ['popover', 'typography', 'shortcut'];
 
     // Search for all the component folders in the $lib/components/neel-ui, but not the .svelte files just the name of the folders containing the .svelte files
     const componentFolders = import.meta.glob('/src/lib/components/neel-ui/**/+(*.svelte)');
@@ -32,9 +34,25 @@
     function CloseNavbarSheet(key: string) {
         $sheetStateManagement[key].open = false;
     }
+
+    const sanitizedComponent = (component: string) => {
+        if (component === "Link-preview") {
+            return "Link Preview"
+        }
+
+        if (component === "Dropdown-menu") {
+            return "Dropdown Menu"
+        }
+
+        if (component === "Context-menu") {
+            return "Context Menu"
+        }
+
+        return component
+    }
 </script>
 
-<nav class='w-screen hidden fade-up lg:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 bg-background bg-opacity-0 backdrop-blur-md border-b'>
+<nav class='w-screen hidden fade-up lg:flex h-16 absolute z-20 top-0 items-center text-[14px] justify-center left-0 shadow-class bg-opacity-0 backdrop-blur-md border-b'>
     <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px]">
         <a href="/" class="flex flex-row items-center h-full gap-1">
             <img src={Logo} alt="Neel" class="h-6 w-6" />
@@ -55,7 +73,7 @@
     </div>
 </nav>
 
-<nav class="w-screen flex lg:hidden absolute top-0 h-16 z-20 left-0 items-center justify-between px-3 bg-background bg-opacity-50 backdrop-blur-md border-b">
+<nav class="w-screen flex lg:hidden absolute top-0 h-16 z-20 left-0 items-center justify-between px-3 shadow-class bg-opacity-50 backdrop-blur-md border-b">
     <Sheet.Root let:BuilderData side="left">
         <Sheet.Trigger let:data>
             <Button data={data} variant="ghost" class="h-10 w-10">
@@ -82,12 +100,20 @@
             <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/installation" class={`py-1 ${pathName === "/docs/installation" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
                 Installation
             </Button>
+            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/changelog" class={`py-1 ${pathName === "/docs/changelog" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                Changelog
+            </Button>
             <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
                 Components
             </h1>
             {#each capitalizedComponentNames as component}
-                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`py-1 ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
-                    {component === "Link-preview" ? "Link Preview" : component}
+                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`py-1 flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
+                    {sanitizedComponent(component)}
+                    {#if new_labeled_components.includes(sanitizedComponent(component))}
+                        <Badge variant="secondary" class="ml-2 h-5 w-10 text-[10px] flex items-center justify-center">
+                            New
+                        </Badge>
+                    {/if}
                 </Button>
             {/each}
         </Sheet.Content>

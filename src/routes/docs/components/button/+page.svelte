@@ -47,7 +47,7 @@
     <h3 class="text-xl font-semibold">
         Primary
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={buttonExamples["primary"]}>
             <Button variant="primary">
                 Primary
@@ -61,7 +61,7 @@
     <h3 class="text-xl font-semibold pt-4 border-t">
         Secondary
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={buttonExamples["secondary"]}>
             <Button variant="secondary">
                 Secondary
@@ -75,10 +75,24 @@
     <h3 class="text-xl font-semibold pt-4 border-t">
         Ghost
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={buttonExamples["ghost"]}>
             <Button variant="ghost">
                 Ghost
+            </Button>
+        </VariantCard>
+    </div>
+
+
+
+    <div class="mt-8"></div>
+    <h3 class="text-xl font-semibold pt-4 border-t">
+        Disabled
+    </h3>
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+        <VariantCard code={buttonExamples["disabled"]}>
+            <Button variant="primary" disabled={true}>
+                Disabled
             </Button>
         </VariantCard>
     </div>
@@ -92,7 +106,7 @@
     <h2 class="description_c">
         Pass an href prop to make the button act as a link
     </h2>
-    <div class="w-full flex items-center justify-center bg-secondary-muted relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
         <VariantCard code={buttonExamples["link"]}>
             <Button variant="link">
                 Link
