@@ -16,5 +16,5 @@
             {label}
         </label>
     {/if}
-    <input id={label} bind:value={value} {...$$restProps} class={`${className} border p-1.5 px-2 text-[14px] font-normal text-foreground bg-popover-bg placeholder:text-muted-foreground/70 shadow-class focus:outline-none focus:border-white/20 rounded-lg`} />
+    <input id={label} bind:value={value} {...$$restProps} class={`${className} border p-1.5 px-2 text-[14px] font-normal text-foreground bg-transparent placeholder:text-muted-foreground/70 shadow-class focus:outline-none focus:border-white/20 rounded-lg`} />
 </div>
