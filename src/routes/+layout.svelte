@@ -20,7 +20,7 @@
     $: pathName = $page.url.pathname
     $: isCurrentPage = (component: string) => pathName.includes(component.toLowerCase())
 </script>
-<Seo name="loading..." />
+
 <SiteNavigationBar />
 <link rel="manifest" href="/manifest.json">
 <div class="fixed overflow-x-hidden inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#1a1919_1px,transparent_1px)] [background-size:16px_16px]"></div>
