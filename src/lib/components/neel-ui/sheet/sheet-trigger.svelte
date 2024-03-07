@@ -1,22 +1,33 @@
 <script lang="ts">
-    let className: string | undefined = undefined;
-
     import type { DataBuilderType } from "../button";
     import { getContext } from "svelte";
-    import { type SheetState } from ".";
+    import { sheetStateManagement, type SheetState } from ".";
+    import type { Event, EventProps, Hook } from '$lib/event-handler'
 
     const BuilderData = getContext<SheetState>("SheetBuilderData")
+    const Key = BuilderData?.key;
 
-    let data: DataBuilderType = {
-        type: "sheet",
-        key: BuilderData.key
+    let MouseDownHook: Hook = {
+        trigger: "click",
+        callback: (props: EventProps) => {
+            $sheetStateManagement[Key].open = !$sheetStateManagement[Key].open;
+        }
     }
 
-    export {
+    let data: Event = {
+        event: "sheet",
+        hooks: [MouseDownHook]
+    }
+    
+    let className: string | undefined = undefined;
+
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className}`}>
+<div {...$$restProps} class={cn(className, ``)}>
     <slot data={data}></slot>
 </div>

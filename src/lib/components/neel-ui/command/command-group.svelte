@@ -1,6 +1,6 @@
 <script lang="ts">
     import { getContext, setContext } from "svelte";
-    import { Builder } from "$lib/utils";
+    import { Builder, cn } from "$lib/utils";
     import { commandState } from ".";
 
     // Exported variables
@@ -19,7 +19,7 @@
     }
 </script>
 
-<div class="flex flex-col py-1 w-full">
+<div class={cn(className, ` flex flex-col py-1 w-full`)}>
     <p class="pl-4 font-medium text-muted-foreground text-[12px] py-1">
         {heading}
     </p>

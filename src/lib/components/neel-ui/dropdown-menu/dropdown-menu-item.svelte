@@ -2,6 +2,7 @@
     import { Shortcut } from "$lib/components/neel-ui/shortcut";
     import { getContext } from "svelte";
     import { dropdownState } from ".";
+    import { cn } from "$lib/utils";
 
     const BuilderData = getContext("DropdownBuilderData");
 
@@ -13,6 +14,6 @@
     export { className as class, callback as onclick, hrefName as href, shortcut };
 </script>
 
-<Shortcut key={BuilderData.key} onclick={callback} state={dropdownState} shortcut={shortcut} hrefName={hrefName} callback={callback} class={`${className} pl-[0.5rem] justify-between`}>
+<Shortcut key={BuilderData.key} onclick={callback} state={dropdownState} shortcut={shortcut} hrefName={hrefName} callback={callback} class={cn(className, ` pl-[0.5rem] justify-between`)}>
     <slot />
 </Shortcut>

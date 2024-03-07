@@ -2,21 +2,33 @@
     import type { DataBuilderType } from "../button";
     import { getContext } from "svelte";
     import { dropdownBuilder, dropdownState, type dropdownStateType } from ".";
+    import type { Event, EventProps, Hook } from '$lib/event-handler'
 
     const BuilderData: dropdownStateType = getContext<dropdownStateType>("DropdownBuilderData")
+    const Key = BuilderData?.key;
 
-    let data: DataBuilderType = {
-        type: "dropdown",
-        key: BuilderData.key
+    let MouseDownHook: Hook = {
+        trigger: "click",
+        callback: (props: EventProps) => {
+            const open = dropdownState.getOpenState(Key);
+            dropdownState.setOpenState(Key, !open);
+        }
+    }
+
+    let data: Event = {
+        event: "dropdown",
+        hooks: [MouseDownHook]
     }
 
     let className: string | undefined = undefined;
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className}`}>
+<div {...$$restProps} class={cn(className, ``)}>
     <slot data={data}></slot>
 </div>

@@ -3,7 +3,7 @@
     import { popoverState } from ".";
     import { onDestroy, onMount } from "svelte";
     import { type popoverStateType } from ".";
-    import { clickOutside, flyAndScale } from "$lib/utils";
+    import { clickOutside, cn, flyAndScale } from "$lib/utils";
 
     let BuilderData: popoverStateType;
     let PopoverOpen: boolean = false;
@@ -48,10 +48,10 @@
     role="alertdialog" 
     use:clickOutside={ClosePopover} 
     transition:flyAndScale
-    class="w-full {PopoverOpen ? 'flex' : 'hidden'}
+    class={cn(className, ` w-full {PopoverOpen ? 'flex' : 'hidden'}
     shadow-class centered absolute bg-popover-bg
     shadow-background/50 shadow-class flex-col border
-    p-6 z-[999] rounded-[0.5rem] sm:max-w-[500px]">
+    p-6 z-[999] rounded-[0.5rem] sm:max-w-[500px]`)}>
         <slot></slot>
     </main>
 </PopoverBg>

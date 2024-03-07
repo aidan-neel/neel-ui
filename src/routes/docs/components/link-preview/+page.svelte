@@ -2,7 +2,7 @@
     import { Button } from '$lib/components/neel-ui/button';
     import DocCard from '$lib/components/doc-card.svelte';
     import * as LinkPreview from '$lib/components/neel-ui/link-preview';
-    import { Link2 } from 'radix-icons-svelte';
+    import Link2 from 'svelte-radix/Link2.svelte'
     import Seo from '$lib/components/seo.svelte';
 </script>
 

@@ -1,8 +1,10 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
+
     let className: string | undefined = undefined;
     export { className as class }    
 </script>
 
-<p {...$$restProps} class={`${className} font-medium`}>
+<p {...$$restProps} class={cn(className, `font-medium`)}>
     <slot></slot>
 </p>

@@ -1,4 +1,6 @@
 <script>
+  import { cn } from "$lib/utils";
+
     export let label = '';
     export let type = 'text'; // default type
     export let value = ''; // default value
@@ -13,7 +15,7 @@
     export { className as class }
 </script>
   
-<div class='flex flex-col w-full'>
+<div class='flex flex-col'>
       {#if label}
           <label for={label} class="text-[14px] mb-2 text-foreground font-normal">
               {label}
@@ -24,8 +26,8 @@
              value={value}
              on:input={handleInput}
              {...$$restProps} 
-             class={`border p-1.5 px-2 text-[14px] font-normal text-foreground
-             bg-popover-bg placeholder:text-muted-foreground/70 focus:outline-none
-             focus:border-white/20 rounded-lg ${className} `} />
+             class={cn(`border p-1.5 px-2 text-[14px] font-normal text-foreground
+                bg-popover-bg placeholder:text-muted-foreground/70 focus:outline-none
+                focus:border-white/20 rounded-lg ${className}`)} />
   </div>
   

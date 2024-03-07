@@ -1,0 +1,17 @@
+{
+    "name": "Neel/UI Component Library",
+    "short_name": "Neel/UI",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0a0a0a",
+    "description": "Make frontend development a breeze with Neel UI, super accessible and customizable components that you can copy and paste into your SvelteKit apps.",
+    "icons": [
+      {
+        "src": "/static/favicon.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      }
+    ],
+    "theme_color": "#f9f9f9"
+  }
+  

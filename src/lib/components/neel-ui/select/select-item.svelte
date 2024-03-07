@@ -1,7 +1,8 @@
 <script lang="ts">
     import { selectState, type selectStateType } from ".";
     import { getContext, setContext } from "svelte";
-    import { Check } from "radix-icons-svelte";
+    import Check from 'svelte-radix/Check.svelte'
+  import { cn } from "$lib/utils";
 
     let className: string | undefined = undefined;
     let value: string
@@ -29,7 +30,7 @@
     }
 </script>
 
-<button on:click={ChangeSelected} {...$$restProps} class={`${className} flex flex-row justify-between items-center text-left text-[14px] p-1.5 pl-2 rounded-md w-full hover:bg-secondary hover:cursor-default`}>
+<button on:click={ChangeSelected} {...$$restProps} class={cn(className, ` flex flex-row justify-between items-center text-left text-[14px] p-1.5 pl-2 rounded-md w-full hover:bg-secondary hover:cursor-default`)}>
     <slot></slot>
     {#key ItemIsSelected}
         {#if ItemIsSelected}

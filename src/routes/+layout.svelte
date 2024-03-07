@@ -11,51 +11,18 @@
     import { Badge } from '$lib/components/neel-ui/badge';
     import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
     import { inject } from '@vercel/analytics'
+    import Seo from '$lib/components/seo.svelte';
+    import { components, sanitizeComponent } from '$lib/navbar';
 
     injectSpeedInsights();
     inject();
 
-    const excludedComponents = ['popover', 'typography', 'shortcut'];
-
-    // Search for all the component folders in the $lib/components/neel-ui, but not the .svelte files just the name of the folders containing the .svelte files
-    const componentFolders = import.meta.glob('/src/lib/components/neel-ui/**/+(*.svelte)');
-    const componentNames = Object.keys(componentFolders).map((component) => {
-        const componentName = component.split('/').slice(-2)[0];
-        if (!excludedComponents.includes(componentName)) {
-            return componentName;
-        }
-    });
-
-    // Remove duplicates
-    const uniqueComponentNames = Array.from(new Set(componentNames)).filter((component) => component !== undefined);
-    // Remove excludedComponents
-    const filteredComponentNames = uniqueComponentNames.filter((component) => !excludedComponents.includes(component));
-    // Capitalize the first letter of each component name
-    const capitalizedComponentNames = filteredComponentNames.map((component) => {
-        return component.charAt(0).toUpperCase() + component.slice(1);
-    });
-
-    const sanitizedComponent = (component: string) => {
-        if (component === "Link-preview") {
-            return "Link Preview"
-        }
-
-        if (component === "Dropdown-menu") {
-            return "Dropdown Menu"
-        }
-
-        if (component === "Context-menu") {
-            return "Context Menu"
-        }
-
-        return component
-    }
-
     $: pathName = $page.url.pathname
     $: isCurrentPage = (component: string) => pathName.includes(component.toLowerCase())
 </script>
-
+<Seo name="loading..." />
 <SiteNavigationBar />
+<link rel="manifest" href="/manifest.json">
 <div class="fixed overflow-x-hidden inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#1a1919_1px,transparent_1px)] [background-size:16px_16px]"></div>
 <!--
     <div transition:fade={{duration:100}} class="fixed opacity-40 z-[-1] top-0 left-0 right-0 bottom-0 overflow-hidden h-screen w-screen shadow-class"><div class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:14px_24px]"></div><div class="absolute left-0 right-0 top-[-10%] h-[1000px] opacity-50 w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#0a0a0a)]"></div></div>
@@ -78,10 +45,10 @@
         <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
             Components
         </h1>
-        {#each capitalizedComponentNames as component}
-            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
-            {sanitizedComponent(component)}
-                {#if new_labeled_components.includes(sanitizedComponent(component))}
+        {#each components as component}
+            <Button class={`flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
+            {sanitizeComponent(component)}
+                {#if new_labeled_components.includes(sanitizeComponent(component))}
                     <Badge variant="primary" class="ml-2 h-4 w-10 text-[10px] flex items-center justify-center">
                         New
                     </Badge>

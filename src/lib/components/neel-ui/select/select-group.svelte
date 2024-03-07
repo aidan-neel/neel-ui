@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
     import { Item } from ".";
 
     interface SelectSchema {
@@ -15,7 +16,7 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className} flex flex-col w-full`}>
+<div {...$$restProps} class={cn(className, ` flex flex-col w-full`)}>
     <slot></slot>
     <div class="w-full flex flex-col gap-0.5 pb-1 px-1">
         {#each selectItems as item}

@@ -1,16 +1,19 @@
 <script lang="ts">
     import * as Tabs from "./neel-ui/tabs";
     import { examples } from "$lib/examples";
-    import { codeToHtml } from 'shiki'
+    import { codeToHtml } from 'shiki';
 	import { onMount } from "svelte";
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Button } from '$lib/components/neel-ui/button';
     import { Badge } from '$lib/components/neel-ui/badge';
-    import { Check, Copy, Image, Code, CheckCircled } from "radix-icons-svelte";
+    import Copy from 'svelte-radix/Copy.svelte';
+    import Code from 'svelte-radix/Code.svelte';
+    import CheckCircled from 'svelte-radix/CheckCircled.svelte';
     import { fade } from "svelte/transition";
     import VariantCard from "./variant-card.svelte";
-    let heightClass: string = "h-[22.5rem]"
-    let widthClass: string = "lg:w-[45rem] xl:max-w-[45rem]"
+
+    let heightClass: string = "h-[22.5rem]";
+    let widthClass: string = "lg:w-[45rem] xl:max-w-[45rem]";
     let className: string | undefined = undefined;
     let component: string;
     let componentDescription: string;
@@ -19,20 +22,36 @@
     let showUsage: boolean = true;
     let copying: boolean = false;
     let showInstallation: boolean = true;
-
-    let usageCode;
     
+    let usageCode;
+
+    function getUsageCodeFromLocalStorage(key: string): string | null {
+        const cachedCode = localStorage.getItem(key);
+        return cachedCode ? JSON.parse(cachedCode) : null;
+    }
+
+    function setUsageCodeInLocalStorage(key: string, code: string): void {
+        localStorage.setItem(key, JSON.stringify(code));
+    }
+
     onMount(async() => {
-        const code = examples[component]
+        const code = examples[component];
+        const storageKey = `usageCode_${component}`;
         if(code !== undefined) {
-            usageCode = await codeToHtml(code, {
-                lang: "svelte",
-                theme: "vesper"
-            })
+            const cachedCode = getUsageCodeFromLocalStorage(storageKey);
+            if (cachedCode) {
+                usageCode = cachedCode;
+            } else {
+                usageCode = await codeToHtml(code, {
+                    lang: "svelte",
+                    theme: "vesper"
+                });
+                setUsageCodeInLocalStorage(storageKey, usageCode);
+            }
         } else {
-            usageCode = ""
+            usageCode = "";
         }
-    })
+    });
 
     export { className as class, heightClass, widthClass, component, componentDescription as desc, componentHeader as header, showHeading, showUsage, showInstallation }
 </script>
@@ -49,7 +68,7 @@
             </p>
             <a href={`https://github.com/aidan-neel/neel-ui/tree/main/src/lib/components/neel-ui/${component}`} class="w-auto">
                 <Badge variant="secondary" class="flex flex-row items-center max-w-[14rem] w-auto justify-center gap-1 mt-3">
-                    <Code /> Component Source
+                    <Code class="w-4 h-4" /> Component Source
                 </Badge>
             </a>
         </div>

@@ -1,6 +1,6 @@
 <script lang="ts">
     import {Breadcrumb} from "$lib/components/neel-ui/breadcrumb";
-    import { ChevronRight } from "radix-icons-svelte";
+    import ChevronRight from "svelte-radix/ChevronRight.svelte";
     import Seo from "$lib/components/seo.svelte";
 </script>
 

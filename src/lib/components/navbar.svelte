@@ -2,55 +2,25 @@
     import Logo from '$lib/assets/logo.png'
     import { page } from '$app/stores';
     import { Button } from '$lib/components/neel-ui/button';
-    import { GithubLogo, HamburgerMenu } from 'radix-icons-svelte';
+    import GithubLogo from 'svelte-radix/GithubLogo.svelte';
+    import HamburgerMenu from 'svelte-radix/HamburgerMenu.svelte';
     import * as Sheet from '$lib/components/neel-ui/sheet';
     import { sheetStateManagement } from '$lib/components/neel-ui/sheet';
     import { Badge } from '$lib/components/neel-ui/badge';
     import { new_labeled_components } from '$lib/navbar';
     import NavbarCommand from './navbar-command.svelte';
     import { writable } from 'svelte/store';
-
-    const excludedComponents = ['popover', 'typography', 'shortcut'];
-
-    // Search for all the component folders in the $lib/components/neel-ui, but not the .svelte files just the name of the folders containing the .svelte files
-    const componentFolders = import.meta.glob('/src/lib/components/neel-ui/**/+(*.svelte)');
-    const componentNames = Object.keys(componentFolders).map((component) => {
-        const componentName = component.split('/').slice(-2)[0];
-        if (!excludedComponents.includes(componentName)) {
-            return componentName;
-        }
-    });
-
-    // Remove duplicates
-    const uniqueComponentNames = Array.from(new Set(componentNames)).filter((component) => component !== undefined);
-    // Remove excludedComponents
-    const filteredComponentNames = uniqueComponentNames.filter((component) => !excludedComponents.includes(component));
-    // Capitalize the first letter of each component name
-    const capitalizedComponentNames = filteredComponentNames.map((component) => {
-        return component.charAt(0).toUpperCase() + component.slice(1);
-    });
+    import { components, sanitizeComponent } from '$lib/navbar';
 
     $: pathName = $page.url.pathname
     $: isCurrentPage = (component: string) => pathName.includes(component.toLowerCase())
 
     function CloseNavbarSheet(key: string) {
-        $sheetStateManagement[key].open = false;
-    }
-
-    const sanitizedComponent = (component: string) => {
-        if (component === "Link-preview") {
-            return "Link Preview"
+        // Check if the sheet is open
+        if ($sheetStateManagement[key].open) {
+            // Close the sheet
+            $sheetStateManagement[key].open = false
         }
-
-        if (component === "Dropdown-menu") {
-            return "Dropdown Menu"
-        }
-
-        if (component === "Context-menu") {
-            return "Context Menu"
-        }
-
-        return component
     }
 </script>
 
@@ -111,10 +81,10 @@
                 <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
                     Components
                 </h1>
-                {#each capitalizedComponentNames as component}
+                {#each components as component}
                     <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`py-1 flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
-                        {sanitizedComponent(component)}
-                        {#if new_labeled_components.includes(sanitizedComponent(component))}
+                        {sanitizeComponent(component)}
+                        {#if new_labeled_components.includes(sanitizeComponent(component))}
                             <Badge variant="primary" class="ml-2 h-4 w-10 text-[10px] flex items-center justify-center">
                                 New
                             </Badge>

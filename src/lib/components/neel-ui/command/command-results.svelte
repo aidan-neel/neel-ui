@@ -3,6 +3,7 @@
     import { commandState } from ".";
     import * as Command from ".";
     import { Label } from "../shortcut";
+  import { cn } from "$lib/utils";
 
     let className: string | undefined = undefined;
     const BuilderData = getContext("BuilderData");
@@ -29,7 +30,7 @@
     }
 </script>
 
-<div class="{className} w-full">
+<div class={cn(className, ` w-full`)}>
     {#if isEmpty}
         {#if searchPerformed}
             <Command.Empty />

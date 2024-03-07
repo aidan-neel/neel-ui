@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button } from "../button/";
-    import { Cross1 } from "radix-icons-svelte";
+    import Cross1 from 'svelte-radix/Cross1.svelte'
     import PopoverBg from "../popover/popover-bg.svelte";
     import { getContext } from "svelte";
     import { fly } from "svelte/transition";
@@ -21,7 +21,9 @@
         $sheetStateManagement[BuilderData.key].open = false;
     }
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
@@ -36,7 +38,7 @@
             }
         }}>
 
-        <div on:mouseenter={() => { mouseEntered = true }} on:mouseleave={() => { mouseEntered = false }} transition:fly={{ x: side === "left" ? -80 : 80, duration: 300 }} {...$$restProps} class={`${className} overflow-y-auto flex flex-col p-8 fixed bg-popover-bg h-screen w-5/6 md:w-2/4 lg:w-[28rem] z-[99] top-0 ${side === "left" ? 'left-0 border-r' : 'right-0 border-l'} shadow-class`}>
+        <div on:mouseenter={() => { mouseEntered = true }} on:mouseleave={() => { mouseEntered = false }} transition:fly={{ x: side === "left" ? -80 : 80, duration: 300 }} {...$$restProps} class={cn(className, ` overflow-y-auto flex flex-col p-8 fixed bg-popover-bg h-screen w-5/6 md:w-2/4 lg:w-[28rem] z-[99] top-0 ${side === "left" ? 'left-0 border-r' : 'right-0 border-l'} shadow-class`)}>
             <Button on:click={CloseSheet} class="h-8 w-8 absolute top-6 right-6 hover:bg-transparent group" variant="ghost">
                 <Cross1 class="h-4 w-4 absolute text-muted-foreground group-hover:text-foreground duration-100" />
             </Button>

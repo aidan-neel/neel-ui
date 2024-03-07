@@ -1,5 +1,10 @@
 <script lang="ts">
-    import { Calendar, Rocket, EnvelopeClosed, Person, Gear, GithubLogo } from 'radix-icons-svelte';
+    import Calendar from 'svelte-radix/Calendar.svelte'
+    import Rocket from 'svelte-radix/Rocket.svelte'
+    import EnvelopeClosed from 'svelte-radix/EnvelopeClosed.svelte'
+    import Person from 'svelte-radix/Person.svelte'
+    import Gear from 'svelte-radix/Gear.svelte'
+    import GithubLogo from 'svelte-radix/GithubLogo.svelte'
     import * as Command from '$lib/components/neel-ui/command';
     import { Label } from '$lib/components/neel-ui/shortcut';
 
@@ -13,7 +18,7 @@
         Search documentation...
         <Label>CTRL+O</Label>
     </Command.Trigger>
-    <Command.Content class="w-auto">
+    <Command.Content>
         <Command.Search></Command.Search>
         <Command.Results>
             <!-- <Command.Empty /> -->

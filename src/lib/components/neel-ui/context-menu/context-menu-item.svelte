@@ -2,6 +2,7 @@
     import { Shortcut } from "$lib/components/neel-ui/shortcut";
     import { contextState } from ".";
     import { getContext } from "svelte";
+    import { cn } from "$lib/utils";
 
     const BuilderData = getContext("BuilderData");
 
@@ -13,6 +14,6 @@
     export { className as class, callback as onclick, hrefName as href, shortcut };
 </script>
 
-<Shortcut key={BuilderData.key} onclick={callback} state={contextState} shortcut={shortcut} hrefName={hrefName} callback={callback} class={`${className}`}>
+<Shortcut key={BuilderData.key} onclick={callback} state={contextState} shortcut={shortcut} hrefName={hrefName} callback={callback} class={cn(className, ``)}>
     <slot />
 </Shortcut>

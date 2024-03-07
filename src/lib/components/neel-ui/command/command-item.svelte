@@ -2,6 +2,7 @@
     import { Shortcut } from "$lib/components/neel-ui/shortcut";
     import { getContext } from "svelte";
     import { commandState } from ".";
+  import { cn } from "$lib/utils";
 
     const BuilderData = getContext("BuilderData");
     const Key = BuilderData.key;
@@ -43,7 +44,7 @@
     shortcut={shortcut}
     href={hrefName}
     callback={callback}
-    class={`${className}
-    pl-[0.5rem] w-full justify-between`}>
+    class={cn(className, `
+    pl-[0.5rem] w-full justify-between`)}>
         <slot />        
 </Shortcut>

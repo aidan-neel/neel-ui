@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { ChevronRight } from "radix-icons-svelte";
+    import ChevronRight from "svelte-radix/ChevronRight.svelte";
     import Seo from "$lib/components/seo.svelte";
     import { examples } from "$lib/examples";
     import VariantCard from "$lib/components/variant-card.svelte";

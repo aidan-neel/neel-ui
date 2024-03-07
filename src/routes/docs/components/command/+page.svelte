@@ -3,8 +3,7 @@
     import Seo from '$lib/components/seo.svelte';
     import * as Command from '$lib/components/neel-ui/command';
     import { Label } from '$lib/components/neel-ui/shortcut';
-    import { Calendar, Rocket, EnvelopeClosed, Person, Gear, GithubLogo } from 'radix-icons-svelte';
-  import CommandExample from '$lib/components/examples/command-example.svelte';
+    import CommandExample from '$lib/components/examples/command-example.svelte';
 
     function handleClick() {
         console.log('clicked');

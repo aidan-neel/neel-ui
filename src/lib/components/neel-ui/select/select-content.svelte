@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { clickOutside, flyAndScale } from "$lib/utils";
+    import { clickOutside, cn, flyAndScale } from "$lib/utils";
     import { getContext } from "svelte";
     import { selectState } from ".";
     import { Builder } from "../confirm";
@@ -47,7 +47,7 @@
     bind:this={componentElement}
     transition:flyAndScale
     {...$$restProps}
-    class={`${className} absolute w-full z-50 bg-popover-bg rounded-lg border  my-2 ${openSide}`}>
+    class={cn(className, ` absolute w-full z-50 bg-popover-bg rounded-lg border  my-2 ${openSide}`)}>
         <slot></slot>
     </div>
 {/if}

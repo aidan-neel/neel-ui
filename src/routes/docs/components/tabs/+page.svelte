@@ -2,7 +2,6 @@
     import { Button } from '$lib/components/neel-ui/button';
     import * as Tabs from '$lib/components/neel-ui/tabs';
     import DocCard from '$lib/components/doc-card.svelte';
-    import { Person } from 'radix-icons-svelte';
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import * as Card from '$lib/components/neel-ui/card';
     import { Input } from '$lib/components/neel-ui/input';

@@ -9,13 +9,15 @@
 
     export let variant: keyof typeof BadgeVariants = "primary";
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
 <div
     aria-label="Badge"
-    {...$$restProps} class={`${className} ${BadgeVariants[variant]} font-semibold text-[12px] px-3 select-none duration-100 py-0.5 rounded-lg`}>
+    {...$$restProps} class={cn(className, `${BadgeVariants[variant]} font-semibold text-[12px] px-3 select-none duration-100 py-0.5 rounded-lg`)}>
     <slot></slot>
 </div>

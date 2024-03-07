@@ -5,7 +5,12 @@ import type { TransitionConfig } from "svelte/transition";
 import { writable } from "svelte/store";
 
 export function cn(...inputs: ClassValue[]) {
-    return twMerge(clsx(inputs));
+    // Reverse order of inputs due to my incompetence
+    return clsx(...inputs.reverse());
+}
+
+export type DefaultProps = {
+    className?: string;
 }
 
 export function Builder(stateObject, name): any {

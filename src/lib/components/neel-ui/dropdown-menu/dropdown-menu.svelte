@@ -7,11 +7,13 @@
 
     let className: string | undefined = undefined;
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className} relative flex justify-center`}>
+<div {...$$restProps} class={cn(className, ` relative flex justify-center`)}>
     <slot></slot>
 </div>

@@ -1,6 +1,7 @@
 <script lang="ts">
     import { setContext, getContext } from "svelte";
     import { type TabStateType, tabBuilder, tabState } from ".";
+  import { cn } from "$lib/utils";
     export let value: string;
 
     let className: string | undefined = undefined;
@@ -10,6 +11,6 @@
     setContext("tabBuilderData", TabStateBuilderData)
 </script>
 
-<div class={`${className}`} {...$$restProps}>
+<div class={cn(className, ``)} {...$$restProps}>
     <slot></slot>
 </div>

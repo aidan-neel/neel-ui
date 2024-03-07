@@ -1,9 +1,10 @@
 <script lang="ts">
     import { getContext, setContext } from "svelte";
     import { Input } from "$lib/components/neel-ui/input";
-    import { MagnifyingGlass } from "radix-icons-svelte";
+    import MagnifyingGlass from 'svelte-radix/MagnifyingGlass.svelte'
     import { commandState } from ".";
     import Fuse from 'fuse.js'
+    import { cn } from "$lib/utils";
 
     // Exported variables
     let className: string | undefined = undefined;
@@ -34,7 +35,7 @@
     }
 </style>
 
-<div class="flex flex-row items-center border-b pr-1 w-full">
+<div class={cn(className, ` flex flex-row items-center border-b pr-1 w-full`)}>
     <MagnifyingGlass class="w-5 h-5 text-muted-foreground z-20 left-4 absolute" />
     <Input bind:value={searchValue} class="w-full border-none bg-opacity-0 shadow-none focus:border-none pl-12 h-12 important-bg " placeholder="Type a command or search..." />
 </div>

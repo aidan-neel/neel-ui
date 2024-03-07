@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
     import { selectBuilder, selectState } from ".";
     import { getContext, setContext } from "svelte";
 
@@ -14,6 +15,6 @@
     }
 </script>
 
-<div {...$$restProps} class={`${className} relative`}>
+<div {...$$restProps} class={cn(className, ` relative`)}>
     <slot></slot>
 </div>

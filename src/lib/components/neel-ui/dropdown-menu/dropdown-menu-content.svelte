@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { flyAndScale } from "$lib/utils";
+    import { cn, flyAndScale } from "$lib/utils";
     import { dropdownState, type dropdownStateType } from ".";
     import { getContext } from "svelte";
     import { onMount } from "svelte";
@@ -47,7 +47,8 @@
     on:mouseleave={() => {entered = false;} }
     bind:this={componentElement}
     {...$$restProps}
-    class={`${className} shadow-class rounded-lg z-50 py-1 border bg-popover-bg ${openSide} absolute min-w-[12.5rem] max-w-[45rem]`}>
+    class={cn(className, ` shadow-class rounded-lg z-50 py-1 border
+    bg-popover-bg ${openSide} absolute min-w-[12.5rem] max-w-[45rem]`)}>
         <slot></slot>
     </div>
 {/if}

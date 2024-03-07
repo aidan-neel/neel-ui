@@ -2,7 +2,9 @@
     import { Button } from '$lib/components/neel-ui/button';
     import * as Alert from '$lib/components/neel-ui/alert';
     import DocCard from '$lib/components/doc-card.svelte';
-    import { Person, ExclamationTriangle, CheckCircled, Check } from 'radix-icons-svelte';
+    import Person from 'svelte-radix/Person.svelte'
+    import ExclamationTriangle from 'svelte-radix/ExclamationTriangle.svelte'
+    import CheckCircled from 'svelte-radix/CheckCircled.svelte'
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
     import VariantCard from '$lib/components/variant-card.svelte';

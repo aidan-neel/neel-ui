@@ -7,11 +7,13 @@
     const BuilderData = linkPreviewBuilder();
     setContext("LinkPreviewBuilderData", BuilderData);
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className} flex flex-col items-center relative`}>
+<div {...$$restProps} class={cn(className, ` flex flex-col items-center relative`)}>
     <slot></slot>
 </div>

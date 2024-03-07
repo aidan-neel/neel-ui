@@ -1,6 +1,7 @@
 <script lang="ts">
     import { setContext, getContext } from "svelte";
     import { type contextStateType, type contextPositionType, contextState } from ".";
+    import { cn } from "$lib/utils";
 
     let className: string | undefined = undefined;
     const BuilderData = getContext<contextStateType>("BuilderData");
@@ -43,6 +44,6 @@
     export { className as class };
 </script>
     
-<div on:contextmenu|preventDefault={context} {...$$restProps} class={`${className}`}>
+<div on:contextmenu|preventDefault={context} {...$$restProps} class={cn(className, ``)}>
     <slot></slot>
 </div>

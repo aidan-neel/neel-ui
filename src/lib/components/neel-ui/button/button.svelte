@@ -1,138 +1,65 @@
 <script lang="ts">
-    import { fade, fly } from "svelte/transition";
-    import { tooltipState, type tooltipStateType } from "../tooltip";
-    import { type DataBuilderType } from ".";
-    import { linkPreviewState, type linkPreviewStateType } from "../link-preview";
-    import { sheetStateManagement, type SheetState } from "../sheet";
-    import { dropdownState } from "../dropdown-menu";
-    import { openSide } from '$lib/utils'
+    import { fly } from "svelte/transition";
     import { buttonVariants } from ".";
-    import { popoverState } from "../popover";
-  import { onMount } from "svelte";
+    import type { Event, EventProps, Hook } from '$lib/event-handler';
+    import { cn } from "$lib/utils";
     
     export let variant: keyof typeof buttonVariants = "primary";
-    export let useTransition: boolean = false;
     export let className: string | undefined = undefined;
     export let hrefName: string | undefined = undefined;
-    export let data: DataBuilderType | undefined = undefined;
     export let disabled: boolean = false;
     export { hrefName as href }
     export { className as class }
+
+    let EventData: Event | undefined = undefined;
+    export { EventData as data }
 
     let button: HTMLButtonElement | HTMLAnchorElement;
 
     $: if(disabled) {
         variant = variant + "-disabled"
-        console.log(variant)
     }
 
-    function onFocus() {
-        MouseEnter()
+    let hovering: boolean = false;
+    let pressed: boolean = false;
+    let entered: boolean = false;
+    let focused: boolean = false;
+    let left: boolean = false;
+
+    function FilterHooks(trigger: string, hooks: Hook[]) {
+        // Return every Hook that includes the trigger
+        return hooks.filter(hook => hook.trigger === trigger);
     }
 
-    function onBlur() {
-        MouseLeave()
-    }
-
-    onMount(() => {
-        button.addEventListener('focus', onFocus);
-        button.addEventListener('blur', onBlur);
-    });
-
-    let mouseHovering: boolean = false;
-
-    function MouseEnter() {
-        mouseHovering = true;
-        function HandleTooltip() {
-            if(data === undefined || data?.key === undefined) { return };
-
-            setTimeout(() => {
-                if(mouseHovering) {
-                    $tooltipState[data?.key].showing = true;
-                }
-            }, 700)
+    function MouseEvent(event) {        
+        if(event.type === "mouseenter") {
+            hovering = true;
+            entered = true;
+            left = false;
+        } else if(event.type === "mouseleave") {
+            hovering = false;
+            entered = false;
+            left = true;
+        } else if(event.type === "focus") {
+            focused = true;
+        } else if(event.type === "blur") {
+            focused = false;
+        } else if(event.type === "click") {
+            pressed = true;
         }
 
-        function HandleLinkPreview() {
-            if(data === undefined || data?.key === undefined) { return };
-            setTimeout(() => {
-                if(mouseHovering) {
-                    $linkPreviewState[data?.key].open = true;
-                }
-            }, 700)
+        const props: EventProps = {
+            Hovering: hovering,
+            Pressed: pressed,
+            Entered: entered,
+            Focused: focused,
+            Left: left
         }
 
-        if(data?.type === "tooltip") {
-            HandleTooltip()
-        } else if(data?.type === "link-preview") {
-            HandleLinkPreview()
-        }
-    }
-
-    function MouseLeave() {
-        mouseHovering = false;
-        function HandleTooltip() {
-            if(data === undefined || data?.key === undefined) { return };
-
-            $tooltipState[data?.key].showing = false;
-        }
-
-        function HandleLinkPreview() {
-            if(data === undefined || data?.key === undefined) { return };
-
-            $linkPreviewState[data?.key].open = false;
-        }
-
-        if(data?.type === "tooltip") {
-            HandleTooltip()
-        } else if(data?.type === "link-preview") {
-            HandleLinkPreview()
-        }
-    }
-
-    function MouseClick(event) {
-        if(disabled) {
-            event.preventDefault();
-            event.stopPropagation();
-            return;
-        }
-        event.stopPropagation();
-        function HandleSheet() {
-            if(data === undefined || data?.key === undefined) { return };
-
-            $sheetStateManagement[data?.key].open = true
-        }
-
-        function HandleDropdown() {
-            openSide(`dropdown-${data?.key}`, dropdownState, data?.key)
-            if(data === undefined || data?.key === undefined) { return };
-            const open = dropdownState.getOpenState(data?.key);
-            dropdownState.setOpenState(data?.key, !open);
-
-            Object.keys($dropdownState).forEach((key) => {
-                if(key !== data?.key) {
-                    dropdownState.setOpenState(key, false);
-                }
-            });
-        }
-
-        function HandleConfirm() {
-            if(data === undefined || data?.key === undefined) { return };
-            
-            $popoverState[data?.key].open = true;
-        }
-
-        if(data?.type === "sheet") {
-            HandleSheet()
-        }
-
-        if(data?.type === "confirm") {
-            HandleConfirm()
-        }
-
-        if(data?.type === "dropdown") {
-            HandleDropdown()
-        }
+        const hooks = FilterHooks(event.type, EventData?.hooks || []);
+        hooks.forEach(hook => {
+            hook.callback(props);
+        });
     }
 </script>
 
@@ -145,12 +72,13 @@
     role="link"
     href={hrefName}
     on:click|stopPropagation
-    on:click|stopPropagation={MouseClick}
-    id="link"  on:mouseenter={MouseEnter}
-    on:mouseleave={MouseLeave}
+    on:click|stopPropagation={MouseEvent}
+    id="link"  
+    on:mouseenter={MouseEvent}
+    on:mouseleave={MouseEvent}
     transition:fly={{ duration: 100, x: 10 }}
     on:click
-    class={`${buttonVariants[variant]} ${className}`}
+    class={cn(className, `${buttonVariants[variant]}`)}
     {...$$restProps}>
         <slot></slot>
     </a>
@@ -163,12 +91,12 @@
     aria-roledescription="Activates a button"
     aria-describedby="button"
     on:click|stopPropagation
-    on:click|stopPropagation={MouseClick}
+    on:click|stopPropagation={MouseEvent}
     id="button" 
-    on:mouseenter={MouseEnter}
-    on:mouseleave={MouseLeave}
-    on:focus={MouseEnter}
-    class={`${buttonVariants[variant]} ${className}`}
+    on:mouseenter={MouseEvent}
+    on:mouseleave={MouseEvent}
+    on:focus={MouseEvent}
+    class={cn(className, `${buttonVariants[variant]}`)}
     {...$$restProps}>
         <slot></slot>
     </button>

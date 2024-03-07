@@ -1,11 +1,13 @@
 <script lang="ts">
     let className: string | undefined = undefined;
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className} text-[14px] w-full pl-3 py-2 font-semibold`}>
+<div {...$$restProps} class={cn(className, ` text-[14px] w-full pl-3 py-2 font-semibold`)}>
     <slot></slot>
 </div>

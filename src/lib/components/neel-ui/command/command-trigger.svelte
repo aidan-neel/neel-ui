@@ -1,6 +1,7 @@
 <script lang="ts">
     import { getContext, onMount, setContext } from "svelte";
     import { commandState } from ".";
+  import { cn } from "$lib/utils";
 
     // Exported variables
     let className: string | undefined = undefined;
@@ -67,6 +68,6 @@ on:keydown={handleKeydown}
 on:click
 on:click={handle} 
 {...$$restProps} 
-class="{className} text-[14px] flex flex-row justify-between items-center bg-popover-bg border rounded-lg p-2 px-3 text-muted-foreground hover:bg-secondary duration-100">
+class={cn(className, `text-[14px] flex flex-row justify-between items-center bg-popover-bg border rounded-lg p-2 px-3 text-muted-foreground hover:bg-secondary duration-100`)}>
     <slot />
 </button>

@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
     import { getContext, setContext } from "svelte";
 
     // Exported variables
@@ -13,6 +14,6 @@
     }
 </script>
 
-<div class="w-full border-t pt-1">
+<div class={cn(className, ` w-full border-t pt-1`)}>
     <slot></slot>
 </div>

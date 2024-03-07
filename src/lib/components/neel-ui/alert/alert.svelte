@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
     import { setContext } from "svelte";
 
     const alertVariants = {
@@ -18,6 +19,6 @@
 
 <div 
     aria-label="Alert" role="alert"
-    {...$$restProps} class={`${className} ${alertVariants[type]}`}>
+    {...$$restProps} class={cn(className, `${alertVariants[type]}`)}>
     <slot></slot>
 </div>

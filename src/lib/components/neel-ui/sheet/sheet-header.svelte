@@ -1,11 +1,13 @@
 <script lang="ts">
     let className: string | undefined = undefined;
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<div {...$$restProps} class={`${className}`}>
+<div {...$$restProps} class={cn(className, ``)}>
     <slot></slot>
 </div>

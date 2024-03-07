@@ -1,6 +1,6 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button'
-    import { CaretSort } from 'radix-icons-svelte';
+    import CaretSort from "svelte-radix/CaretSort.svelte"
     import { getContext } from 'svelte';
     import { Item, selectState, type selectStateType } from '.';
 	import { Builder } from '../confirm';
@@ -12,7 +12,9 @@
     $: ItemIsSelected = $selectState[BuilderData.key]?.selectedValue !== undefined
     $: ItemIsOpen = $selectState[BuilderData.key].open
     
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 
@@ -28,7 +30,7 @@
     }
 </script>
 
-<Button on:click={HandleClick} class={`${className} flex flex-row justify-between pl-2 pr-2`} variant="secondary">
+<Button on:click={HandleClick} class={cn(className, ` flex flex-row justify-between pl-2 pr-2`)} variant="secondary">
     {#if ItemIsSelected}
         {$selectState[BuilderData.key].selectedLabel}
     {:else}

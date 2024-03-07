@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
     import { getContext, setContext } from "svelte";
 
     // Exported variables
@@ -13,7 +14,7 @@
     }
 </script>
 
-<div class="h-[6rem] text-muted-foreground flex items-center justify-center">
+<div class={cn(className, ` h-[6rem] text-muted-foreground flex items-center justify-center`)}>
     <p>
         No results found
     </p>

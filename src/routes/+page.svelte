@@ -1,12 +1,13 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button';
-    import { ArrowLeft, ArrowRight, GithubLogo } from 'radix-icons-svelte';
+    import ArrowRight from 'svelte-radix/ArrowRight.svelte'
+    import GithubLogo from 'svelte-radix/GithubLogo.svelte';
     import * as Confirm from "$lib/components/neel-ui/confirm";
     import { Badge } from "$lib/components/neel-ui/badge";
     import { fade } from 'svelte/transition';
 
     import DocCard from '$lib/components/doc-card.svelte';
-  import Seo from '$lib/components/seo.svelte';
+    import Seo from '$lib/components/seo.svelte';
 </script>
 
 <Seo name="home" />

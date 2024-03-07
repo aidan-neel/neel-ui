@@ -1,6 +1,7 @@
 <script lang="ts">
     import { page } from "$app/stores";
-    import { ChevronRight } from "radix-icons-svelte";
+    import { cn } from "$lib/utils";
+    import ChevronRight from 'svelte-radix/ChevronRight.svelte'
     import { onMount } from "svelte";
   
     const pathNames = $page.url.pathname.split("/").filter(path => path !== "");
@@ -32,7 +33,7 @@
     function isCurrentPage(fullPath: string): boolean {
       return $page.url.pathname === fullPath;
     }
-  </script>
+</script>
   
   <style>
     .current {
@@ -43,7 +44,7 @@
   
   <nav
     aria-label="Breadcrumb"
-    {...$$restProps} class={`${className} flex flex-row items-center justify-start text-[14px]`}>
+    {...$$restProps} class={cn(className, `flex flex-row items-center justify-start text-[14px]`)}>
     {#each shownPaths as { title, fullPath }, i}
       <a
         href={fullPath}

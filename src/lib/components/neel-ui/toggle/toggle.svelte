@@ -1,4 +1,5 @@
 <script lang="ts">
+  import { cn } from "$lib/utils";
     import { toggleVariants } from ".";
 
     export let variant = "primary";
@@ -10,6 +11,6 @@
 <button 
 on:click={() => { toggled = !toggled }}
 {...$$restProps}
-class={`${className} ${toggled ? toggleVariants[variant + "-checked"] : toggleVariants[variant]}`} >
+class={cn(className, ` ${toggled ? toggleVariants[variant + "-checked"] : toggleVariants[variant]}`)} >
     <slot />
 </button>

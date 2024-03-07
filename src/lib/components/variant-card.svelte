@@ -1,36 +1,51 @@
 <script lang="ts">
     import * as Tabs from "./neel-ui/tabs";
     import { Button } from "./neel-ui/button";
-
-    import { Code, Image, Copy, CheckCircled, Half2, Slash, ComponentInstance } from 'radix-icons-svelte';
-
+    import Code from 'svelte-radix/Code.svelte';
+    import Image from 'svelte-radix/Image.svelte';
+    import Copy from 'svelte-radix/Copy.svelte';
+    import CheckCircled from 'svelte-radix/CheckCircled.svelte';
     import { onMount } from "svelte";
-    import { codeToHtml } from 'shiki'
+    import { codeToHtml } from 'shiki';
 
     export let code: string;
     export let showTriggers: boolean = true;
     let copying: boolean = false;
-    let html: string
-    export let defaultValue: string = "preview"
+    let html: string = "";
+    export let defaultValue: string = "preview";
 
-    onMount(async() => {
-        if(code !== undefined) {
-            html = await codeToHtml(code, {
-                lang: "svelte",
-                theme: "vesper"
-            })
-        } else {
-            html = ""
+    function getHtmlFromLocalStorage(code: string): string | null {
+        const cachedHtml = localStorage.getItem(`codeHtml_${code}`);
+        return cachedHtml ? JSON.parse(cachedHtml) : null;
+    }
+
+    function setHtmlInLocalStorage(code: string, html: string): void {
+        localStorage.setItem(`codeHtml_${code}`, JSON.stringify(html));
+    }
+
+    onMount(async () => {
+        if (code) {
+            const cachedHtml = getHtmlFromLocalStorage(code);
+            if (cachedHtml) {
+                html = cachedHtml;
+            } else {
+                html = await codeToHtml(code, {
+                    lang: "svelte",
+                    theme: "vesper"
+                });
+                setHtmlInLocalStorage(code, html);
+            }
         }
-    })
+    });
 </script>
+
 
 <Tabs.Root value={defaultValue} class="w-full h-full p-4 fade-up">
     {#if showTriggers}
         <div class='relative'>
             <Tabs.Items class='bg-background shadow-class w-auto z-10 absolute top-0 right-0 p-1'>
-                <Tabs.Trigger class='h-7 rounded-md' value="preview"><Image /></Tabs.Trigger>
-                <Tabs.Trigger class="h-7 rounded-md" value="code"><Code /></Tabs.Trigger>
+                <Tabs.Trigger class='h-7 rounded-md' value="preview"><Image class="w-4 h-4" /></Tabs.Trigger>
+                <Tabs.Trigger class="h-7 rounded-md" value="code"><Code class="w-4 h-4" /></Tabs.Trigger>
             </Tabs.Items>
         </div>
     {/if}

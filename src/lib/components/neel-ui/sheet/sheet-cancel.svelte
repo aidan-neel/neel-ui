@@ -2,11 +2,13 @@
     let className: string | undefined = undefined;
     import { Button } from '$lib/components/neel-ui/button';
 
-    export {
+import { cn } from '$lib/utils'    
+
+export {
         className as class
     }
 </script>
 
-<Button {...$$restProps} class={`${className}`}>
+<Button {...$$restProps} class={cn(className, ``)}>
     <slot></slot>
 </Button>
