@@ -13,7 +13,7 @@
     export { className as class }
 </script>
   
-<div class='flex flex-col'>
+<div class='flex flex-col w-full'>
       {#if label}
           <label for={label} class="text-[14px] mb-2 text-foreground font-normal">
               {label}

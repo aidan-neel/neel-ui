@@ -13,7 +13,7 @@
         Search documentation...
         <Label>CTRL+O</Label>
     </Command.Trigger>
-    <Command.Content>
+    <Command.Content class="w-auto">
         <Command.Search></Command.Search>
         <Command.Results>
             <!-- <Command.Empty /> -->
