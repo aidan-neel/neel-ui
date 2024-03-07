@@ -56,7 +56,7 @@
     </Tabs.Content>
     <Tabs.Content value="code" class="w-full relative">
         <div class="flex flex-col shadow-class max-w-full relative w-full items-start justify-start p-1 text-[13px] h-auto">
-            <div class="w-full overflow-auto {html !== "" || undefined ? "pb-2" : 'pb-0'}">
+            <div transition:fade={{ duration: 100 }} class="w-full overflow-auto {html !== "" || undefined ? "pb-2" : 'pb-0'}">
                 {#if html === undefined}
                     <span class="w-full flex items-center justify-center text-muted-foreground text-[13px]">
                         Loading...

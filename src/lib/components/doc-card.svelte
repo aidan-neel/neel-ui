@@ -23,36 +23,6 @@
     let copying: boolean = false;
     let showInstallation: boolean = true;
     
-    let usageCode;
-
-    function getUsageCodeFromLocalStorage(key: string): string | null {
-        const cachedCode = localStorage.getItem(key);
-        return cachedCode ? JSON.parse(cachedCode) : null;
-    }
-
-    function setUsageCodeInLocalStorage(key: string, code: string): void {
-        localStorage.setItem(key, JSON.stringify(code));
-    }
-
-    onMount(async() => {
-        const code = examples[component];
-        const storageKey = `usageCode_${component}`;
-        if(code !== undefined) {
-            const cachedCode = getUsageCodeFromLocalStorage(storageKey);
-            if (cachedCode) {
-                usageCode = cachedCode;
-            } else {
-                usageCode = await codeToHtml(code, {
-                    lang: "svelte",
-                    theme: "vesper"
-                });
-                setUsageCodeInLocalStorage(storageKey, usageCode);
-            }
-        } else {
-            usageCode = "";
-        }
-    });
-
     export { className as class, heightClass, widthClass, component, componentDescription as desc, componentHeader as header, showHeading, showUsage, showInstallation }
 </script>
 
