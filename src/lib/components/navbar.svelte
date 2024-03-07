@@ -123,7 +123,7 @@
                 {/each}
             </Sheet.Content>
         </Sheet.Root>
-        <NavbarCommand class="sm:min-w-[18rem] ml-2 mr-2 w-full md:w-[24rem]" />
+        <NavbarCommand shortcut={undefined} class="sm:min-w-[18rem] ml-2 mr-2 w-full md:w-[24rem]" />
     </div>
     <Button href="https://github.com/aidan-neel/neel-ui/" class="h-10 w-10 mr-2" variant="ghost">
         <GithubLogo class="w-5 h-5 absolute text-white" />

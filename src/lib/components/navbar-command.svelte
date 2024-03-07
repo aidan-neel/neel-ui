@@ -6,6 +6,7 @@
     let className: string | undefined = undefined;
     let key: string | undefined = undefined;
     export { className as class, key };
+    export let shortcut: string = "CTRL+K";
 
     const excludedComponents = ['popover', 'typography', 'shortcut'];
 
@@ -45,9 +46,11 @@
 </script>
 
 <Command.Root key={key}>
-    <Command.Trigger shortcut="CTRL+K" class="w-[20rem] h-9 {className}">
+    <Command.Trigger shortcut={shortcut} class="w-[20rem] h-9 {className}">
         Search documentation...
-        <Label class="sm:flex hidden">CTRL+K</Label>
+        {#if shortcut}
+            <Label class="sm:flex hidden">{shortcut}</Label>
+        {/if}
     </Command.Trigger>
     <Command.Content>
         <Command.Search></Command.Search>
