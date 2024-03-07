@@ -12,7 +12,15 @@
 
     // Functions
     function handle() {
+        // Check if there are any open commands
         const open = commandState.getValue(Key, "open")
+        const commands = $commandState;
+        for (const commandKey in commands) {
+            const command = $commandState[commandKey];
+            if(command.open && commandKey !== Key) {
+                commandState.set(commandKey, "open", false);
+            }
+        }
         if(open) {
             commandState.set(Key, "open", false);
         } else {
@@ -21,7 +29,7 @@
     }
 
     function handleKeydown(event: KeyboardEvent) {
-        if (shortcut) {
+        if (shortcut !== "" && shortcut !== undefined) {
             // Assuming shortcut format is "CTRL+D" or similar
             const [modifier, key] = shortcut.split("+");
 

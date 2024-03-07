@@ -73,7 +73,7 @@
             Inspiration
         </a>
 
-        <NavbarCommand class="ml-56" />
+        <NavbarCommand shortcut="CTRL+K" class="ml-56" />
     </div>
 </nav>
 

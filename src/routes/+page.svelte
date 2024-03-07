@@ -26,7 +26,7 @@
     <div class="flex flex-row gap-4 mt-4 fade-up">
         <Button href="/docs/components">
             Get Started
-        </Button>
+        </Button>   
         <Button href="https://github.com/aidan-neel/neel-ui" variant="secondary">
             <GithubLogo class="w-4 h-4 mr-1" /> GitHub
         </Button>

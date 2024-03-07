@@ -6,7 +6,7 @@
     let className: string | undefined = undefined;
     let key: string | undefined = undefined;
     export { className as class, key };
-    export let shortcut: string = "CTRL+K";
+    export let shortcut: string | undefined;
 
     const excludedComponents = ['popover', 'typography', 'shortcut'];
 

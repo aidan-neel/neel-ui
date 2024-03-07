@@ -42,7 +42,8 @@ function commandBuilderFunction(key?: string): CommandState {
         key: "",
         open: false,
         items: [{}],
-        results: []
+        results: [],
+        searchPerformed: false
     } 
 
     commandStateManagement.update((state) => {
