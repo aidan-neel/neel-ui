@@ -10,8 +10,10 @@
     import { new_labeled_components } from '$lib/navbar';
     import { Badge } from '$lib/components/neel-ui/badge';
     import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
+    import { inject } from '@vercel/analytics'
 
     injectSpeedInsights();
+    inject();
 
     const excludedComponents = ['popover', 'typography', 'shortcut'];
 
