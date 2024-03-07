@@ -18,6 +18,8 @@
     desc="An input component with an optional label"
     header="Input"
     >
-        <Input bind:value={val} placeholder="Input" label="Input" class="w-[250px]" />
+        <div class="w-full flex flex-col items-center justify-center">
+            <Input bind:value={val} type="text" placeholder="Input" label="Input" class="w-[250px]" />
+        </div>
     </DocCard>
 </div>

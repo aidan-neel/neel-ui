@@ -28,7 +28,7 @@
 <Tabs.Root value={defaultValue} class="w-full h-full p-4 fade-up">
     {#if showTriggers}
         <div class='relative'>
-            <Tabs.Items class='bg-secondary-muted shadow-class w-auto z-10 absolute top-0 right-0 p-1'>
+            <Tabs.Items class='bg-background shadow-class w-auto z-10 absolute top-0 right-0 p-1'>
                 <Tabs.Trigger class='h-7 rounded-md' value="preview"><Image /></Tabs.Trigger>
                 <Tabs.Trigger class="h-7 rounded-md" value="code"><Code /></Tabs.Trigger>
             </Tabs.Items>

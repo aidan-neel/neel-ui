@@ -32,9 +32,9 @@
                         Make changes to your account details. Click save to save your changes.
                     </Card.Description>
                     <Card.Content class="gap-4 w-full flex flex-col">
-                        <Input placeholder="Username" label="Username" class="w-full" />
-                        <Input placeholder="Password" label="Password" class="w-full" />
-                        <Button class="h-[2rem] max-w-[150px]">
+                        <Input placeholder="Username" label="Username" class="w-full bg-transparent" />
+                        <Input placeholder="Password" label="Password" class="w-full bg-transparent" />
+                        <Button class="max-w-[150px]">
                             Save changes
                         </Button>
                     </Card.Content>
@@ -50,7 +50,7 @@
                     </Card.Description>
                     <Card.Content class="gap-4 w-full flex flex-col">
                         <Input placeholder="Email" label="Email" class="w-full" />
-                        <Button class="h-[2rem] max-w-[150px]">
+                        <Button class="max-w-[150px]">
                             Save changes
                         </Button>
                     </Card.Content>

@@ -59,6 +59,6 @@ on:keydown={handleKeydown}
 on:click
 on:click={handle} 
 {...$$restProps} 
-class="{className} text-[14px] flex flex-row justify-between items-center bg-background border rounded-lg p-2 px-3 text-muted-foreground hover:bg-secondary duration-100">
+class="{className} text-[14px] flex flex-row justify-between items-center bg-popover-bg border rounded-lg p-2 px-3 text-muted-foreground hover:bg-secondary duration-100">
     <slot />
 </button>

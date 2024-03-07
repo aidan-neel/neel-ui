@@ -27,7 +27,7 @@
 {#if open}
     <div
     transition:fade={{ duration: 100 }} 
-    class="h-screen w-screen shadow-class backdrop-blur-sm bg-opacity-60 flex items-center justify-center z-[999] fixed top-0 left-0">
+    class="h-screen w-screen shadow-class backdrop-blur-md bg-background bg-opacity-60 flex items-center justify-center z-[999] fixed top-0 left-0">
         <main
         transition:flyAndScale
         use:clickOutside={close} 

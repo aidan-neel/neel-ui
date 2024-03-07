@@ -64,7 +64,7 @@ const config = {
                     foreground: "#f9f9f9"
                 },
                 popover: {
-                    DEFAULT: "#08080a",
+                    DEFAULT: "#0f0f0f",
                     foreground: "#f9f9f9"
                 },
                 card: {

@@ -28,7 +28,13 @@
     }
 </script>
 
+<style>
+    .important-bg {
+        background-color: transparent !important;
+    }
+</style>
+
 <div class="flex flex-row items-center border-b pr-1">
     <MagnifyingGlass class="w-5 h-5 text-muted-foreground z-20 left-4 absolute" />
-    <Input bind:value={searchValue} class="w-full border-none bg-transparent bg-none focus:border-none pl-12 h-12" placeholder="Type a command or search..." />
+    <Input bind:value={searchValue} class="w-full border-none bg-opacity-0 shadow-none focus:border-none pl-12 h-12 important-bg " placeholder="Type a command or search..." />
 </div>

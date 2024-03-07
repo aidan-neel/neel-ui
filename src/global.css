@@ -9,7 +9,7 @@
 }
 
 .bg-popover-bg {
-    @apply bg-background bg-opacity-90 backdrop-blur-xl
+    @apply bg-popover backdrop-blur-[4px] bg-opacity-85
 }
 
 @tailwind base;
@@ -68,10 +68,6 @@ h1,h2,h3,h4,h5,h6 {
     @apply tracking-tighter;
 }
 
-.shadow-class {
-    @apply shadow-md shadow-secondary-muted/50
-}
- 
 @layer base {
     :root {
         color-scheme: dark;

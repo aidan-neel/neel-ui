@@ -115,7 +115,7 @@
                     <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} class={`py-1 flex flex-row items-center justify-start ${isCurrentPage(component) ? 'text-foreground font-medium' : 'text-muted-foreground'}`} href={`/docs/components/${component.toLowerCase()}`} variant="link">
                         {sanitizedComponent(component)}
                         {#if new_labeled_components.includes(sanitizedComponent(component))}
-                            <Badge variant="secondary" class="ml-2 h-5 w-10 text-[10px] flex items-center justify-center">
+                            <Badge variant="primary" class="ml-2 h-4 w-10 text-[10px] flex items-center justify-center">
                                 New
                             </Badge>
                         {/if}

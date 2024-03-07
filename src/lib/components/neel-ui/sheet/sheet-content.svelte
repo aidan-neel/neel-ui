@@ -28,8 +28,8 @@
 
 {#if isOpen }
 
-    <div class="h-screen w-screen shadow-class backdrop-blur-sm bg-opacity-60 z-[98] fixed top-0 left-0"
-        transition:fade={{ duration: 100 }}
+    <div class="h-screen w-screen shadow-class backdrop-blur-md bg-background bg-opacity-60 z-[98] fixed top-0 left-0"
+        transition:fade={{ duration: 90 }}
         on:click={() => {
             if (!mouseEntered) {
                 CloseSheet();
