@@ -14,6 +14,6 @@ export {
     }
 </script>
 
-<div {...$$restProps} class={cn(className, ` relative flex justify-center`)}>
+<div {...$$restProps} class={cn(className, ` relative flex justify-center flex-col items-center`)}>
     <slot></slot>
 </div>

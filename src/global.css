@@ -8,6 +8,10 @@
     src: url('/fonts/GeistMonoVariableVF.ttf') format('truetype-variations');
 }
 
+svg { 
+    @apply focus:outline-none
+}
+
 .bg-popover-bg {
     @apply bg-popover backdrop-blur-[4px] bg-opacity-85
 }

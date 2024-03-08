@@ -1,11 +1,15 @@
 // NOTE:
 // You can use a custom event for your custom components
+
+import type { SvelteComponent } from "svelte";
+
 const Events = [
     "tooltip",
     "link-preview",
     "sheet",
     "dropdown",
     "confirm",
+    "select",
 ] as const;
 
 const Triggers = [
@@ -25,6 +29,7 @@ interface EventProps {
     Focused: boolean;
     Entered: boolean;
     Left: boolean;
+    Component: HTMLButtonElement | HTMLAnchorElement
 }
 
 interface Hook {

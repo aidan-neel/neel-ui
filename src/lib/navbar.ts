@@ -1,4 +1,4 @@
-export const new_labeled_components = ["Dropdown Menu", "Context Menu", "Toggle", "Shortcut", "Command"]
+export const new_labeled_components = ["Dropdown Menu", "Context Menu", "Toggle", "Shortcut", "Command" ]
 
 export const components = [
     "alert",

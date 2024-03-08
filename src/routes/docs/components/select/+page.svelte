@@ -28,7 +28,7 @@
     header="Select"
     >
         <Select.Root bind:key>
-            <Select.Trigger class='w-[180px]'>
+            <Select.Trigger class='w-[250px]'>
                 Select a fruit
             </Select.Trigger>
             <Select.Content class="w-full">

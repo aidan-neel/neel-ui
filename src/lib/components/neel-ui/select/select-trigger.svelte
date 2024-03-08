@@ -5,6 +5,7 @@
     import { Item, selectState, type selectStateType } from '.';
 	import { Builder } from '../confirm';
     import { openSide } from '$lib/utils';
+    import type { Event, EventProps, Hook } from '$lib/event-handler'
 
     let className: string | undefined = undefined;
 
@@ -12,25 +13,27 @@
     $: ItemIsSelected = $selectState[BuilderData.key]?.selectedValue !== undefined
     $: ItemIsOpen = $selectState[BuilderData.key].open
     
-import { cn } from '$lib/utils'    
+    import { cn } from '$lib/utils'    
 
-export {
+    export {
         className as class
     }
 
-    function HandleClick() {
-        openSide(`select-${BuilderData.key}`, selectState, BuilderData.key)
-        BuilderData.open = !ItemIsOpen
-        selectState.update((state) => {
-            return {
-                ...state,
-                [BuilderData.key]: BuilderData
-            }
-        })
+    let MouseDownHook: Hook = {
+        trigger: "click",
+        callback: (props: EventProps) => {
+            selectState.set(BuilderData.key, "open", !ItemIsOpen)
+            selectState.set(BuilderData.key, "triggerHeight", props.Component.clientHeight)
+        }
+    }
+
+    let data: Event = {
+        event: "select",
+        hooks: [MouseDownHook]
     }
 </script>
 
-<Button on:click={HandleClick} class={cn(className, ` flex flex-row justify-between pl-2 pr-2`)} variant="secondary">
+<Button data={data} class={cn(className, ` flex flex-row justify-between pl-2 pr-2`)} variant="secondary">
     {#if ItemIsSelected}
         {$selectState[BuilderData.key].selectedLabel}
     {:else}

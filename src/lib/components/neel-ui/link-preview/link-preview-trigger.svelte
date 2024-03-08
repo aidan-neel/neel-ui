@@ -15,6 +15,7 @@
             setTimeout(() => {
                 if(props.Hovering === true) {
                     $linkPreviewState[Key].open = true;
+                    $linkPreviewState[Key].triggerHeight = props.Component.clientHeight;
                 }
             }, 750);
         }
@@ -25,6 +26,7 @@
         callback: (props: EventProps) => {
             if(props.Left === true) {
                 $linkPreviewState[Key].open = false;
+                $linkPreviewState[Key].triggerHeight = props.Component.clientHeight;
             }
         }
     }
@@ -33,9 +35,10 @@
         event: "dropdown",
         hooks: [HoverHook, LeaveHook]
     }
-import { cn } from '$lib/utils'    
 
-export {
+    import { cn } from '$lib/utils'    
+
+    export {
         className as class
     }
 </script>

@@ -6,14 +6,13 @@
     // Imports
     import { cn } from "$lib/utils";
     import { type DefaultProps } from '$lib/utils'
-    // import type { Event, EventProps, Hook } from '$lib/event-handler'
-    // import { type Props } from ".";
+    import type { Event, EventProps, Hook } from '$lib/event-handler'
 
-    // type $$Props = Props & DefaultProps;
-
+    type $$Props = DefaultProps;
+    
     // Exported variables
-    // let className: $$Props["class"] = undefined;
-    // export { className as class }
+    let className: $$Props["class"] = undefined;
+    export { className as class }
 
     // Unexported variables
     // let unexportedVariable: string | undefined = undefined;

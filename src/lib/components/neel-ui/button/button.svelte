@@ -53,7 +53,8 @@
             Pressed: pressed,
             Entered: entered,
             Focused: focused,
-            Left: left
+            Left: left,
+            Component: button
         }
 
         const hooks = FilterHooks(event.type, EventData?.hooks || []);

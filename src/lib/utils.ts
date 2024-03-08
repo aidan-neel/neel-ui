@@ -3,14 +3,24 @@ import { twMerge } from "tailwind-merge";
 import { cubicOut } from "svelte/easing";
 import type { TransitionConfig } from "svelte/transition";
 import { writable } from "svelte/store";
+import { afterUpdate } from "svelte";
 
 export function cn(...inputs: ClassValue[]) {
     // Reverse order of inputs due to my incompetence
     return clsx(...inputs.reverse());
 }
 
+export function calculateOpenDirection(node, callback) {
+    if (!node) return; // Ensure node exists
+    
+    const viewportHeight = window.innerHeight;
+    const rect = node.getBoundingClientRect();
+    const menuHeight = node.offsetHeight;
+    const shouldOpenUpwards = (viewportHeight - rect.bottom) < menuHeight;
+}
+
 export type DefaultProps = {
-    className?: string;
+    class?: string;
 }
 
 export function Builder(stateObject, name): any {

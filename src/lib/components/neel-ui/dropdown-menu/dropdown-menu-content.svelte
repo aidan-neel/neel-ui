@@ -7,11 +7,22 @@
     const BuilderData = getContext<dropdownStateType>("DropdownBuilderData")
 
     $: open = $dropdownState[BuilderData.key].open;
-    $: openSide = $dropdownState[BuilderData.key].openSide === "top" ? "top-12" : "bottom-12";
+    $: triggerHeight = $dropdownState[BuilderData.key].triggerHeight;
 
     let entered: boolean = false;
     let className: string | undefined = undefined;
     let componentElement: HTMLElement; 
+    let openSide: string = `bottom`;
+
+    function calculateOpenDirection(node) {
+        if (!node) return; // Ensure node exists
+      
+        const viewportHeight = window.innerHeight;
+        const rect = node.getBoundingClientRect();
+        const menuHeight = node.offsetHeight;
+        const shouldOpenUpwards = (viewportHeight - rect.bottom) < menuHeight;
+        openSide = shouldOpenUpwards ? `top` : `bottom`;
+    }
 
     // Detect whether to open top or bottom by calculating available space
     // If there is not enough space at the bottom, open at the top
@@ -43,12 +54,16 @@
     aria-roledescription="menu"
     aria-labelledby="dropdown"
     transition:flyAndScale
+    data-dropdown-menu={BuilderData.key}
     on:mouseenter={() => { entered = true; }}
     on:mouseleave={() => {entered = false;} }
     bind:this={componentElement}
+    use:calculateOpenDirection
     {...$$restProps}
-    class={cn(className, ` shadow-class rounded-lg z-50 py-1 border
-    bg-popover-bg ${openSide} absolute min-w-[12.5rem] max-w-[45rem]`)}>
+    class={cn(className, `shadow-class rounded-lg z-50 py-1 border
+    bg-popover-bg min-w-[12.5rem] absolute h-auto max-w-[45rem]`)}
+    style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.5rem)` : `bottom: calc(${triggerHeight}px + 0.5rem)`}
+    >
         <slot></slot>
     </div>
 {/if}

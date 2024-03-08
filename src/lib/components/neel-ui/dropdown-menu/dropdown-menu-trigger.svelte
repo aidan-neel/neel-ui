@@ -12,6 +12,7 @@
         callback: (props: EventProps) => {
             const open = dropdownState.getOpenState(Key);
             dropdownState.setOpenState(Key, !open);
+            dropdownState.set(Key, "triggerHeight", props.Component.clientHeight);
         }
     }
 

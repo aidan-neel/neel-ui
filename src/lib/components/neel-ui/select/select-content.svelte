@@ -1,29 +1,25 @@
 <script lang="ts">
-    import { clickOutside, cn, flyAndScale } from "$lib/utils";
+    import { clickOutside, cn, flyAndScale, calculateOpenDirection } from "$lib/utils";
     import { getContext } from "svelte";
     import { selectState } from ".";
     import { Builder } from "../confirm";
     import { onMount } from "svelte";
     let className: string | undefined = undefined;
-    export let offset: number = 10
     let componentElement: HTMLElement; // Added line
     
     const BuilderData = getContext("SelectBuilderData");
     let entered = false;
+    let padding = 0.5;
 
     $: IsOpen = $selectState[BuilderData.key]?.open || false;
-    $: openSide = $selectState[BuilderData.key].openSide === "top" ? `top-${offset}` : `bottom-${offset}`;
+    
+    let openSide: string = "bottom";
+    $: triggerHeight = $selectState[BuilderData.key].triggerHeight;
     
     onMount(() => {
         const handleClick = event => {
             if (componentElement && !componentElement.contains(event.target) && !entered) {
-                BuilderData.open = false;
-                selectState.update((state) => {
-                    return {
-                        ...state,
-                        [BuilderData.key]: BuilderData
-                    }
-                });
+                selectState.set(BuilderData.key, "open", false);
             }
         };
 
@@ -41,13 +37,15 @@
     tabindex="-1"
     aria-roledescription="menu"
     aria-labelledby="select"
+    use:calculateOpenDirection
     id={`select-${BuilderData.key}`}
     on:mouseenter={() => { entered = true; }}
     on:mouseleave={() => {entered = false;} }
     bind:this={componentElement}
     transition:flyAndScale
     {...$$restProps}
-    class={cn(className, ` absolute w-full z-50 bg-popover-bg rounded-lg border  my-2 ${openSide}`)}>
+    style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + ${padding}rem)` : `bottom: calc(${triggerHeight}px + ${padding}rem)`}
+    class={cn(className, ` absolute w-full z-50 bg-popover-bg rounded-lg border my-2`)}>
         <slot></slot>
     </div>
 {/if}
