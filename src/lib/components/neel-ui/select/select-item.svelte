@@ -29,7 +29,7 @@
 key={BuilderData.key}
 onclick={ChangeSelected}
 state={selectState}
-class={cn(className, ` pl-1.5 justify-between`)}
+class={cn(className, `pl-[0.5rem] justify-between`)}
 >
     <slot></slot>
     {#if ItemIsSelected}

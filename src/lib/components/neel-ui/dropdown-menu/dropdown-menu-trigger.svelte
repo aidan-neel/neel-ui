@@ -1,5 +1,4 @@
 <script lang="ts">
-    import type { DataBuilderType } from "../button";
     import { getContext } from "svelte";
     import { dropdownBuilder, dropdownState, type dropdownStateType } from ".";
     import type { Event, EventProps, Hook } from '$lib/event-handler'
