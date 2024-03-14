@@ -49,7 +49,7 @@
     use:clickOutside={ClosePopover} 
     transition:flyAndScale
     class={cn(className, ` w-full {PopoverOpen ? 'flex' : 'hidden'}
-    shadow-class centered absolute bg-popover-bg
+    shadow-class centered absolute bg-background
     shadow-background/50 shadow-class flex-col border
     p-6 z-[999] rounded-[0.5rem] sm:max-w-[500px]`)}>
         <slot></slot>

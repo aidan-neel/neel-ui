@@ -1,7 +1,7 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button';
     import { getContext, setContext } from 'svelte';
-    import { type popoverStateType, popoverState } from '../popover';
+    import { type popoverStateType, popoverState } from '../modal';
   import { cn } from '$lib/utils';
 
     let className: string | undefined = undefined;
@@ -22,6 +22,6 @@
     }
 </script>
 
-<Button on:click on:click={ClosePopover} class={cn(className, ` w-full`)} variant="primary">
+<Button on:click on:click={ClosePopover} class={cn(className, ` w-full font-normal`)} variant="primary">
     <slot></slot>
 </Button>

@@ -7,7 +7,7 @@ import Description from "./confirm-description.svelte";
 import Cancel from "./confirm-cancel.svelte";
 import Action from "./confirm-action.svelte";
 import Footer from "./confirm-footer.svelte";
-import { popoverBuilder } from "../popover";
+import { popoverBuilder } from "../modal";
 
 export {
     Root,

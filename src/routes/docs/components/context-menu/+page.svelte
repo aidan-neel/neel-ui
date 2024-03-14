@@ -1,7 +1,7 @@
 <script lang="ts"> 
     import DocCard from '$lib/components/doc-card.svelte';
     import Seo from '$lib/components/seo.svelte';
-    import * as ContextMenu from '$lib/components/neel-ui/context-menu';
+import NextDoc from '$lib/components/next-doc.svelte';    import * as ContextMenu from '$lib/components/neel-ui/context-menu';
     import { Label } from '$lib/components/neel-ui/shortcut';
   import ContextMenuExample from '$lib/components/examples/context-menu-example.svelte';
 
@@ -20,4 +20,5 @@
     >
         <ContextMenuExample />
     </DocCard>
+    <NextDoc />
 </div>

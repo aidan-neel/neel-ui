@@ -4,15 +4,12 @@
     import * as Select from '$lib/components/neel-ui/select';
     import { selectState } from '$lib/components/neel-ui/select';
     import Seo from '$lib/components/seo.svelte';
-
+import NextDoc from '$lib/components/next-doc.svelte';
     const fruits = [
         { value: "apple", label: "Apple" },
         { value: "banana", label: "Banana" },
         { value: "blueberry", label: "Blueberry" },
         { value: "grapes", label: "Grapes" },
-        { value: "pineapple", label: "Pineapple" },
-        { value: "strawberry", label: "Strawberry" },
-        { value: "watermelon", label: "Watermelon" }
     ];
 
     let key: string
@@ -28,7 +25,7 @@
     header="Select"
     >
         <Select.Root bind:key>
-            <Select.Trigger class='w-[250px]'>
+            <Select.Trigger class='w-[170px]'>
                 Select a fruit
             </Select.Trigger>
             <Select.Content class="w-full">
@@ -40,4 +37,5 @@
             </Select.Content>
         </Select.Root>      
     </DocCard>
+    <NextDoc />
 </div>

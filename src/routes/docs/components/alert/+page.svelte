@@ -11,7 +11,7 @@
     import { alertExamples } from './alert';
     import { examples } from '$lib/examples';
     import Seo from '$lib/components/seo.svelte';
-</script>
+import NextDoc from '$lib/components/next-doc.svelte';</script>
 
 <Seo name="alert" />
 
@@ -125,4 +125,6 @@
             </Alert.Root>
         </VariantCard>
     </div>
+
+    <NextDoc />
 </div>

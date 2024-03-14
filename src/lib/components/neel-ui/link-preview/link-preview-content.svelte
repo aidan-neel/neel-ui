@@ -32,7 +32,7 @@
 {#if isOpen}
     <div role="dialog"  style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + ${padding}rem)` : `bottom: calc(${triggerHeight}px + ${padding}rem)`}
     use:calculateOpenDirection on:mouseenter={MouseEnter} on:mouseleave={MouseLeave} class={cn(containerClassName, `absolute flex items-center justify-center p-2`)}>
-        <div {...$$restProps} transition:flyAndScale class={cn(className, `border outline-4 bg-popover-bg shadow-class p-4 rounded-lg min-w-[18rem]`)}>
+        <div {...$$restProps} transition:flyAndScale class={cn(className, `border outline-4 bg-background shadow-class p-4 rounded-lg min-w-[18rem]`)}>
             <slot></slot>
         </div>
     </div>

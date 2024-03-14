@@ -24,26 +24,26 @@
     }
 </script>
 
-<nav class='w-screen hidden fade-up lg:flex h-16 z-20 fixed top-0 items-center text-[14px] justify-center  left-0 blurring shadow-class bg-background border-b'>
+<nav class='w-screen hidden   lg:flex h-16 z-20 fixed top-0 items-center text-[14px] justify-center  left-0 blurring shadow-class bg-background border-b'>
     <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px] px-8">
         <a href="/" class="flex flex-row items-center h-full gap-1">
             <img src={Logo} alt="Neel" class="h-6 w-6" />
             <h1 class="text-lg font-bold">Neel/UI</h1>
         </a>
-        <a href="/docs" class={`${pathName === "/docs" || "/docs/" ? 'text-white' : ""}  text-zinc-400 hover:text-zinc-500 duration-100`}>
+        <a href="/docs" class={`${pathName === "/docs" || "/docs/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
             Docs
         </a>
-        <a href="/docs/components" class={`${pathName === "/docs/components" || "/docs/components/" ? 'text-white' : ""}  text-zinc-400 hover:text-zinc-500 duration-100`}>
+        <a href="/docs/components" class={`${pathName === "/docs/components" || "/docs/components/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
             Components
         </a>
-        <a href="https://github.com/aidan-neel/neel-ui" class={`${pathName === "/https://github.com/aidan-neel/neel-ui" || "/https://github.com/aidan-neel/neel-ui/" ? 'text-white' : ""}  text-zinc-400 hover:text-zinc-500 duration-100`}>
+        <a href="https://github.com/aidan-neel/neel-ui" class={`${pathName === "/https://github.com/aidan-neel/neel-ui" || "/https://github.com/aidan-neel/neel-ui/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
             GitHub
         </a>
-        <a class="text-zinc-400 hover:text-zinc-500 duration-100" href="https://ui.shadcn.com/">
+        <a class="text-zinc-400 text-[14px] hover:text-zinc-500 duration-100" href="https://ui.shadcn.com/">
             Inspiration
         </a>
 
-        <NavbarCommand shortcut="CTRL+K" class="ml-56" />
+        <NavbarCommand shortcut="/" class="ml-56" />
     </div>
 </nav>
 
@@ -66,7 +66,7 @@
                         </Sheet.Cancel>
                     </Sheet.Title>
                 </Sheet.Header>
-                <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
+                <h1 class="text-foreground mb-1 text-[14px] font-semibold mt-4">
                     Getting Started
                 </h1>
                 <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs" class={`py-1 ${pathName === "/docs" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
@@ -78,7 +78,7 @@
                 <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/changelog" class={`py-1 ${pathName === "/docs/changelog" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
                     Changelog
                 </Button>
-                <h1 class="text-foreground mb-1 text-[16px] font-semibold mt-4">
+                <h1 class="text-foreground mb-1 text-[14px] font-semibold mt-4">
                     Components
                 </h1>
                 {#each components as component}

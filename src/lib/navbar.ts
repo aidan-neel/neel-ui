@@ -1,4 +1,4 @@
-export const new_labeled_components = ["Dropdown Menu", "Context Menu", "Toggle", "Shortcut", "Command" ]
+export const new_labeled_components = ["Keycode", "Switch", "Expand Text", "Popout", "File Trigger", "Checkbox", "Dialog", "Toast"]
 
 export const components = [
     "alert",
@@ -6,17 +6,25 @@ export const components = [
     "breadcrumb",
     "button",
     "card",
+    "checkbox",
     "command",
     "confirm",
     "context-menu",
+    "dialog",
     "dropdown-menu",
+    "expand-text",
+    "file-trigger",
     "input",
+    "keycode",
     "link-preview",
+    "popout",
     "select",
     "sheet",
+    "switch",
     "tabs",
+    "toast",
     "toggle",
-    "tooltip"
+    "tooltip",
 ]
 
 export function sanitizeComponent(comp: string) {

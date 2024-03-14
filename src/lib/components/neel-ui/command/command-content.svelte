@@ -3,7 +3,7 @@
     import { commandState } from ".";
   import { fade } from "svelte/transition";
   import { clickOutside, cn, flyAndScale } from "$lib/utils";
-  import Popover from "../popover/popover.svelte";
+  import Popover from "../modal/popover.svelte";
 
     // Exported variables
     let className: string | undefined = undefined;
@@ -31,7 +31,7 @@
         <main
         transition:flyAndScale
         use:clickOutside={close} 
-        class={cn(className, ` md:max-w-[600px] w-[95vw] centered z-[1000] bg-popover-bg border rounded-lg h-auto max-h-[22.5rem] overflow-y-auto`)}>
+        class={cn(className, ` md:max-w-[600px] w-[95vw] centered z-[1000] bg-background border rounded-lg h-auto max-h-[22.5rem] overflow-y-auto`)}>
             <slot />
         </main>
         

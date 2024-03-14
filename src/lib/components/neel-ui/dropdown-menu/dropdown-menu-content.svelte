@@ -13,15 +13,20 @@
     let className: string | undefined = undefined;
     let componentElement: HTMLElement; 
     let openSide: string = `bottom`;
+    export let openFrom: string | undefined = undefined;
 
     function calculateOpenDirection(node) {
-        if (!node) return; // Ensure node exists
-      
-        const viewportHeight = window.innerHeight;
-        const rect = node.getBoundingClientRect();
-        const menuHeight = node.offsetHeight;
-        const shouldOpenUpwards = (viewportHeight - rect.bottom) < menuHeight;
-        openSide = shouldOpenUpwards ? `top` : `bottom`;
+        if(openFrom) {
+            openSide = openFrom;
+        } else {
+            const windowHeight = window.innerHeight;
+            const rect = node.getBoundingClientRect();
+            const spaceBelow = windowHeight - rect.bottom;
+            const spaceAbove = rect.top;
+            if(spaceBelow < 200 && spaceAbove > 200) {
+                openSide = `top`;
+            }
+        }
     }
 
     // Detect whether to open top or bottom by calculating available space
@@ -61,7 +66,7 @@
     use:calculateOpenDirection
     {...$$restProps}
     class={cn(className, `shadow-class rounded-lg z-50 py-1 border
-    bg-popover-bg min-w-[12.5rem] absolute h-auto max-w-[45rem]`)}
+    bg-background min-w-[12.5rem] absolute h-auto max-w-[45rem]`)}
     style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.5rem)` : `bottom: calc(${triggerHeight}px + 0.5rem)`}
     >
         <slot></slot>

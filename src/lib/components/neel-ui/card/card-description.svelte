@@ -5,6 +5,6 @@
     export { className as class }    
 </script>
 
-<p {...$$restProps} class={cn(className, `text-muted-foreground`)}>
+<p {...$$restProps} class={cn(className, `text-muted-foreground text-[14px]`)}>
     <slot></slot>
 </p>

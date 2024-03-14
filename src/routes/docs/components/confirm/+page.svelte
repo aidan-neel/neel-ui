@@ -7,7 +7,7 @@
     import { Input } from '$lib/components/neel-ui/input'
     import * as Confirm from '$lib/components/neel-ui/confirm'
     import Seo from '$lib/components/seo.svelte';
-</script>
+import NextDoc from '$lib/components/next-doc.svelte';</script>
 
 <Seo name="confirm" />
 
@@ -39,4 +39,5 @@
             </Confirm.Content>
         </Confirm.Root>        
     </DocCard>
+    <NextDoc />
 </div>

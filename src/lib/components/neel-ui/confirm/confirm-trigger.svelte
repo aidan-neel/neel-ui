@@ -1,12 +1,11 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button';
-    import type { popoverStateType } from '../popover';
+    import type { popoverStateType } from '../modal';
     import { getContext } from 'svelte';
-    import { type DataBuilderType } from '$lib/components/neel-ui/button';
     import { cn } from '$lib/utils';
     import type { Event, Hook, EventProps } from '$lib/event-handler';
-    import { popoverState } from '$lib/components/neel-ui/popover';
-
+    import { popoverState } from '$lib/components/neel-ui/modal';
+    
     let className: string | undefined = undefined;
     export { className as class }
 

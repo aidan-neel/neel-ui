@@ -6,22 +6,27 @@
     import Copy from 'svelte-radix/Copy.svelte';
     import CheckCircled from 'svelte-radix/CheckCircled.svelte';
     import { onMount } from "svelte";
-    import { codeToHtml } from 'shiki';
-    import { fade } from 'svelte/transition';
+    import { codeToHtml, getHighlighter } from 'shiki';
+    import { fade, slide } from 'svelte/transition';
 
     export let code: string;
     export let showTriggers: boolean = true;
     let copying: boolean = false;
     let html: string = "";
     export let defaultValue: string = "preview";
+    export let value: string;
+    $: console.log(value)
 
     function getHtmlFromLocalStorage(code: string): string | null {
-        const cachedHtml = localStorage.getItem(`codeHtml_${code}`);
+        const cachedHtml = localStorage.getItem(`codeHtml_new_${code}`);
         return cachedHtml ? JSON.parse(cachedHtml) : null;
     }
+    
+    import dark from '$lib/assets/dark.json?raw'
+    const darkTheme = JSON.parse(dark);
 
     function setHtmlInLocalStorage(code: string, html: string): void {
-        localStorage.setItem(`codeHtml_${code}`, JSON.stringify(html));
+        localStorage.setItem(`codeHtml_new_${code}`, JSON.stringify(html));
     }
 
     onMount(async () => {
@@ -30,9 +35,14 @@
             if (cachedHtml) {
                 html = cachedHtml;
             } else {
-                html = await codeToHtml(code, {
+                const highlighter = await getHighlighter({
+                    themes: [darkTheme],
+                    langs: ["svelte"]
+                });
+
+                html = await highlighter.codeToHtml(code, {
                     lang: "svelte",
-                    theme: "vesper"
+                    theme: "Lambda Studio — Blackout"
                 });
                 setHtmlInLocalStorage(code, html);
             }
@@ -40,13 +50,12 @@
     });
 </script>
 
-
-<Tabs.Root value={defaultValue} class="w-full h-full p-4 fade-up">
+<Tabs.Root bind:value={defaultValue} defaultValue={defaultValue} class="w-full h-full p-4  ">
     {#if showTriggers}
         <div class='relative'>
             <Tabs.Items class='bg-background shadow-class w-auto z-10 absolute top-0 right-0 p-1'>
-                <Tabs.Trigger class='h-7 rounded-md' value="preview"><Image class="w-4 h-4" /></Tabs.Trigger>
-                <Tabs.Trigger class="h-7 rounded-md" value="code"><Code class="w-4 h-4" /></Tabs.Trigger>
+                <Tabs.Trigger class='h-6 rounded-md px-0 w-24' value="preview">Preview</Tabs.Trigger>
+                <Tabs.Trigger class="h-6 rounded-md px-0 w-24" value="code">Code</Tabs.Trigger>
             </Tabs.Items>
         </div>
     {/if}

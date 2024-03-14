@@ -5,7 +5,7 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
     import Seo from '$lib/components/seo.svelte';
-
+import NextDoc from '$lib/components/next-doc.svelte';
     let val = ""; // Input value
 </script>
 
@@ -21,4 +21,5 @@
             <Input maxWidth={false} bind:value={val} type="text" placeholder="Input" label="Input" class="w-[250px]" />
         </div>
     </DocCard>
+    <NextDoc />
 </div>

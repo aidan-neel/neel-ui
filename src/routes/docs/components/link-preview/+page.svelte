@@ -4,7 +4,7 @@
     import * as LinkPreview from '$lib/components/neel-ui/link-preview';
     import Link2 from 'svelte-radix/Link2.svelte'
     import Seo from '$lib/components/seo.svelte';
-</script>
+import NextDoc from '$lib/components/next-doc.svelte';</script>
 
 <Seo name="link preview" />
 
@@ -40,4 +40,5 @@
             </LinkPreview.Content>
         </LinkPreview.Root>
     </DocCard>
+    <NextDoc />
 </div>

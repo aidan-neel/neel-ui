@@ -4,7 +4,7 @@
     import VariantCard from '$lib/components/variant-card.svelte';
     import { badgeExamples } from './badge';
     import Seo from '$lib/components/seo.svelte';
-</script>
+import NextDoc from '$lib/components/next-doc.svelte';</script>
 
 <Seo name="badge" />
 
@@ -61,4 +61,6 @@
             </Badge>
         </VariantCard>
     </div>
+
+    <NextDoc />
 </div>

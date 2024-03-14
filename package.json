@@ -34,6 +34,7 @@
 	"type": "module",
 	"dependencies": {
 		"@internationalized/date": "^3.5.1",
+		"@k4ung/svelte-otp": "^0.0.9",
 		"@vercel/analytics": "^1.2.2",
 		"@vercel/speed-insights": "^1.0.10",
 		"bits-ui": "^0.17.0",
@@ -45,6 +46,7 @@
 		"mode-watcher": "^0.2.0",
 		"radix-svelte": "^0.9.0",
 		"svelte-sonner": "^0.3.17",
+		"svelte-switch": "^0.0.5",
 		"sveltekit-superforms": "^1.13.4",
 		"tailwind-merge": "^2.2.1",
 		"tailwind-variants": "^0.1.20",

@@ -1,6 +1,6 @@
 <script lang="ts">
-    import { Popover, type popoverStateType } from "$lib/components/neel-ui/popover"
-  import { cn } from "$lib/utils";
+    import { Popover, type popoverStateType } from "$lib/components/neel-ui/modal"
+    import { cn } from "$lib/utils";
     import { getContext } from 'svelte';
 
     const BuilderData = getContext<popoverStateType>('popoverStateData');

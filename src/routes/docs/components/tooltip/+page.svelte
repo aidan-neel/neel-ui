@@ -6,18 +6,18 @@
     import { Input } from '$lib/components/neel-ui/input'
     import * as Tooltip from '$lib/components/neel-ui/tooltip'
     import Seo from '$lib/components/seo.svelte';
-</script>
+import NextDoc from '$lib/components/next-doc.svelte';</script>
 
 <Seo name="tooltip" />
 
 <div class="doc-card-parent">
     <DocCard 
     component="tooltip"
-    desc="Display's a tooltip card whenever you hover something for 750ms."
+    desc="Display's a tooltip card whenever you hover something for a set delay."
     header="Tooltip"
     >
         <Tooltip.Root>
-            <Tooltip.Trigger let:data>
+            <Tooltip.Trigger delay={750} let:data>
                 <Button data={data} variant="secondary">
                     Hover
                 </Button>
@@ -27,4 +27,5 @@
             </Tooltip.Content>
         </Tooltip.Root>
     </DocCard>
+    <NextDoc />
 </div>

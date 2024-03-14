@@ -16,6 +16,7 @@ const config = {
 		},
 		extend: {
 			colors: {
+                // Basics (background, foreground, muted, accent, border)
                 border: "#27272a",
                 input: "#27272a",
                 ring: "#d3d3d7",
@@ -23,36 +24,6 @@ const config = {
                 foreground: {
                     DEFAULT: "#f9f9f9",
                     disabled: "#8a8a8a",
-                },
-                primary: {
-                    DEFAULT: "#36986b",
-                    foreground: "#17171b",
-                    border: "#3fce8e",
-                    muted_bg: "#0a0a0a",
-                    muted_border: "#27272a",
-                    muted_bg_hovered: "#1c1b1b"
-                },
-                success: {
-                    DEFAULT: "#3bd18c",
-                    foreground: "#3bd18c",
-                }, 
-                warning: {
-                    DEFAULT: "#d1a93b",
-                    foreground: "#d1a93b"
-                },
-                secondary: {
-                    DEFAULT: "#27272a",
-                    foreground: "#f9f9f9",
-                    muted: "#101010"
-                },
-                button: {
-                    DEFAULT: "#f9f9f9",
-                    hovered: "#d6d6d6",
-                    disabled: "#8a8a8a",
-                },
-                destructive: {
-                    DEFAULT: "#991b1b",
-                    foreground: "#991b1b",
                 },
                 muted: {
                     DEFAULT: "#27272a",
@@ -63,14 +34,37 @@ const config = {
                     DEFAULT: "#27272a",
                     foreground: "#f9f9f9"
                 },
-                popover: {
-                    DEFAULT: "#0f0f0f",
-                    foreground: "#f9f9f9"
+                secondary: {
+                    DEFAULT: "#27272a",
+                    foreground: "#f9f9f9",
+                    muted: "#1a1a1c"
                 },
-                card: {
-                    DEFAULT: "#08080a",
-                    foreground: "#f9f9f9"
-                }
+
+                // Types (destructive, warning, success)
+                destructive: {
+                    DEFAULT: "#991b1b",
+                    foreground: "#991b1b",
+                },
+                success: {
+                    DEFAULT: "#3bd18c",
+                    foreground: "#3bd18c",
+                }, 
+                warning: {
+                    DEFAULT: "#d1a93b",
+                    foreground: "#d1a93b"
+                },
+
+                // Buttons, input, etc.
+                button: {
+                    DEFAULT: "#f9f9f9", // Default background color of button
+                    hovered: "#d6d6d6", // When the "primary" variant is hovered
+                    disabled: "#4a4a4a", // When the button is disabled
+                    foreground: "#f9f9f9", // Default text color of button
+                    border: "#2727a", // Default border of the buttons.
+                    "foreground-primary": "#0a0a0a", // When the button is primary, text color
+                    "foreground-disabled": "#f1f1f1", // When the button is disabled, text color
+                    "hovered-dark": "#1c1b1b", // When the "secondary" variant is hovered
+                },
             },            
 			borderRadius: {
 				lg: "var(--radius)",
@@ -78,8 +72,8 @@ const config = {
 				sm: "calc(var(--radius) - 4px)"
 			},
 			fontFamily: {
-				sans: 'Geist',
-                mono: 'Geist Mono'
+				sans: ["Geist", ...fontFamily.sans],
+                mono: ["Geist Mono", ...fontFamily.mono]
 			}
 		}
 	},

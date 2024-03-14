@@ -1,8 +1,4 @@
-// NOTE:
-// You can use a custom event for your custom components
-
-import type { SvelteComponent } from "svelte";
-
+// Add the identification name of the Event to the Events array
 const Events = [
     "tooltip",
     "link-preview",
@@ -10,6 +6,8 @@ const Events = [
     "dropdown",
     "confirm",
     "select",
+    "collapsible",
+    "dialog",
 ] as const;
 
 const Triggers = [
@@ -38,7 +36,7 @@ interface Hook {
 }
 
 interface Event {
-    event: EventTypes; // Must be one of the Events
+    event?: EventTypes; // Must be one of the Events
     hooks: Hook[];
 }
 

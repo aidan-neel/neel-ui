@@ -1,8 +1,8 @@
 
 <script lang="ts">
-    import Popover from '../popover/popover.svelte'
+    import Popover from '../modal/popover.svelte'
     import { getContext, onMount, setContext } from 'svelte';
-    import { type popoverStateType, popoverBuilder } from '../popover';
+    import { type popoverStateType, popoverBuilder } from '../modal';
 
     let BuilderData: popoverStateType = popoverBuilder();
 

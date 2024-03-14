@@ -45,7 +45,7 @@
     transition:flyAndScale
     {...$$restProps}
     style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + ${padding}rem)` : `bottom: calc(${triggerHeight}px + ${padding}rem)`}
-    class={cn(className, ` absolute w-full z-50 bg-popover-bg rounded-lg border my-2`)}>
+    class={cn(className, ` absolute w-full z-50 bg-background rounded-lg border my-2`)}>
         <slot></slot>
     </div>
 {/if}

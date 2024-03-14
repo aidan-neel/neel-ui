@@ -4,7 +4,7 @@
     import * as Sheet from '$lib/components/neel-ui/sheet';
     import { Input } from '$lib/components/neel-ui/input'
     import Seo from '$lib/components/seo.svelte';
-
+import NextDoc from '$lib/components/next-doc.svelte';
     const SIDES = ["Left", "Right"];
 </script>
 
@@ -33,11 +33,11 @@
                                 This is a {side} sheet, you can put anything here.
                             </Sheet.Description>
                         </Sheet.Header>
-                        <Input placeholder="Username" label="Username" class="w-full" />
+                        <Input placeholder="Username" label="Username" class="w-full h-[2.5rem]" />
                         <div class='mt-4'></div>
-                        <Input placeholder="Password" label="Password" class="w-full" />
+                        <Input placeholder="Password" label="Password" class="w-full h-[2.5rem]" />
                         <Sheet.Footer>
-                            <Sheet.Cancel>
+                            <Sheet.Cancel class="h-[2.5rem]">
                                 Save Changes
                             </Sheet.Cancel>
                         </Sheet.Footer>
@@ -46,4 +46,5 @@
             {/each}
         </section>
     </DocCard>
+    <NextDoc />
 </div>

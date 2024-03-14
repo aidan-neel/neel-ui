@@ -10,6 +10,9 @@
     export let shortcut: string | undefined;
 
     import { components, sanitizeComponent } from '$lib/navbar';
+    function callbackFunc() {
+        // Your callback function here
+    }
 </script>
 
 <Command.Root key={key}>
@@ -24,25 +27,33 @@
         <Command.Results>
             <!-- <Command.Empty /> -->
             <Command.Group heading="Links">
-                <Command.Item href="/docs" icon={File} name="Documentation">
+                <Command.Item callback={() => {
+                    window.location.href = '/docs'
+                }} href="/docs" icon={File} name="Documentation">
                     <span class="flex flex-row items-center justify-center">
                         <File class="mr-2 h-4 w-4" />
                         Documentation
                     <span/>
                 </Command.Item>
-                <Command.Item href="/docs/installation" icon={File} name="Installation">
+                <Command.Item callback={() => {
+                    window.location.href = '/docs/installation'
+                }} href="/docs/installation" icon={File} name="Installation">
                     <span class="flex flex-row items-center justify-center">
                         <File class="mr-2 h-4 w-4" />
                         Installation
                     <span/>
                 </Command.Item>
-                <Command.Item href="/docs/changelog" icon={File} name="Changelog">
+                <Command.Item callback={() => {
+                    window.location.href = '/docs/changelog'
+                }} href="/docs/changelog" icon={File} name="Changelog">
                     <span class="flex flex-row items-center justify-center">
                         <File class="mr-2 h-4 w-4" />
                         Changelog
                     <span/>
                 </Command.Item>
-                <Command.Item href="/docs/components/alert" icon={File} name="Components">
+                <Command.Item callback={() => {
+                    window.location.href = '/docs/components/alert'
+                }} href="/docs/components/alert" icon={File} name="Components">
                     <span class="flex flex-row items-center justify-center">
                         <File class="mr-2 h-4 w-4" />
                         Components
@@ -52,7 +63,7 @@
             <Command.Seperator />
             <Command.Group heading="Components">
                 {#each components as component}
-                    <Command.Item icon={ComponentInstance} name={sanitizeComponent(component)} onclick={() => {
+                    <Command.Item icon={ComponentInstance} name={sanitizeComponent(component)} callback={() => {
                         window.location.href = `/docs/components/${component.toLowerCase()}`
                     }}>
                         <span class="flex flex-row items-center justify-center">

@@ -8,6 +8,6 @@ export {
     }
 </script>
 
-<div {...$$restProps} class={cn(className, ` text-[14px] w-full pl-3 py-2 font-semibold`)}>
+<div {...$$restProps} class={cn(className, ` text-[14px] w-full pl-3 mb-1 py-2 font-semibold border-b`)}>
     <slot></slot>
 </div>

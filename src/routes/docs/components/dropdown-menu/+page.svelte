@@ -5,7 +5,7 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
     import Seo from '$lib/components/seo.svelte';
-
+import NextDoc from '$lib/components/next-doc.svelte';
     import * as DropdownMenu from '$lib/components/neel-ui/dropdown-menu';
     import DropdownMenuExample from '$lib/components/examples/dropdown-menu-example.svelte';
     </script>
@@ -20,4 +20,5 @@
     >   
         <DropdownMenuExample />
     </DocCard>
+    <NextDoc />
 </div>

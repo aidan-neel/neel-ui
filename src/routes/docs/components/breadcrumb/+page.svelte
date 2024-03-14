@@ -5,7 +5,7 @@
     import { Breadcrumb } from '$lib/components/neel-ui/breadcrumb';
     import { Input } from '$lib/components/neel-ui/input'
     import Seo from '$lib/components/seo.svelte';
-</script>
+import NextDoc from '$lib/components/next-doc.svelte';</script>
 
 <Seo name="breadcrumb" />
 
@@ -17,4 +17,5 @@
     >
         <Breadcrumb hidden={["components"]} />
     </DocCard>
+    <NextDoc />
 </div>

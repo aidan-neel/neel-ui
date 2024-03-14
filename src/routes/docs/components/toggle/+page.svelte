@@ -2,7 +2,7 @@
     import DocCard from '$lib/components/doc-card.svelte';
     import { Toggle } from '$lib/components/neel-ui/toggle';
     import Seo from '$lib/components/seo.svelte';
-    import VariantCard from '$lib/components/variant-card.svelte';
+import NextDoc from '$lib/components/next-doc.svelte';    import VariantCard from '$lib/components/variant-card.svelte';
     import { toggleExamples } from './toggle';
 
     let toggle: boolean = false;
@@ -48,4 +48,6 @@
             </Toggle>
         </VariantCard>
     </div>
+
+    <NextDoc />
 </div>

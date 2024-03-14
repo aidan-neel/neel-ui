@@ -5,13 +5,14 @@ const TabsExample = `<script lang="ts">
     import { Button } from "$lib/components/neel-ui/button";
 </script>
 
-<Tabs.Root value="tab1" class="w-[400px]">
-    <Tabs.Items>
-        <Tabs.Trigger value="tab1"> Tab 1 </Tabs.Trigger>
-        <Tabs.Trigger value="tab2"> Tab 2 </Tabs.Trigger>
+<Tabs.Root value="tab1" class="md:w-[400px] w-full">
+    <Tabs.Items class="border border-b-0 h-auto p-0 gap-[0px] rounded-b-none border-r border-t border-l">
+        <Tabs.Trigger value="tab1" variant="radix"> Tab 1 </Tabs.Trigger>
+        <div class="h-full border-r absolute"></div>
+        <Tabs.Trigger value="tab2" variant="radix"> Tab 2 </Tabs.Trigger>
     </Tabs.Items>
     <Tabs.Content value="tab1">
-        <Card.Root class="mt-4">
+        <Card.Root class="rounded-t-none border-t-transparent">
             <Card.Header>
                 Account settings
             </Card.Header>
@@ -19,16 +20,16 @@ const TabsExample = `<script lang="ts">
                 Make changes to your account details. Click save to save your changes.
             </Card.Description>
             <Card.Content class="gap-4 w-full flex flex-col">
-                <Input placeholder="Username" label="Username" class="w-full" />
-                <Input placeholder="Password" label="Password" class="w-full" />
-                <Button class="h-[2rem] w-[150px]">
+                <Input placeholder="Username" label="Username" class="w-full bg-transparent" />
+                <Input placeholder="Password" label="Password" class="w-full bg-transparent" />
+                <Button class="max-w-[150px]">
                     Save changes
                 </Button>
             </Card.Content>
         </Card.Root>
     </Tabs.Content>
     <Tabs.Content value="tab2">
-        <Card.Root class="mt-4">
+        <Card.Root class="rounded-t-none border-t-transparent">
             <Card.Header>
                 Change your email
             </Card.Header>
@@ -37,7 +38,7 @@ const TabsExample = `<script lang="ts">
             </Card.Description>
             <Card.Content class="gap-4 w-full flex flex-col">
                 <Input placeholder="Email" label="Email" class="w-full" />
-                <Button class="h-[2rem] w-[150px]">
+                <Button class="max-w-[150px]">
                     Save changes
                 </Button>
             </Card.Content>
@@ -129,7 +130,7 @@ const CardExample = `<script lang="ts">
     import { Button } from "$lib/components/neel-ui/button";
 </script>
 
-<Card.Root>
+<Card.Root class="w-full max-w-[400px]">
     <Card.Header>
         Account settings
     </Card.Header>
@@ -137,9 +138,9 @@ const CardExample = `<script lang="ts">
         Make changes to your account details. Click save to save your changes.
     </Card.Description>
     <Card.Content class="gap-4 w-full flex flex-col">
-        <Input placeholder="Username" label="Username" class="w-full" />
-        <Input placeholder="Password" label="Password" class="w-full" />
-        <Button class="h-[2rem] w-[150px]">
+        <Input placeholder="Username" label="Username" class="w-full h-[2.5rem]" />
+        <Input placeholder="Password" label="Password" class="w-full h-[2.5rem]" />
+        <Button class="h-[2.5rem] w-[150px]">
             Save changes
         </Button>
     </Card.Content>
@@ -340,9 +341,40 @@ const ContextMenuExample = `<script lang="ts">
     </ContextMenu.Content>
 </ContextMenu.Root>`
 
+const eventExampleCode = `<script lang="ts">
+    import type { Event, Hook, EventProps } from "$lib/event-handler";
+    import { Button } from "$lib/components/neel-ui/button";
+
+    let hook: Hook = {
+        trigger: "mouseenter",
+        callback: (props: EventProps) => {
+            // Your callback when the button is hovered
+        }
+    }
+
+    let data: Event = {
+        event: "tooltip",
+        hooks: [Hook]
+    }
+    // Pass the {data} to the Button as the prop data
+</script>
+
+<Button data={data} variant="secondary">
+    Hover
+</Button>
+`
+
 ////////////////////////////////////////////////////////////////////////////////////
 
 import commandExample from '$lib/components/examples/command-example.svelte?raw'
+import keycodeExample from '$lib/components/examples/keycode-example.svelte?raw'
+import switchExample from '$lib/components/examples/switch-example.svelte?raw'
+import expandExample from '$lib/components/examples/expand-example.svelte?raw'
+import popoutExample from '$lib/components/examples/popout-example.svelte?raw'
+import filesExample from '$lib/components/examples/file-example.svelte?raw'
+import checkboxExample from '$lib/components/examples/checkbox-example.svelte?raw'
+import dialogExample from '$lib/components/examples/dialog-example.svelte?raw'
+import toastExample from '$lib/components/examples/toast-example.svelte?raw'
 
 const examples = {
     "tabs": TabsExample,
@@ -360,7 +392,15 @@ const examples = {
     "dropdown-menu": DropdownMenuExample,
     "toggle": ToggleExample,
     "context-menu": ContextMenuExample,
-    "command": commandExample
+    "command": commandExample,
+    "keycode": keycodeExample,
+    "switch": switchExample,
+    "expand-text": expandExample,
+    "popout": popoutExample,
+    "file-trigger": filesExample,
+    "checkbox": checkboxExample,
+    "dialog": dialogExample,
+    "toast": toastExample,
 }
 
-export { examples }
+export { examples, eventExampleCode }

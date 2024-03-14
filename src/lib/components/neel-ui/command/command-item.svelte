@@ -8,14 +8,14 @@
     const Key = BuilderData.key;
 
     let className: string | undefined = undefined;
-    let callback;
+    export let callback;
     let hrefName: string | undefined = undefined;
     let shortcut: string | undefined = undefined;
     let item_name: string;
     let label: string | undefined = undefined;
 
     // Icon is component type
-    export { className as class, callback as onclick, hrefName as href, shortcut, item_name as name, icon, label };
+    export { className as class, hrefName as href, shortcut, item_name as name, icon, label };
     let icon: any;
 
     const items = commandState.getValue(Key, "items");
@@ -24,6 +24,7 @@
         commandState.update((state) => {
             const heading = getContext<string>("heading");
             let newState = { ...state };
+            console.log(callback);
             newState[Key].items.push({
                 name: item_name,
                 icon: icon,

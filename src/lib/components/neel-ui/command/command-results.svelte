@@ -3,7 +3,8 @@
     import { commandState } from ".";
     import * as Command from ".";
     import { Label } from "../shortcut";
-  import { cn } from "$lib/utils";
+    import { cn } from "$lib/utils";
+    import { type commandStateType } from ".";
 
     let className: string | undefined = undefined;
     const BuilderData = getContext("BuilderData");
@@ -23,12 +24,34 @@
     }, {});
 
     $: isEmpty = Object.keys(groupedResults).length === 0 || Object.values(groupedResults).every(group => group.length === 0);
+    
+    function handleKeyDown(event) {
+        if (event.key === "Enter") {
+            // Go to the first result
+            const firstResult = results[0];
+            if (firstResult) {
+                if(firstResult.callback) {
+                    firstResult.callback();
+                }
+                commandState.set(Key, "open", false);
+                // go to the first result
+            }
+        } else if (event.key === "ArrowDown") {
+            // Go to the next result
+        } else if (event.key === "ArrowUp") {
+            // Go to the previous result
+        } else if (event.key === "Escape") {
+            commandState.set(Key, "open", false);
+        }
+    }
 
     // Export
     export {
         className as class,
     }
 </script>
+
+<svelte:body on:keydown={handleKeyDown} />
 
 <div class={cn(className, ` w-full`)}>
     {#if isEmpty}
@@ -42,7 +65,7 @@
             {#if items.length > 0}
                 <Command.Group heading={heading === 'default' ? undefined : heading}>
                     {#each items as item}
-                        <Command.Item onclick={() => {
+                        <Command.Item callback={() => {
                             item.callback();
                             commandState.set(Key, "open", false);
                         }} icon={item.icon} shortcut={item.shortcut} name={item.name}>

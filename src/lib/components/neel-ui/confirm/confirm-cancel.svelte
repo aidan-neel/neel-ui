@@ -1,8 +1,8 @@
 <script lang="ts">
     import { Button } from '$lib/components/neel-ui/button';
     import { getContext, setContext } from 'svelte';
-    import { popoverState, type popoverStateType } from '../popover';
-  import { cn } from '$lib/utils';
+    import { popoverState, type popoverStateType } from '../modal';
+    import { cn } from '$lib/utils';
 
     let className: string | undefined = undefined;
     export { className as class }

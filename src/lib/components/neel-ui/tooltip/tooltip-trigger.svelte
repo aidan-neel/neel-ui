@@ -6,6 +6,7 @@
     import { cn } from "$lib/utils";
 
     let className: string | undefined = undefined;
+    export let delay: number = 750;
     const BuilderData = getContext<tooltipStateType>("TooltipBuilderData")
     const Key = BuilderData?.key;
 
@@ -28,7 +29,7 @@
                 if(props.Hovering === true) {
                     $tooltipState[Key].showing = true;
                 }
-            }, 750)
+            }, delay)
         }
     }
 

@@ -11,6 +11,7 @@
     import buttonExamples from './button';
     import VariantCard from '$lib/components/variant-card.svelte';
     import Seo from '$lib/components/seo.svelte';
+    import NextDoc from '$lib/components/next-doc.svelte';
 
     let primaryHtml;
     let secondaryHtml;
@@ -21,7 +22,7 @@
     onMount(async() => {
         primaryHtml = await codeToHtml(buttonExamples["primary"], {
             lang: "svelte",
-            theme: "vesper"
+            theme: "github-dark"
         })
     })
 </script>
@@ -112,4 +113,6 @@
             </Button>
         </VariantCard>
     </div>
+
+    <NextDoc />
 </div>
