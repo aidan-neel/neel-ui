@@ -8,7 +8,7 @@
     let html;
 
     function getHtmlFromLocalStorage(code: string): string | null {
-        const cachedHtml = localStorage.getItem(`codeHtml_new_${code}`);
+        const cachedHtml = localStorage.getItem(`codeHtml002_new_${code}`);
         return cachedHtml ? JSON.parse(cachedHtml) : null;
     }
     
@@ -41,7 +41,7 @@
 </script>
 
 <div class="flex {className} flex-col shadow-class max-w-full relative w-full items-start justify-start text-[13px] h-auto">
-    <div class="w-full overflow-auto p-5 bg-secondary-muted rounded-lg border {html !== "" || undefined ? "" : 'pb-0'}">
+    <div class="w-full overflow-auto p-5 bg-background rounded-lg border {html !== "" || undefined ? "" : 'pb-0'}">
         {#if html === undefined}
             <span class="w-full flex items-center justify-center text-muted-foreground text-[13px]">
                 Loading...

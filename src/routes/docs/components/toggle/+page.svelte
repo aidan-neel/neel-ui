@@ -29,7 +29,7 @@ import NextDoc from '$lib/components/next-doc.svelte';    import VariantCard fro
     <h3 class="text-xl font-semibold">
         Primary
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-background shadow-class relative rounded-lg border mt-4">
         <VariantCard code={toggleExamples["primary"]}>
             <Toggle variant="primary" aria-label="toggled">
                 Primary
@@ -41,7 +41,7 @@ import NextDoc from '$lib/components/next-doc.svelte';    import VariantCard fro
     <h3 class="text-xl font-semibold">
         Secondary
     </h3>
-    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-background shadow-class relative rounded-lg border mt-4">
         <VariantCard code={toggleExamples["secondary"]}>
             <Toggle variant="secondary" aria-label="toggled">
                 Secondary

@@ -265,7 +265,7 @@
         The <Highlighted>Dropdown Menu</Highlighted> component displays a list of items when triggered.
     </p>
 
-    <div class="w-full flex items-center justify-center   bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center   bg-background shadow-class relative rounded-lg border mt-4">
         <VariantCard code={examples["dropdown-menu"]}>
             <DropdownMenuExample />
         </VariantCard>
@@ -287,7 +287,7 @@
         Primary
     </h3>
 
-    <div class="w-full flex items-center justify-center   bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center   bg-background shadow-class relative rounded-lg border mt-4">
         <VariantCard code={examples["toggle"]}>
             <Toggle variant="primary" aria-label="toggled">
                 Primary
@@ -299,7 +299,7 @@
         Secondary
     </h3>
 
-    <div class="w-full flex items-center justify-center bg-secondary-muted shadow-class relative   rounded-lg border mt-4">
+    <div class="w-full flex items-center justify-center bg-background shadow-class relative   rounded-lg border mt-4">
         <VariantCard code={toggleExamples["secondary"]}>
             <Toggle variant="secondary" aria-label="toggled">
                 Secondary
@@ -334,7 +334,7 @@
         The initial release of Neel UI ships with the base 12 components. We plan to add upwards of 30 components in the future. The initial release includes the following components:
     </p>
 
-    <div class="p-4 w-full flex flex-col   gap-1 bg-secondary-muted shadow-class border rounded-lg mt-4 font-mono text-[13px]">
+    <div class="p-4 w-full flex flex-col   gap-1 bg-background shadow-class border rounded-lg mt-4 font-mono text-[13px]">
         <span class="text-[#70b9a5]"> alert </span> - Displays a callout message to the user<br><br>
         <span class="text-[#70b9a5]"> badge </span> - Displays a basic component that looks like a badge<br><br>
         <span class="text-[#70b9a5]"> breadcrumb </span> - Breadcrumb component designed for easy navigation within a page<br><br>

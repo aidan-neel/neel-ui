@@ -66,7 +66,7 @@
             </div>
         </div>
     {/if}
-    <div class="xl:max-w-[45rem]   xl:max-w-[45rem] flex items-center justify-center {selectedTab === "preview" ? 'bg-background' : 'bg-secondary-muted'} shadow-class rounded-lg border mt-4">
+    <div class="xl:max-w-[45rem]   xl:max-w-[45rem] flex items-center justify-center {selectedTab === "preview" ? 'bg-background' : 'bg-background'} shadow-class rounded-lg border mt-4">
         <VariantCard defaultValue="preview" bind:value={selectedTab} code={examples[component]}>
             <slot />
         </VariantCard>
@@ -75,7 +75,7 @@
         <h1 class="pb-4 mt-8 border-b tracking-tighter header_2nd  ">
             Installation
         </h1>
-        <div in:fade={{ duration: 100 }} class="xl:max-w-[45rem] flex items-center   justify-start  font-mono text-[13px] p-4 bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+        <div in:fade={{ duration: 100 }} class="xl:max-w-[45rem] flex items-center   justify-start  font-mono text-[13px] p-4 bg-background shadow-class relative rounded-lg border mt-4">
             <span class="text-[#777879] mr-2">npx</span> neel-ui <span class="text-[#777879] mx-2">add</span> {component}
             <Button on:click={() => {
                 navigator.clipboard.writeText(`npx neel-ui add ${component}`)
@@ -83,7 +83,7 @@
                 setTimeout(() => {
                     copying = false;
                 }, 1000);
-            }} variant="ghost" class="absolute bg-secondary-muted shadow-class rounded-md right-1.5">
+            }} variant="ghost" class="absolute bg-background shadow-class rounded-md right-1.5">
                 {#if copying}
                     <CheckCircled class="w-4 h-4" />
                 {:else}
@@ -96,7 +96,7 @@
         <h1 class="pb-4 mt-8 border-b header_2nd  ">
             Usage
         </h1>
-        <div class="xl:max-w-[45rem] flex items-center   justify-center bg-secondary-muted shadow-class relative rounded-lg border mt-4">
+        <div class="xl:max-w-[45rem] flex items-center   justify-center bg-background shadow-class relative rounded-lg border mt-4">
             <VariantCard code={examples[component]} defaultValue="code" showTriggers={false}>
                 <slot />
             </VariantCard>

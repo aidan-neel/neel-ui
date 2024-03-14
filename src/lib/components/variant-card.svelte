@@ -18,7 +18,7 @@
     $: console.log(value)
 
     function getHtmlFromLocalStorage(code: string): string | null {
-        const cachedHtml = localStorage.getItem(`codeHtml_new_${code}`);
+        const cachedHtml = localStorage.getItem(`codeHtml002_new_${code}`);
         return cachedHtml ? JSON.parse(cachedHtml) : null;
     }
     
@@ -82,7 +82,7 @@
                     setTimeout(() => {
                         copying = false;
                     }, 1000);
-                }} variant="ghost" class="absolute bg-secondary-muted shadow-class top-0 right-0">
+                }} variant="ghost" class="absolute bg-background shadow-class top-0 right-0">
                     {#if copying}
                         <CheckCircled class="w-4 h-4" />
                     {:else}

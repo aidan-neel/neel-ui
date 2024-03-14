@@ -28,7 +28,7 @@
         "list.focusOutline": "#000",
         "list.activeSelectionBackground": "#000",
         "editorIndentGuide.background": "#fff2",
-        "editor.background": "#1a1a1c",
+        "editor.background": "#0a0a0a",
         "editor.foreground": "#fff",
         "editor.foldBackground": "#000",
         "editor.hoverHighlightBackground": "#000",

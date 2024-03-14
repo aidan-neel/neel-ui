@@ -37,7 +37,6 @@ const config = {
                 secondary: {
                     DEFAULT: "#27272a",
                     foreground: "#f9f9f9",
-                    muted: "#1a1a1c"
                 },
 
                 // Types (destructive, warning, success)
