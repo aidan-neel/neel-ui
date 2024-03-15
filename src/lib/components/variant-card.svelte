@@ -15,36 +15,21 @@
     let html: string = "";
     export let defaultValue: string = "preview";
     export let value: string
-
-    function getHtmlFromLocalStorage(code: string): string | null {
-        const cachedHtml = localStorage.getItem(`codeHtml_new_245${code}`);
-        return cachedHtml ? JSON.parse(cachedHtml) : null;
-    }
     
     import dark from '$lib/assets/dark.json?raw'
     const darkTheme = JSON.parse(dark);
 
-    function setHtmlInLocalStorage(code: string, html: string): void {
-        localStorage.setItem(`codeHtml_new_245${code}`, JSON.stringify(html));
-    }
-
     onMount(async () => {
         if (code) {
-            const cachedHtml = getHtmlFromLocalStorage(code);
-            if (cachedHtml) {
-                html = cachedHtml;
-            } else {
-                const highlighter = await getHighlighter({
-                    themes: [darkTheme],
-                    langs: ["svelte"]
-                });
+            const highlighter = await getHighlighter({
+                themes: [darkTheme],
+                langs: ["svelte"]
+            });
 
-                html = await highlighter.codeToHtml(code, {
-                    lang: "svelte",
-                    theme: "Lambda Studio — Blackout"
-                });
-                setHtmlInLocalStorage(code, html);
-            }
+            html = await highlighter.codeToHtml(code, {
+                lang: "svelte",
+                theme: "Lambda Studio — Blackout"
+            });
         }
     });
 </script>
