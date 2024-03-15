@@ -15,7 +15,7 @@
     let MouseDownHook: Hook = {
         trigger: "click",
         callback: (props: EventProps) => {
-            $popoverState[Key].open = !$popoverState[Key].open;
+            $popoverState[Key].open = true;
         }
     }
 

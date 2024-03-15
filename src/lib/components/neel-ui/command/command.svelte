@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { getContext, setContext } from "svelte";
+    import { getContext, onDestroy, setContext } from "svelte";
     import { Builder } from "$lib/utils";
     import { commandState, commandBuilder } from ".";
 
@@ -19,6 +19,10 @@
         key,
         open
     }
+
+    onDestroy(() => {
+        commandState[builder.key] = undefined;
+    })
 </script>
 
 <slot />

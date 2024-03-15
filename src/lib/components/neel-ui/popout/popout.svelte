@@ -7,8 +7,8 @@
     import { cn } from "$lib/utils";
     import { type DefaultProps } from '$lib/utils'
     import type { Event, EventProps, Hook } from '$lib/event-handler'
-    import { popoutBuilder } from ".";
-    import { setContext } from "svelte";
+    import { popoutBuilder, popoutState } from ".";
+    import { onDestroy, setContext } from "svelte";
 
     type $$Props = DefaultProps;
     const builder = popoutBuilder();
@@ -17,6 +17,10 @@
     // Exported variables
     let className: $$Props["class"] = undefined;
     export { className as class }
+
+    onDestroy(() => {
+        popoutState[builder.key] = undefined;
+    })
 
     // Unexported variables
     // let unexportedVariable: string | undefined = undefined;

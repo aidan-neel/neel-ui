@@ -38,7 +38,7 @@ function tabBuilderFunction(
         
         // Remove the existing entry if it exists
         delete newState[tabStateObject.key];
-    
+        
         // Add the new entry
         newState[tabStateObject.key] = tabStateObject;
     

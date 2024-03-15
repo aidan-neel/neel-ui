@@ -20,20 +20,20 @@ import NextDoc from '$lib/components/next-doc.svelte';</script>
         <Confirm.Root>
             <Confirm.Trigger let:data>
                 <Button variant="secondary" data={data}>
-                    Show
+                    Delete
                 </Button>
             </Confirm.Trigger>
             <Confirm.Content>
                 <Confirm.Heading>
                     <Confirm.Title>
-                        This is a confirm heading
+                        Are you sure you want to delete this?
                     </Confirm.Title>
                     <Confirm.Description>
-                        This is a confirm description, it's a bit longer than the title
+                        This action cannot be undone, and will permanently delete the selected item.
                     </Confirm.Description>
                 </Confirm.Heading>
                 <Confirm.Footer>
-                    <Confirm.Action>Continue</Confirm.Action>
+                    <Confirm.Action>Delete</Confirm.Action>
                     <Confirm.Cancel>Cancel</Confirm.Cancel>
                 </Confirm.Footer>
             </Confirm.Content>

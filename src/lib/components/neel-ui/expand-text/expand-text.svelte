@@ -10,6 +10,7 @@
     import { Button } from '$lib/components/neel-ui/button'
     import { expandBuilder, expandState } from ".";
     import { slide } from "svelte/transition";
+  import { onDestroy } from "svelte";
 
     type $$Props = DefaultProps & {
         height: string;
@@ -32,6 +33,10 @@
             expandState.setOpenState(key, false);
         }
     }
+
+    onDestroy(() => {
+        expandState[key] = undefined;
+    })
 
     // Unexported variables
     // let unexportedVariable: string | undefined = undefined;

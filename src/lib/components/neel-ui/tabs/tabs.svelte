@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { setContext, getContext } from "svelte";
+    import { setContext, getContext, onDestroy } from "svelte";
     import { type TabStateType, tabBuilder, tabState } from ".";
     import { cn } from "$lib/utils";
     
@@ -14,6 +14,10 @@
     export {
         values as value
     }
+
+    onDestroy(() => {
+        $tabState[TabStateBuilderData.key] = undefined
+    })
 </script>
 
 <div class={cn(className, ``)} {...$$restProps}>

@@ -1,8 +1,8 @@
 
 <script lang="ts">
     import Popover from '../modal/popover.svelte'
-    import { getContext, onMount, setContext } from 'svelte';
-    import { type popoverStateType, popoverBuilder } from '../modal';
+    import { getContext, onDestroy, onMount, setContext } from 'svelte';
+    import { type popoverStateType, popoverBuilder, popoverState } from '../modal';
 
     let BuilderData: popoverStateType = popoverBuilder();
 
@@ -10,6 +10,10 @@
     export { className as class }
 
     setContext('popoverStateData', BuilderData)
+
+    onDestroy(() => {
+        popoverState[BuilderData.key] = undefined
+    })
 </script>
 
 <slot></slot>

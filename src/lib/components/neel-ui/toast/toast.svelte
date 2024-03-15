@@ -1,9 +1,16 @@
 <script lang="ts">
     import { flyAndScale } from "$lib/utils";
+  import { onDestroy } from "svelte";
     import { Toast, type toastStateType, toastState, ToastAction, ToastComponent } from ".";
   
     $: toasts = Object.values($toastState).filter((toast) => toast.open);
-  </script>
+
+    onDestroy(() => {
+        toasts.forEach((toast) => {
+            toastState[toast.key] = undefined;
+        });
+    });
+</script>
   
 <div class="w-screen flex items-end justify-center z-[99999999] fixed bottom-6">
     {#each toasts as toast, index}

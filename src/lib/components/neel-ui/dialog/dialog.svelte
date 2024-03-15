@@ -8,7 +8,7 @@
     import { type DefaultProps } from '$lib/utils'
     import type { Event, EventProps, Hook } from '$lib/event-handler'
     import { dialogBuilder, dialogState, type dialogStateType } from ".";
-    import { setContext } from "svelte";
+    import { onDestroy, setContext } from "svelte";
 
     type $$Props = DefaultProps;
     
@@ -18,6 +18,10 @@
 
     const builder: dialogStateType = dialogBuilder();
     setContext("key", builder.key);
+
+    onDestroy(() => {
+        dialogState[builder.key] = undefined;
+    })
 
     // Unexported variables
     // let unexportedVariable: string | undefined = undefined;

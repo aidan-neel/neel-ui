@@ -38,6 +38,10 @@
     $: PopoverOpen = $popoverState[BuilderData.key]?.open || false;
     let className: string | undefined = undefined;;
     export { className as class };
+
+    onDestroy(() => {
+        popoverState[BuilderData.key] = undefined;
+    });
 </script>
 
 <PopoverBg PopoverOpen={PopoverOpen} on:click={() => PopoverOpen = false}>

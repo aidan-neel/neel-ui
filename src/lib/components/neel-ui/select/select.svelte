@@ -2,7 +2,7 @@
   import { cn } from "$lib/utils";
     import { selectBuilder, selectState } from ".";
     import { writable } from "svelte/store";
-    import { getContext, setContext } from "svelte";
+    import { getContext, onDestroy, setContext } from "svelte";
 
     let className: string | undefined = undefined;
     const BuilderData = selectBuilder()
@@ -18,6 +18,10 @@
     
     // Update value reactively
     $: $value = $selectState[BuilderData.key], $selectState[BuilderData.key];
+
+    onDestroy(() => {
+        selectState[BuilderData.key] = undefined;
+    })
 
     export {    
         className as class,

@@ -7,7 +7,7 @@
      */
     let className: string | undefined = undefined;
 
-    import { setContext, getContext } from "svelte";
+    import { setContext, getContext, onDestroy } from "svelte";
     import { type contextStateType, contextState, contextBuilder } from ".";
 
     const builder = contextBuilder()
@@ -18,6 +18,10 @@
     export {
         className as class
     }
+
+    onDestroy(() => {
+        contextState[builder.key] = undefined;
+    })
 </script>
 
 <div {...$$restProps} class={cn(className, ``)}>
