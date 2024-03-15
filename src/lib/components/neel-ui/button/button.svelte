@@ -8,7 +8,6 @@
     export let className: string | undefined = undefined;
     export let hrefName: string | undefined = undefined;
     export let disabled: boolean = false;
-    export let useTransition: boolean = false;
     export { hrefName as href }
     export { className as class }
 

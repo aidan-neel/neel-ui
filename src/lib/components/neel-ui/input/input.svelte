@@ -7,6 +7,7 @@
     export let value = ''; // default value
     export let maxWidth: boolean = true;
     export let focused: boolean = false;
+    export let locked: boolean = false;
     let thisElement: HTMLInputElement = undefined;
     let className = '';
 
@@ -32,7 +33,7 @@
           </label>
       {/if}
       <input id={label} 
-        type={type}
+        disabled={locked}
         bind:this={thisElement}
         value={value}
         on:focus={() => focused = true}

@@ -40,7 +40,7 @@
     class="h-screen w-screen  backdrop-blur-md bg-background bg-opacity-60 z-[98] fixed top-0 left-0">
         <div transition:flyAndScale class={cn(className, ` centered absolute bg-background
             shadow-background/50  flex-col border relative
-            p-6 z-[999] rounded-[0.5rem] sm:max-w-[500px]`)}
+            p-6 z-[999] rounded-[0.5rem] w-[90%] sm:max-w-[500px]`)}
         on:mouseenter={() => {
             mouseEntered = true;
         }}

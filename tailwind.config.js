@@ -62,7 +62,6 @@ const config = {
                     border: "#2727a", // Default border of the buttons.
                     "foreground-primary": "#0a0a0a", // When the button is primary, text color
                     "foreground-disabled": "#f1f1f1", // When the button is disabled, text color
-                    "hovered-dark": "#1c1b1b", // When the "secondary" variant is hovered
                 },
             },            
 			borderRadius: {

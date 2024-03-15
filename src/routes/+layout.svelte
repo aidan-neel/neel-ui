@@ -1,4 +1,5 @@
 <script lang="ts">
+    import '../app.css'
     import '../global.css'
     import { TypographyHeading, TypographySubHeading, TypographyParagraph } from '$lib/components/neel-ui/typography';
     import * as Confirm from '$lib/components/neel-ui/confirm';
@@ -12,7 +13,7 @@
     import { injectSpeedInsights } from '@vercel/speed-insights/sveltekit';
     import { inject } from '@vercel/analytics'
     import Seo from '$lib/components/seo.svelte';
-import NextDoc from '$lib/components/next-doc.svelte';    import { components, sanitizeComponent } from '$lib/navbar';
+    import NextDoc from '$lib/components/next-doc.svelte';    import { components, sanitizeComponent } from '$lib/navbar';
     import { ToastComponent } from '$lib/components/neel-ui/toast';
 
     injectSpeedInsights();
@@ -33,7 +34,7 @@ import NextDoc from '$lib/components/next-doc.svelte';    import { components, s
 <body class="bg-transparent">
     <div class="fixed overflow-hidden inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#1a1919_1px,transparent_1px)] [background-size:14px_14px]"></div>
     <main class="flex flex-row items-start px-4 lg:px-0 pb-32 justify-center min-h-[101vh] h-[101%] dark">
-        {#if pathName !== "/"}
+        {#if pathName !== "/" && pathName !== "/restaurant"}
         <div class="flex-col hidden lg:flex items-start gap-1 mt-24 w-[15rem]   flex-shrink-0 text-foreground text-[14px]">
             <h1 class="text-foreground mb-1 text-[14px] font-semibold">
                 Getting Started

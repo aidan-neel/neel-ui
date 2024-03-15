@@ -8,7 +8,7 @@
     let html;
 
     function getHtmlFromLocalStorage(code: string): string | null {
-        const cachedHtml = localStorage.getItem(`codeHtml002_new_${code}`);
+        const cachedHtml = localStorage.getItem(`codeHtml_new_245${code}`);
         return cachedHtml ? JSON.parse(cachedHtml) : null;
     }
     
@@ -16,7 +16,7 @@
     const darkTheme = JSON.parse(dark);
 
     function setHtmlInLocalStorage(code: string, html: string): void {
-        localStorage.setItem(`codeHtml_new_${code}`, JSON.stringify(html));
+        localStorage.setItem(`codeHtml_new_245${code}`, JSON.stringify(html));
     }
 
     onMount(async () => {

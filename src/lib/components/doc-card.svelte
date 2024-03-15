@@ -25,7 +25,6 @@
     let showInstallation: boolean = true;
     let builtOnTopOf: builtOnTop | undefined = undefined;
     let selectedTab;
-    $: console.log(selectedTab);
 
     let path = $page.url.pathname;
 
@@ -76,7 +75,7 @@
             Installation
         </h1>
         <div in:fade={{ duration: 100 }} class="xl:max-w-[45rem] flex items-center   justify-start  font-mono text-[13px] p-4 bg-background shadow-class relative rounded-lg border mt-4">
-            <span class="text-[#777879] mr-2">npx</span> neel-ui <span class="text-[#777879] mx-2">add</span> {component}
+            <span class="text-[#FFF8] mr-2">npx</span> neel-ui <span class="text-[#FFF8] mx-2">add</span> {component}
             <Button on:click={() => {
                 navigator.clipboard.writeText(`npx neel-ui add ${component}`)
                 copying = true;

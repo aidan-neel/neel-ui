@@ -46,6 +46,6 @@
     href={hrefName}
     callback={callback}
     class={cn(className, `
-    pl-[0.5rem] w-full justify-between`)}>
+    pl-[0.5rem] p-2 w-full justify-between`)}>
         <slot />        
 </Shortcut>

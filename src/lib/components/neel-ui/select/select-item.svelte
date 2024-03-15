@@ -29,7 +29,7 @@
 key={BuilderData.key}
 onclick={ChangeSelected}
 state={selectState}
-class={cn(className, `pl-[0.5rem] justify-between`)}
+class={cn(className, `pl-[0.5rem] py-1 justify-between ${ItemIsSelected ? 'bg-secondary' : ''}`)}
 >
     <slot></slot>
     {#if ItemIsSelected}

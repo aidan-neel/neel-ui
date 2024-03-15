@@ -14,11 +14,10 @@
     let copying: boolean = false;
     let html: string = "";
     export let defaultValue: string = "preview";
-    export let value: string;
-    $: console.log(value)
+    export let value: string
 
     function getHtmlFromLocalStorage(code: string): string | null {
-        const cachedHtml = localStorage.getItem(`codeHtml002_new_${code}`);
+        const cachedHtml = localStorage.getItem(`codeHtml_new_245${code}`);
         return cachedHtml ? JSON.parse(cachedHtml) : null;
     }
     
@@ -26,7 +25,7 @@
     const darkTheme = JSON.parse(dark);
 
     function setHtmlInLocalStorage(code: string, html: string): void {
-        localStorage.setItem(`codeHtml_new_${code}`, JSON.stringify(html));
+        localStorage.setItem(`codeHtml_new_245${code}`, JSON.stringify(html));
     }
 
     onMount(async () => {
@@ -82,7 +81,7 @@
                     setTimeout(() => {
                         copying = false;
                     }, 1000);
-                }} variant="ghost" class="absolute bg-background shadow-class top-0 right-0">
+                }} variant="ghost" class="absolute bg-secondary-muted shadow-class top-0 right-0">
                     {#if copying}
                         <CheckCircled class="w-4 h-4" />
                     {:else}

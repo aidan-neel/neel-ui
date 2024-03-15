@@ -6,15 +6,18 @@
     // Exported variables
     let className: string | undefined = undefined;
     let key: string | undefined = undefined;
+    let open: boolean = false;
 
     // Non-exported variables
     const builder = commandBuilder(key);
+    builder.open = open;
     setContext("BuilderData", builder);
 
     // Export
     export {
         className as class,
-        key
+        key,
+        open
     }
 </script>
 

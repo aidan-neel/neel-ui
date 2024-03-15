@@ -7,6 +7,12 @@
     import GithubLogo from 'svelte-radix/GithubLogo.svelte'
     import * as Command from '$lib/components/neel-ui/command';
     import { Label } from '$lib/components/neel-ui/shortcut';
+  import { cn } from '$lib/utils';
+    
+    let className: string | undefined = undefined;
+    export { 
+        className as class
+    }
 
     function handleClick() {
         console.log('clicked');
@@ -14,7 +20,7 @@
 </script>
 
 <Command.Root>
-    <Command.Trigger shortcut="CTRL+O" class="w-[20rem]">
+    <Command.Trigger shortcut="CTRL+O" class={cn(className, `w-[20rem]`)}>
         Search documentation...
         <Label>CTRL+O</Label>
     </Command.Trigger>

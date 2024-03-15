@@ -76,8 +76,8 @@
         bind:this={button}
         on:click={handleEvent}
         {...$$restProps}
-        class={cn(`flex flex-row justify-start items-center text-left text-[14px] p-2 pl-7
-            rounded-md w-full hover:bg-secondary hover:cursor-default ${className}`)}>
+        class={cn(className, `flex flex-row justify-start items-center text-left text-[14px] p-1 pl-7
+            rounded-sm w-full hover:bg-secondary hover:cursor-default`)}>
             <slot></slot>
         </div>
     {:else}
@@ -87,9 +87,9 @@
         on:click={handleEvent}
         role="menuitem"
         {...$$restProps}
-        class={cn(`flex flex-row justify-start items-center text-left text-[14px] p-2 pl-7
-            rounded-md w-full hover:bg-secondary focus:bg-secondary focus:outline-none focus:border border
-            border-transparent focus:border-white/50 hover:cursor-default ${className}`)}>
+        class={cn(className, `flex flex-row justify-start items-center text-left text-[14px] p-1 pl-7
+            rounded-sm w-full hover:bg-secondary focus:bg-secondary focus:outline-none focus:border border
+            border-transparent focus:border-white/50 hover:cursor-default`)}>
             <slot></slot>
         </div>
     {/if}

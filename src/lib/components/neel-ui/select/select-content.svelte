@@ -9,12 +9,11 @@
     
     const BuilderData = getContext("SelectBuilderData");
     let entered = false;
-    let padding = 0.5;
 
     $: IsOpen = $selectState[BuilderData.key]?.open || false;
     
     let openSide: string = "bottom";
-    $: triggerHeight = $selectState[BuilderData.key].triggerHeight;
+    $: triggerHeight = $selectState[BuilderData.key]?.triggerHeight;
     
     onMount(() => {
         const handleClick = event => {
@@ -44,8 +43,8 @@
     bind:this={componentElement}
     transition:flyAndScale
     {...$$restProps}
-    style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + ${padding}rem)` : `bottom: calc(${triggerHeight}px + ${padding}rem)`}
-    class={cn(className, ` absolute w-full z-50 bg-background rounded-lg border my-2`)}>
+    style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.45rem)` : `bottom: calc(${triggerHeight}px + 0.45rem)`}
+    class={cn(className, ` absolute w-full z-50 bg-background rounded-lg border`)}>
         <slot></slot>
     </div>
 {/if}

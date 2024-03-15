@@ -67,7 +67,7 @@
     {...$$restProps}
     class={cn(className, `shadow-class rounded-lg z-50 py-1 border
     bg-background min-w-[12.5rem] absolute h-auto max-w-[45rem]`)}
-    style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.5rem)` : `bottom: calc(${triggerHeight}px + 0.5rem)`}
+    style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.45rem)` : `bottom: calc(${triggerHeight}px + 0.45rem)`}
     >
         <slot></slot>
     </div>

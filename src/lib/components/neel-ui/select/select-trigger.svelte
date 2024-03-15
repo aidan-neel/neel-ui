@@ -11,7 +11,7 @@
 
     const BuilderData = getContext<selectStateType>("SelectBuilderData")
     $: ItemIsSelected = $selectState[BuilderData.key]?.selectedValue !== undefined
-    $: ItemIsOpen = $selectState[BuilderData.key].open
+    $: ItemIsOpen = $selectState[BuilderData.key]?.open
     
     import { cn } from '$lib/utils'    
 
@@ -22,7 +22,7 @@
     let MouseDownHook: Hook = {
         trigger: "click",
         callback: (props: EventProps) => {
-            selectState.set(BuilderData.key, "open", !ItemIsOpen)
+            selectState.setOpenState(BuilderData.key, !ItemIsOpen)
             selectState.set(BuilderData.key, "triggerHeight", props.Component.clientHeight)
         }
     }
@@ -33,7 +33,7 @@
     }
 </script>
 
-<Button data={data} class={cn(className, ` flex flex-row justify-between pl-2 pr-2`)} variant="secondary">
+<Button data={data} class={cn(className, `flex flex-row hover:bg-background justify-between pl-2 pr-2`)} variant="secondary">
     {#if ItemIsSelected}
         {$selectState[BuilderData.key].selectedLabel}
     {:else}

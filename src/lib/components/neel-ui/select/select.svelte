@@ -1,16 +1,25 @@
 <script lang="ts">
   import { cn } from "$lib/utils";
     import { selectBuilder, selectState } from ".";
+    import { writable } from "svelte/store";
     import { getContext, setContext } from "svelte";
 
     let className: string | undefined = undefined;
-
     const BuilderData = selectBuilder()
+    export const key = BuilderData.key
+    export let defaultValue: string | undefined
+    export let defaultLabel: string | undefined
+    BuilderData.selectedValue = defaultValue
+    BuilderData.selectedLabel = defaultLabel
     setContext("SelectBuilderData", BuilderData)
 
-    export const key = BuilderData.key
+    // Create a writable store for value
+    export const value = writable($selectState[BuilderData.key]);
+    
+    // Update value reactively
+    $: $value = $selectState[BuilderData.key], $selectState[BuilderData.key];
 
-    export {
+    export {    
         className as class,
     }
 </script>

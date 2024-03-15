@@ -67,7 +67,7 @@ on:mouseenter={() => { entered = true; }}
 on:mouseleave={() => {entered = false;} }
 transition:flyAndScale
 class={cn(className, `p-4 bg-background shadow-class rounded-lg border absolute z-50`)}
-style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.5rem)` : `bottom: calc(${triggerHeight}px + 0.5rem)`}
+style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.45rem)` : `bottom: calc(${triggerHeight}px + 0.45rem)`}
 >
     <slot></slot>
 </div>

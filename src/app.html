@@ -1,9 +1,25 @@
 <!doctype html>
 <html lang="en">
+    <style>
+        @font-face {
+            font-family: 'Geist';
+            src: url('/fonts/GeistVariableVF.ttf') format('truetype-variations');
+            font-display: swap;
+        }
+
+        @font-face {
+            font-family: "Geist Mono";
+            src: url('/fonts/GeistMonoVariableVF.ttf') format('truetype-variations');
+            font-display: swap;
+        }
+    </style>
+
 	<head>
 		<meta charset="utf-8" />
 		<link rel="icon" href="%sveltekit.assets%/favicon.png" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+        <link rel="preload" href="/fonts/GeistVariableVF.ttf" as="font" type="font/ttf" crossorigin="anonymous">
+        <link rel="preload" href="/fonts/GeistMonoVariableVF.ttf" as="font" type="font/ttf" crossorigin="anonymous">
 		%sveltekit.head%
 	</head>
 	<body data-sveltekit-preload-data="hover">

@@ -63,35 +63,6 @@ const TooltipExample = `<script lang="ts">
     </Tooltip.Content>
 </Tooltip.Root>`
 
-const SelectExample = `<script lang="ts">
-    import * as Select from "$lib/components/neel-ui/select";
-    import { selectState } from "$lib/components/neel-ui/select";
-
-    const fruits = [
-        { value: "apple", label: "Apple" },
-        { value: "banana", label: "Banana" },
-        { value: "blueberry", label: "Blueberry" },
-        { value: "grapes", label: "Grapes" },
-        { value: "pineapple", label: "Pineapple" }
-    ];
-
-    let key: string
-    $: selectedValue = $selectState[key]?.selectedValue; // Reactive statement to fetch selected value
-</script>
-
-<Select.Root bind:key>
-    <Select.Trigger class="w-[180px]">
-        Select a fruit
-    </Select.Trigger>
-    <Select.Content class="w-full">
-        <Select.Group items={fruits}>
-            <Select.Label>
-                Fruits
-            </Select.Label>
-        </Select.Group>
-    </Select.Content>
-</Select.Root>`
-
 const InputExample = `<script lang="ts">
     import { Input } from "$lib/components/neel-ui/input";
 </script>
@@ -375,11 +346,12 @@ import filesExample from '$lib/components/examples/file-example.svelte?raw'
 import checkboxExample from '$lib/components/examples/checkbox-example.svelte?raw'
 import dialogExample from '$lib/components/examples/dialog-example.svelte?raw'
 import toastExample from '$lib/components/examples/toast-example.svelte?raw'
+import selectExample from '$lib/components/examples/select-example.svelte?raw'
 
 const examples = {
     "tabs": TabsExample,
     "tooltip": TooltipExample,
-    "select": SelectExample,
+    "select": selectExample,
     "input": InputExample,
     "confirm": ConfirmExample,
     "card": CardExample,

@@ -11,7 +11,7 @@
 <DropdownMenu.Root>
     <DropdownMenu.Trigger let:data>
         <Button variant="secondary" data={data}>
-            Open
+            Dropdown 
         </Button>
     </DropdownMenu.Trigger>
     <DropdownMenu.Content class="w-[200px]">

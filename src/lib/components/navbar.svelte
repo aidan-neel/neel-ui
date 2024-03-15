@@ -24,26 +24,27 @@
     }
 </script>
 
-<nav class='w-screen hidden   lg:flex h-16 z-20 fixed top-0 items-center text-[14px] justify-center  left-0 blurring shadow-class bg-background border-b'>
-    <div class="flex flex-row items-center justify-center gap-6 mr-1 text-[14px] px-8">
-        <a href="/" class="flex flex-row items-center h-full gap-1">
-            <img src={Logo} alt="Neel" class="h-6 w-6" />
-            <h1 class="text-lg font-bold">Neel/UI</h1>
-        </a>
-        <a href="/docs" class={`${pathName === "/docs" || "/docs/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
-            Docs
-        </a>
-        <a href="/docs/components" class={`${pathName === "/docs/components" || "/docs/components/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
-            Components
-        </a>
-        <a href="https://github.com/aidan-neel/neel-ui" class={`${pathName === "/https://github.com/aidan-neel/neel-ui" || "/https://github.com/aidan-neel/neel-ui/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
-            GitHub
-        </a>
-        <a class="text-zinc-400 text-[14px] hover:text-zinc-500 duration-100" href="https://ui.shadcn.com/">
-            Inspiration
-        </a>
+<nav class='w-screen hidden lg:flex h-16 z-20 fixed top-0 items-center text-[14px] justify-center left-0 blurring shadow-class bg-background border-b'>
+    <div class="flex flex-row items-center justify-between w-[80rem] gap-6 mr-1 md:px-8 text-[14px]">
+        <nav class="flex flex-row gap-6 items-center">
+            <a href="/" class="flex flex-row items-center h-full gap-1">
+                <img src={Logo} alt="Neel" class="h-6 w-6" />
+                <h1 class="text-lg font-bold">Neel/UI</h1>
+            </a>
+            <a href="/docs" class={`${pathName === "/docs" || "/docs/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
+                Docs
+            </a>
+            <a href="/docs/components" class={`${pathName === "/docs/components" || "/docs/components/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
+                Components
+            </a>
+            <a href="https://github.com/aidan-neel/neel-ui" class={`${pathName === "/https://github.com/aidan-neel/neel-ui" || "/https://github.com/aidan-neel/neel-ui/" ? 'text-white' : ""}  text-zinc-400 text-[14px] hover:text-zinc-500 duration-100`}>
+                GitHub
+            </a>
+        </nav>
 
-        <NavbarCommand shortcut="/" class="ml-56" />
+        <div class="flex flex-row items-center gap-2">
+            <NavbarCommand shortcut="/"  />
+        </div>
     </div>
 </nav>
 

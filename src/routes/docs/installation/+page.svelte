@@ -2,65 +2,73 @@
     import {Breadcrumb} from "$lib/components/neel-ui/breadcrumb";
     import ChevronRight from "svelte-radix/ChevronRight.svelte";
     import Seo from '$lib/components/seo.svelte';
-import NextDoc from '$lib/components/next-doc.svelte';</script>
+    import NextDoc from '$lib/components/next-doc.svelte';
+    import { marked } from 'marked';
+    import Highlighted from '$lib/components/highlighted.svelte';
+</script>
 
 <Seo name="install" />
 
-<main class="w-[45rem] flex flex-col mt-24  ">
+<main class="w-[45rem] flex flex-col mt-24">
     <div class="flex flex-row items-center justify-start gap-1 text-[14px] text-muted-foreground"> 
         Docs <ChevronRight class="w-4 h-4" /> <span class="font-medium text-white">Installation</span>
     </div>
-    <h1 class="header_c  ">
+    <h1 class="header_c">
         Installation
     </h1>
-    <p class="description_c  ">
+    <p class="description_c">
         Install Neel UI in your SvelteKit app with ease
     </p>
 
-    <p class="text-[18px] mt-8  ">
-        Start by initializing a new SvelteKit app
+    <h2 class="text-2xl font-semibold mt-5 border-b pb-3">
+        Setup your project
+    </h2>
+    <h3 class='text-xl mt-5 mb-3 font-medium'>
+        Create Project
+    </h3>
+    <p class="my-2">
+        Firstly, create a new SvelteKit project using the following command:
     </p>
 
-    <div class="p-4 w-full   bg-background shadow-class border rounded-lg mt-4 font-mono text-[14px]">
-        <span class="text-[#efba8f]">npm</span> create <span class="text-[#70b9a5]">svelte@latest</span>
-    </div>
+    <Highlighted class="my-4 py-4 px-4">
+        npm create svelte@latest my-app
+    </Highlighted>
 
-    <p class="mt-4 text-[18px]  ">
-        Make sure that you have <b>TailwindCSS</b> installed, as Neel UI is built on top of it. Then, initialize Neel UI with the npx command.
+    <h3 class='text-xl mt-3 mb-3 font-medium'>
+        Install TailwindCSS
+    </h3>
+    <p class="my-2">
+        Use the <Highlighted>svelte-add</Highlighted> CLI to install TailwindCSS in your project.
     </p>
 
-    <div class="p-4 w-full   bg-background shadow-class border rounded-lg mt-4 font-mono text-[14px]">
-        <span class="text-[#efba8f]">npx</span> neel-ui <span class="text-[#70b9a5]">init</span>
-    </div>
+    <Highlighted class="my-4 py-4 px-4">
+        npx svelte-add@latest tailwindcss
+    </Highlighted>
 
-    <p class="mt-4 text-[18px]  ">
-        This will install Neel UI in your SvelteKit app. You need to import the <b>global css</b> file in your <b>+layout.svelte</b> file. Before you can start
-        using components, you will need to selectively insall them.
-        <br><br>
-        Some components install other components as dependencies, so be sure to read the
-        documentation for each component. To install a component, use the following command:
+    <h3 class='text-xl mt-3 mb-1 font-medium'>
+        Install dependencies
+    </h3>
+
+    <Highlighted class="my-4 py-4 px-4">
+        npm install
+    </Highlighted>
+
+    <h3 class='text-xl mt-3 mb-1 font-medium'>
+        Run the CLI
+    </h3>
+
+    <Highlighted class="my-4 py-4 px-4">
+        npx neel-ui init
+    </Highlighted>
+    
+    <h3 class='text-xl mt-3 mb-3 font-medium'>
+        Add components
+    </h3>
+    <p class="my-2">
+        You're done, now you can start using Neel UI components in your SvelteKit app.
     </p>
 
-    <div class="p-4 w-full   bg-background shadow-class border rounded-lg mt-4 font-mono text-[14px]">
-        <span class="text-[#efba8f]">npx</span> neel-ui <span class="text-[#70b9a5]">add button</span>
-    </div>
-
-    <p class="mt-4 text-[18px]  ">
-        This will install the button component in your app. You can now use it in your Svelte files. The list of all available components can be found below.
-    </p>
-
-    <div class="p-4 w-full flex flex-col   gap-1 bg-background shadow-class border rounded-lg mt-4 font-mono text-[14px]">
-        <span class="text-[#70b9a5]"> alert </span> - Displays a callout message to the user<br><br>
-        <span class="text-[#70b9a5]"> badge </span> - Displays a basic component that looks like a badge<br><br>
-        <span class="text-[#70b9a5]"> breadcrumb </span> - Breadcrumb component designed for easy navigation within a page<br><br>
-        <span class="text-[#70b9a5]"> button </span> - Displays a basic button with various styles and variants<br><br>
-        <span class="text-[#70b9a5]"> card </span> - A card component with header and description sub-components<br><br>
-        <span class="text-[#70b9a5]"> confirm </span> - A modal dialog for confirmation of user destructive action<br><br>
-        <span class="text-[#70b9a5]"> input </span> - An input component with an optional label<br><br>
-        <span class="text-[#70b9a5]"> link-preview </span> - Displays content behind a link in a preview format<br><br>
-        <span class="text-[#70b9a5]"> select </span> - Selection component with groups of items to choose from<br><br>
-        <span class="text-[#70b9a5]"> sheet </span> - Displays a sheet component that comes out from a direction of your choice<br><br>
-        <span class="text-[#70b9a5]"> tabs </span> - Tabs component which allows you to swap between content displays<br><br>
-        <span class="text-[#70b9a5]"> tooltip </span> - Display's a tooltip card whenever you hover something for 750ms<br><br>
-    </div>
+    <Highlighted class="my-4 py-4 px-4">
+        npx neel-ui add button
+    </Highlighted>
 </main> 
