@@ -29,6 +29,9 @@ const stateType: CommandState[] = []
 
 const commandStateManagement = CreateStateStore(stateType)
 
+import { states } from '$lib/utils'
+states.push(commandStateManagement)
+
 function commandBuilderFunction(key?: string): CommandState {
     function generateCommandKey() {
         if (key) {

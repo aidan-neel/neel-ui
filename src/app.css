@@ -4,6 +4,10 @@ svg {
     @apply focus:outline-none
 }
 
+.bg-preview {
+    background-color: #18191a;
+}
+
 body {
     -webkit-font-smoothing: antialiased; /* For Chrome, Safari */
     -moz-osx-font-smoothing: grayscale; /* For Firefox */

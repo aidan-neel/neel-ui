@@ -8,6 +8,7 @@
 
     export let value: string;
     export let variant: string = "primary";
+    export let onclick;
 
     const variants = {
         "primary-unchecked": 'rounded-md h-[2rem] flex-grow-0 text-muted-foreground w-full',
@@ -47,11 +48,11 @@
 
 {#key selectedTab}
     {#if selectedTab === value}
-        <Button useTransition={true} variant={variant === "radix" ? "ghost" : "primary"} class={cn(className, `h-[2rem]  ${variants[variant + '-checked']}`)}>
+        <Button useTransition={true} on:click={onclick} {...$$restProps} variant={variant === "radix" ? "ghost" : "primary"} class={cn(className, `h-[2rem]  ${variants[variant + '-checked']}`)}>
             <slot></slot>
         </Button>
     {:else}
-        <Button useTransition={true} on:click={ChangeTab} variant="ghost" class={cn(className, `h-[2rem] ${variants[variant + '-unchecked']}`)}>
+        <Button useTransition={true} on:click={onclick} {...$$restProps} on:click={ChangeTab} variant="ghost" class={cn(className, `h-[2rem] ${variants[variant + '-unchecked']}`)}>
             <slot></slot>
         </Button>
     {/if}

@@ -17,6 +17,7 @@
     export let value: string
     
     import dark from '$lib/assets/dark.json?raw'
+  import { selectedTabStore } from "$lib/stores/selectedTabStore";
     const darkTheme = JSON.parse(dark);
 
     onMount(async () => {
@@ -38,8 +39,8 @@
     {#if showTriggers}
         <div class='relative'>
             <Tabs.Items class='bg-background shadow-class w-auto z-10 absolute top-0 right-0 p-1'>
-                <Tabs.Trigger class='h-6 rounded-md px-0 w-24' value="preview">Preview</Tabs.Trigger>
-                <Tabs.Trigger class="h-6 rounded-md px-0 w-24" value="code">Code</Tabs.Trigger>
+                <Tabs.Trigger onclick={() => { selectedTabStore.set("preview") }} class='h-6 rounded-md px-0 w-24' value="preview">Preview</Tabs.Trigger>
+                <Tabs.Trigger onclick={() => { selectedTabStore.set("code") }}  class="h-6 rounded-md px-0 w-24" value="code">Code</Tabs.Trigger>
             </Tabs.Items>
         </div>
     {/if}
@@ -49,7 +50,7 @@
         </div>
     </Tabs.Content>
     <Tabs.Content value="code" class="w-full relative">
-        <div class="flex flex-col shadow-class max-w-full relative w-full items-start justify-start p-1 text-[13px] h-auto">
+        <div class="flex flex-col shadow-class max-w-full relative  w-full items-start justify-start p-1 text-[13px] h-auto">
             <div class="w-full overflow-auto {html !== "" || undefined ? "pb-2" : 'pb-0'}">
                 {#if html === undefined}
                     <span class="w-full flex items-center justify-center text-muted-foreground text-[13px]">

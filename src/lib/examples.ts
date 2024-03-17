@@ -347,6 +347,7 @@ import checkboxExample from '$lib/components/examples/checkbox-example.svelte?ra
 import dialogExample from '$lib/components/examples/dialog-example.svelte?raw'
 import toastExample from '$lib/components/examples/toast-example.svelte?raw'
 import selectExample from '$lib/components/examples/select-example.svelte?raw'
+import comboboxExample from '$lib/components/examples/combobox-example.svelte?raw'
 
 const examples = {
     "tabs": TabsExample,
@@ -373,6 +374,7 @@ const examples = {
     "checkbox": checkboxExample,
     "dialog": dialogExample,
     "toast": toastExample,
+    "combobox": comboboxExample
 }
 
 export { examples, eventExampleCode }

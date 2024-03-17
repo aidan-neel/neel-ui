@@ -27,11 +27,11 @@
 {#if open}
     <div
     transition:fade={{ duration: 100 }} 
-    class="h-screen w-screen shadow-class backdrop-blur-md bg-background bg-opacity-60 flex items-center justify-center z-[999] fixed top-0 left-0">
+    class="h-screen w-screen shadow-class backdrop-blur-md bg-background bg-opacity-60 flex items-center justify-center z-[2147483646] fixed top-0 left-0">
         <main
         transition:flyAndScale
         use:clickOutside={close} 
-        class={cn(className, ` md:max-w-[600px] w-[95vw] centered z-[1000] bg-background border rounded-lg h-auto max-h-[22.5rem] overflow-y-auto`)}>
+        class={cn(className, ` md:max-w-[600px] w-[95vw] centered z-[2147483647] bg-background border rounded-lg h-auto max-h-[22.5rem] overflow-y-auto`)}>
             <slot />
         </main>
         

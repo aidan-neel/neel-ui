@@ -19,8 +19,8 @@
     import PopoutExample from "$lib/components/examples/popout-example.svelte";
     import ExpandExample from "$lib/components/examples/expand-example.svelte";
     import FileExample from "$lib/components/examples/file-example.svelte";
-  import DialogExample from "$lib/components/examples/dialog-example.svelte";
-  import ToastExample from "$lib/components/examples/toast-example.svelte";
+    import DialogExample from "$lib/components/examples/dialog-example.svelte";
+    import ToastExample from "$lib/components/examples/toast-example.svelte";
 </script>
 
 <Seo name="changelog" />

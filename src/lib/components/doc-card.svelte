@@ -12,6 +12,7 @@
     import { fade } from "svelte/transition";
     import VariantCard from "./variant-card.svelte";
     import { page } from "$app/stores";
+    import { selectedTabStore } from "$lib/stores/selectedTabStore"
 
     let heightClass: string = "h-[22.5rem]";
     let widthClass: string = "lg:w-[45rem] xl:max-w-[45rem]";
@@ -24,8 +25,8 @@
     let copying: boolean = false;
     let showInstallation: boolean = true;
     let builtOnTopOf: builtOnTop | undefined = undefined;
-    let selectedTab;
-
+    $: selectedTab = $selectedTabStore
+    
     let path = $page.url.pathname;
 
     interface builtOnTop {
@@ -66,7 +67,7 @@
         </div>
     {/if}
     <div class="xl:max-w-[45rem]   xl:max-w-[45rem] flex items-center justify-center {selectedTab === "preview" ? 'bg-background' : 'bg-background'} shadow-class rounded-lg border mt-4">
-        <VariantCard defaultValue="preview" bind:value={selectedTab} code={examples[component]}>
+        <VariantCard defaultValue="preview" code={examples[component]}>
             <slot />
         </VariantCard>
     </div>

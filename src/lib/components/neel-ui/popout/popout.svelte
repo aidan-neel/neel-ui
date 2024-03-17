@@ -10,17 +10,38 @@
     import { popoutBuilder, popoutState } from ".";
     import { onDestroy, setContext } from "svelte";
 
-    type $$Props = DefaultProps;
-    const builder = popoutBuilder();
-    setContext("key", builder.key);
+    type $$Props = DefaultProps & {
+        stateBuilder?: any;
+        state?: any;
+    };
+
+    let usedState;
     
     // Exported variables
     let className: $$Props["class"] = undefined;
+    export let stateBuilder: $$Props["stateBuilder"] = undefined;
+    export let state: $$Props["state"] = undefined;
     export { className as class }
 
+    let builder;
+
+    if (state) {
+        usedState = state;
+    } else {
+        usedState = popoutState;
+    }
+
+    if (stateBuilder) {
+        builder = stateBuilder;
+    } else {
+        builder = popoutBuilder();
+    }
+
+    setContext("key", builder.key);
+
     onDestroy(() => {
-        popoutState[builder.key] = undefined;
-    })
+        $usedState[builder.key] = undefined;
+    })  
 
     // Unexported variables
     // let unexportedVariable: string | undefined = undefined;

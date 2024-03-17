@@ -4,6 +4,7 @@ import Trigger from './dropdown-menu-trigger.svelte'
 import Item from './dropdown-menu-item.svelte'
 import Seperator from './dropdown-menu-seperator.svelte'
 import Label from './dropdown-menu-label.svelte'
+
 import { CreateStateStore } from '$lib/utils'
 
 import { writable } from 'svelte/store'
@@ -49,7 +50,7 @@ export {
     Item,
     Seperator,
     Label,
-    
+
     dropdownStateManagement as dropdownState,
     type DropdownMenuState as dropdownStateType,
     dropdownBuilderFunction as dropdownBuilder

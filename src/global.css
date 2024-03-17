@@ -15,7 +15,7 @@
 
 /* Styles the entire scrollbar */
 ::-webkit-scrollbar {
-    width: 8px; /* width of the entire scrollbar */
+    width: 6px; /* width of the entire scrollbar */
     height: 6px;
     @apply bg-transparent
 }

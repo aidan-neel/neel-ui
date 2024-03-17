@@ -25,7 +25,7 @@
         <Label>CTRL+O</Label>
     </Command.Trigger>
     <Command.Content>
-        <Command.Search></Command.Search>
+        <Command.Search />
         <Command.Results>
             <!-- <Command.Empty /> -->
             <Command.Group heading="Suggestions">

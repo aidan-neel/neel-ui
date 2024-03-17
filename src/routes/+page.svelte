@@ -23,9 +23,9 @@ import NextDoc from '$lib/components/next-doc.svelte';    import PopoutExample f
 <Seo name="home" />
 
 <div transition:fade={{duration:100}} class="h-screen flex flex-col items-center pt-32 lg:pt-48 justify-start absolute">
-    <a href="/docs/changelog" class=" ">
+    <a href="/docs/upcoming" class=" ">
         <Badge class="py-1 mb-2 flex flex-row items-center justify-center" variant="ghost">
-            <span class="mr-2">🎉</span> v0.0.2 is out! See what's new <ArrowRight class="ml-2 text-muted-foreground" />
+            <span class="mr-2">🎉</span> v1 is close! See what's upcoming! <ArrowRight class="ml-2 text-muted-foreground" />
         </Badge>
     </a>
     <h1 class="md:text-5xl text-4xl max-w-[40rem] font-bold   text-center tracking-tighter">

@@ -33,7 +33,7 @@
 
 <body class="bg-transparent">
     <div class="fixed overflow-hidden inset-0 -z-10 h-full w-full bg-background bg-[radial-gradient(#1a1919_1px,transparent_1px)] [background-size:14px_14px]"></div>
-    <main class="flex flex-row items-start px-4 lg:px-0 pb-32 justify-center min-h-[101vh] h-[101%] dark">
+<main class="flex flex-row items-start px-4 lg:px-0 pb-32 justify-center min-h-[101vh] h-[101%] dark">
         {#if pathName !== "/" && pathName !== "/restaurant"}
         <div class="flex-col hidden lg:flex items-start gap-1 mt-24 w-[15rem]   flex-shrink-0 text-foreground text-[14px]">
             <h1 class="text-foreground mb-1 text-[14px] font-semibold">
@@ -47,6 +47,9 @@
             </Button>
             <Button href="/docs/changelog" class={`${pathName === "/docs/changelog" ? 'text-foreground font-medium' : 'text-muted-foreground py-0.5 text-[14px]'}`} variant="link">
                 Changelog
+            </Button>
+            <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/upcoming" class={`py-1 ${pathName === "/docs/upcoming" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                Upcoming
             </Button>
             <h1 class="text-foreground mb-1 text-[14px] font-semibold mt-4">
                 Components

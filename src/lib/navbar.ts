@@ -1,4 +1,4 @@
-export const new_labeled_components = ["Keycode", "Switch", "Expand Text", "Popout", "File Trigger", "Checkbox", "Dialog", "Toast"]
+export const new_labeled_components = ["Combobox"]
 
 export const components = [
     "alert",
@@ -7,6 +7,7 @@ export const components = [
     "button",
     "card",
     "checkbox",
+    "combobox",
     "command",
     "confirm",
     "context-menu",

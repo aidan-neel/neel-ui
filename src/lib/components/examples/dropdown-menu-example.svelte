@@ -20,7 +20,7 @@
         </DropdownMenu.Label>
         <DropdownMenu.Item onclick={callback}>
             Profile
-        </DropdownMenu.Item>
+        </DropdownMenu.Item>    
         <DropdownMenu.Item onclick={callback}>
             Billing
         </DropdownMenu.Item>

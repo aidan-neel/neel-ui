@@ -12,7 +12,6 @@
 
     type $$Props = DefaultProps;
     const key = getContext("key");
-    $: console.log($popoutState[key])
     // Exported variables
     let className: $$Props["class"] = undefined;
     export { className as class }

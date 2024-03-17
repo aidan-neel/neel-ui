@@ -79,6 +79,9 @@
                 <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/changelog" class={`py-1 ${pathName === "/docs/changelog" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
                     Changelog
                 </Button>
+                <Button on:click={() => {CloseNavbarSheet(BuilderData.key)}} href="/docs/upcoming" class={`py-1 ${pathName === "/docs/upcoming" ? 'text-foreground font-medium' : 'text-muted-foreground'}`} variant="link">
+                    Upcoming
+                </Button>
                 <h1 class="text-foreground mb-1 text-[14px] font-semibold mt-4">
                     Components
                 </h1>

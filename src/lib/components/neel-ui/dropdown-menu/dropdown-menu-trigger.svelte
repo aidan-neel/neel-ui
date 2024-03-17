@@ -22,9 +22,9 @@
 
     let className: string | undefined = undefined;
 
-import { cn } from '$lib/utils'    
+    import { cn } from '$lib/utils'    
 
-export {
+    export {
         className as class
     }
 </script>

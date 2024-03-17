@@ -21,7 +21,7 @@ function popoutBuilderFunction(): popoutState {
     function generatepopoutKey() {
         return "popout-" + Math.random().toString(36).substring(2, 15);
     }
-
+    
     const popoutStateObject: popoutState = {
         key: generatepopoutKey(),
         open: false

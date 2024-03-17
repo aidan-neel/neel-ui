@@ -11,16 +11,28 @@
     import { getContext } from "svelte";
     import { onMount } from "svelte";
 
-    type $$Props = DefaultProps;
+    let usedState = popoutState;
+
+    type $$Props = DefaultProps & {
+        state?: any;
+        padding?: string;
+    };
     
     // Exported variables
     let className: $$Props["class"] = undefined;
-    export { className as class }
+    export let padding: $$Props["padding"] = undefined;
+    export let state: $$Props["state"] = undefined;
+
+    if(state) {
+        usedState = state;
+    }
+
+    export { className as class };
 
     const key = getContext("key");
 
-    $: open = $popoutState[key].open;
-    $: triggerHeight = $popoutState[key].triggerHeight;
+    $: open = $usedState[key]?.open;
+    $: triggerHeight = $usedState[key]?.triggerHeight;
 
     let openSide: string = `bottom`;
 
@@ -39,7 +51,7 @@
     onMount(() => {
         const handleClick = event => {
             if (componentElement && !componentElement.contains(event.target) && !entered) {
-                popoutState.setOpenState(key, false);
+                usedState.setOpenState(key, false);
                 open = false;
             }
         };
@@ -66,7 +78,7 @@ bind:this={componentElement}
 on:mouseenter={() => { entered = true; }}
 on:mouseleave={() => {entered = false;} }
 transition:flyAndScale
-class={cn(className, `p-4 bg-background shadow-class rounded-lg border absolute z-50`)}
+class={cn(`bg-background shadow-class rounded-lg border absolute z-50 ${padding === undefined || "" ? "p-4" : padding} `, className)}
 style={openSide === `bottom` ? `top:  calc(${triggerHeight}px + 0.45rem)` : `bottom: calc(${triggerHeight}px + 0.45rem)`}
 >
     <slot></slot>

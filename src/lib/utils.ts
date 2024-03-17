@@ -5,6 +5,12 @@ import type { TransitionConfig } from "svelte/transition";
 import { writable } from "svelte/store";
 import { afterUpdate } from "svelte";
 
+export let states = [];
+
+export function CloseAllStates() {
+
+}
+
 export function cn(...inputs: ClassValue[]) {
     // Reverse order of inputs due to my incompetence
     return clsx(...inputs.reverse());
@@ -67,16 +73,20 @@ export function CreateStateStore(stateType): any {
     function getOpenState(key: string) {
         let open = false;
         state.subscribe((state) => {
-            open = state[key].open;
+            if(state[key]) {
+                open = state[key].open;
+            }
         });
         return open;
     }
 
     function setOpenState(key: string, open: boolean) {
         state.update((state) => {
-            const newState = { ...state };
-            newState[key].open = open;
-            return newState;
+            if(state[key]) {
+                const newState = { ...state };
+                newState[key].open = open;
+                return newState;
+            }
         });
     }
 
@@ -90,9 +100,13 @@ export function CreateStateStore(stateType): any {
 
     function set(key: string, property: string, value: any) {
         state.update((state) => {
-            const newState = { ...state };
-            newState[key][property] = value;
-            return newState;
+            if (state[key]) {
+                const newState = { ...state };
+                newState[key][property] = value;
+                return newState;
+            } else {
+                return state;
+            }
         });
     } 
 
@@ -130,7 +144,7 @@ export function CreateStateStore(stateType): any {
         set,
         get,
         getAll,
-        getValue
+        getValue,
     }
 }
 

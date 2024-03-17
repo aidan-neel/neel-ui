@@ -6,6 +6,14 @@
     import { cn } from "$lib/utils";
     import { type DefaultProps } from '$lib/utils'
     import type { Event, EventProps, Hook } from '$lib/event-handler'
+    import { comboboxBuilder, comboboxState, type comboboxStateType } from ".";
+    import { getContext, setContext } from "svelte";
+    import * as Popout from "$lib/components/neel-ui/popout";
+
+    const builder = comboboxBuilder();
+    const key = builder.key;
+    
+    setContext("key", key)
 
     type $$Props = DefaultProps;
     
@@ -13,6 +21,6 @@
     export { className as class }
 </script>
 
-<div {...$$restProps} class={cn(className, ``)}>
-    <slot></slot>
-</div>
+<Popout.Root stateBuilder={builder} class="relative" state={comboboxState}>
+    <slot />
+</Popout.Root>

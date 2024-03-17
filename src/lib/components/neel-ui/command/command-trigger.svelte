@@ -1,7 +1,7 @@
 <script lang="ts">
     import { getContext, onMount, setContext } from "svelte";
     import { commandState } from ".";
-  import { cn } from "$lib/utils";
+  import { CloseAllStates, cn } from "$lib/utils";
 
     // Exported variables
     let className: string | undefined = undefined;
@@ -27,6 +27,8 @@
         } else {
             commandState.set(Key, "open", true);
         }
+
+        CloseAllStates();
     }
 
     function handleKeydown(event: KeyboardEvent) {

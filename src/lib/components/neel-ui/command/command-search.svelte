@@ -13,6 +13,8 @@
     const BuilderData = getContext("BuilderData");
     const Key = BuilderData.key;
     let searchValue: string = "";
+
+    export let placeholder: string | undefined = undefined;
     
     $: items = $commandState[Key].items;
     $: commandState.set(Key, "results", new Fuse(items, {
@@ -39,5 +41,5 @@
 
 <div class={cn(className, ` flex flex-row items-center border-b pr-1 w-full`)}>
     <MagnifyingGlass class="w-5 h-5 text-muted-foreground z-20 left-4 absolute" />
-    <Input bind:focused={focused} bind:value={searchValue} class="w-full border-none bg-opacity-0 shadow-none rounded-none focus:border-none pl-12 text-[14px] h-12 bg-transparent" placeholder="Type a command or search..." />
+    <Input bind:focused={focused} bind:value={searchValue} class="w-full border-none bg-opacity-0 shadow-none rounded-none focus:border-none pl-12 text-[14px] h-12 bg-transparent" placeholder={placeholder || "Type a command or search..."} />
 </div>
