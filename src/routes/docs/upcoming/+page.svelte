@@ -11,10 +11,30 @@
 
 <main class="w-[45rem] flex flex-col mt-24">
     <div class="flex flex-row items-center justify-start gap-1 text-[14px] text-muted-foreground"> 
-        Docs <ChevronRight class="w-4 h-4" /> <span class="font-medium text-white">Installation</span>
+        Docs <ChevronRight class="w-4 h-4" /> <span class="font-medium text-white">Upcoming</span>
     </div>
     <h1 class="header_c">
-        Upcoming
+        Update - April 2024
+    </h1>
+    <p class="description_c">
+        The v1 release of Neel UI has been changed, and the upcoming features have been updated.
+    </p>
+
+    <h2 class="text-2xl font-semibold mt-5 border-b pb-3">
+        New Library
+    </h2>
+    <h3 class='text-xl mt-5 mb-3 font-medium'>
+        A new, more modern replacement for Neel UI
+    </h3>
+    <p class="my-2 text-[16px]">
+        Neel UI is getting replaced in the following months with a new library that will be more modern, more feature-rich, and more customizable. <br><br>
+        You'll still be able to use Neel UI, but it will no longer be maintained or updated. The advantages of the new library is an updated design system, and a more modular approach to creating components.<br><br>
+        It will feel just like Neel UI, but with more features, and more customizable components. Components will have size props, way more variants, and eventually, a 2 seperate styles entirely! <br><br>
+        This will be big, and it won't come for a little while as I've been working on other things, but it will be worth the wait.
+    </p>
+    <div class="mt-12"></div>
+    <h1 class="header_c">
+        Upcoming - March 2024
     </h1>
     <p class="description_c">
         See the upcoming features and changes in the v1 release of Neel UI.
