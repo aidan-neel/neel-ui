@@ -1,0 +1,15 @@
+export const components = [
+    "button",
+    "alert-dialog",
+    "popover",
+    "dropdown-menu",
+    "combobox",
+    "tooltip",
+    "sheet",
+    "spinner",
+    "input",
+    "checkbox",
+    "switch",
+    "select",
+    "textarea",
+].sort();

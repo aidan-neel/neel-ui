@@ -1,0 +1,118 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.no-pointer-button {
+    cursor: default !important;
+}
+
+.border-default {
+    border-width: var(--border-size);
+}
+
+.border-l-default {
+    border-left-width: var(--border-size);
+}
+
+.border-t-default {
+    border-top-width: var(--border-size);
+}
+
+.border-r-default {
+    border-right-width: var(--border-size);
+}
+
+.border-b-default {
+    border-bottom-width: var(--border-size);
+}
+
+@layer base {
+    .dark {
+        --background: 240 2% 6%;
+
+        --foreground: 0 0% 92%;
+        --foreground-opposite: var(--foreground);
+        --foreground-disabled: 0 0% 52%;
+        --foreground-muted: 240 3% 52%;
+
+        --border: 240 3% 12%;
+        --border-disabled: 240 5% 17%;
+
+        --primary: 248 91% 57%;
+        --primary-hovered: 248 61% 36%;
+        --primary-active: 248 57% 27%;
+        --primary-disabled: 248 42% 32%;
+
+        --secondary: 248 45% 52%;
+        --secondary-hovered: 248 38% 42%;
+        --secondary-disabled: 248 26% 32%;
+        --secondary-active: 248 35% 35%;
+
+        --ghost: 240 3% 10%;
+        --ghost-hovered: 240 3% 15%;
+        --ghost-active: 240 3% 10%;
+        --ghost-foreground: var(--foreground-opposite) --flat: 222 58% 22%;
+        --flat-hovered: 222 70% 15%;
+        --flat-disabled: 210 60% 5%;
+        --flat-foreground: var(--primary);
+
+        --alternate: 240 3% 6%;
+        --alternate-hovered: 240 3% 15%;
+        --alternate-disabled: 240 3% 12%;
+        --alternate-foreground: var(--primary);
+        --alternate-muted: 240 3% 7%;
+
+        --radius: 0.6rem;
+        --border-size: 1px;
+    }
+
+    :root {
+        --background: 0 0% 98%; /* Very light grey, almost white */
+
+        --foreground: 240 2% 20%; /* Dark grey for text */
+        --foreground-opposite: 0 0% 98%; /* White text */
+        --foreground-disabled: 240 2% 70%; /* Light grey for disabled text */
+        --foreground-muted: 240 3% 50%; /* Muted text color */
+
+        --border: 240 3% 80%; /* Light grey borders */
+        --border-disabled: 240 5% 85%; /* Even lighter grey for disabled borders */
+
+        --primary: 248 91% 57%;
+        --primary-hovered: 248 61% 36%;
+        --primary-active: 248 57% 27%;
+        --primary-disabled: 248 42% 32%;
+
+        --secondary: 248 80% 68%;
+        --secondary-hovered: 248 42% 52%;
+        --secondary-disabled: 248 30% 37%;
+        --secondary-active: 248 35% 43%;
+
+        --ghost: var(--secondary-hovered);
+        --ghost-hovered: var(--secondary);
+        --ghost-active: var(--secondary-active);
+        --ghost-foreground: var(--foreground-opposite);
+
+        --flat: 222 58% 88%; /* Very light blue for flat surfaces */
+        --flat-hovered: 222 70% 78%; /* Slightly darker blue for hover */
+        --flat-disabled: 222 60% 92%; /* Lighter blue for disabled */
+        --flat-foreground: 240 2% 20%; /* Use dark grey for text on flat surfaces */
+
+        --alternate: 0 0% 95%; /* Light grey for alternate backgrounds */
+        --alternate-hovered: 240 3% 90%; /* Slightly darker grey for hover */
+        --alternate-disabled: 240 3% 93%; /* Slightly lighter grey for disabled */
+        --alternate-foreground: 240 2% 20%; /* Dark grey for text on alternate backgrounds */
+        --alternate-muted: 240 3% 95%; /* Muted light grey */
+
+        --radius: 0.6rem;
+        --border-size: 1px;
+    }
+}
+
+@layer base {
+    * {
+        @apply border-border;
+    }
+    body {
+        @apply bg-background text-foreground;
+    }
+}

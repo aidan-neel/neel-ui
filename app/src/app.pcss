@@ -1,0 +1,20 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap");
+
+/* Styles the entire scrollbar */
+::-webkit-scrollbar {
+    width: 6px; /* width of the entire scrollbar */
+    height: 6px;
+    @apply bg-transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    @apply rounded-lg border bg-secondary;
+}
+
+::-webkit-scrollbar-corner {
+    background: transparent; /* Or any color/background matching your design */
+}
+
+pre {
+    @apply w-[20rem] overflow-x-visible bg-transparent !important;
+}
