@@ -1,11 +1,20 @@
 <script lang="ts">
     import { page } from "$app/stores";
     import { onMount } from "svelte";
+	import Seo from '$lib/seo.svelte'
 
     export let data;
     $: component = data.component;
 
     $: hash = $page.url.hash;
+	$: pageName = $page.url.pathname
+
+	const sanitizeComponent = (name: string) => {
+        return name
+            .split("-")
+            .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+            .join(" ");
+    };
 
     // Listen for any changes in the hash part of the URL
     onMount(() => {
@@ -29,5 +38,9 @@
         );
     });
 </script>
+
+{#key $page.url.pathname}
+	<Seo name={sanitizeComponent($page.url.pathname.split("/").pop())} />
+{/key}
 
 <svelte:component this={component} />

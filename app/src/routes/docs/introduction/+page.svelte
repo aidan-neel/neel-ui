@@ -1,22 +1,9 @@
 <script lang="ts">
-    import ComponentHeading from "$lib/docs/component-heading.svelte";
-    import UsageCard from "$lib/docs/usage-card.svelte";
-    import ImportUsageBlock from "$lib/docs/import-usage-block.svelte";
     import OnThisPage from "$lib/docs/on-this-page.svelte";
-    import ApiTable from "$lib/docs/api-table.svelte";
     import { page } from "$app/stores";
-    import Code from "lucide-svelte/icons/code";
     import ComponentWrapper from "$lib/docs/component-wrapper.svelte";
-    import Button from "$ui/button";
-    import Installation from "$lib/docs/installation.svelte";
-    import DropdownMenuOne from "$lib/docs/examples/dropdown-menu-one.svelte";
-    import DropdownMenu from "$ui/dropdown-menu/dropdown-menu.svelte";
-    import ChevronsUpDown from "lucide-svelte/icons/chevrons-up-down";
-    import * as Tooltip from "$ui/tooltip";
-    import ComboboxOne from "$lib/docs/examples/combobox-one.svelte";
     import Navbar from "$lib/docs/navbar.svelte";
-    import TooltipOne from "$lib/docs/examples/tooltip-one.svelte";
-    import CodeBlock from "$lib/docs/code-block.svelte";
+	import Seo from '$lib/seo.svelte'
 
     let headings = {
         Introduction: [],
@@ -47,6 +34,8 @@
 
     let selected;
 </script>
+
+<Seo name="introduction" />
 
 <ComponentWrapper>
     <Navbar />

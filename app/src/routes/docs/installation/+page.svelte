@@ -17,6 +17,7 @@
     import Navbar from "$lib/docs/navbar.svelte";
     import TooltipOne from "$lib/docs/examples/tooltip-one.svelte";
     import CodeBlock from "$lib/docs/code-block.svelte";
+    import Seo from "$lib/seo.svelte";
 
     let headings = {
         Installation: [
@@ -44,6 +45,8 @@
 
     $: scrollToHash();
 </script>
+
+<Seo name="installation" />
 
 <ComponentWrapper>
     <Navbar />

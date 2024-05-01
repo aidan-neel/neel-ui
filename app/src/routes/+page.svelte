@@ -12,7 +12,10 @@
     import SheetOne from "$lib/docs/examples/sheet-one.svelte";
     import CheckboxOne from "$lib/docs/examples/checkbox-one.svelte";
     import ComboboxOne from "$lib/docs/examples/combobox-one.svelte";
+    import Seo from "$lib/seo.svelte";
 </script>
+
+<Seo name="home" />
 
 <main class="flex mt-20 items-center w-screen h-screen justify-start flex-col">
     <Navbar />
