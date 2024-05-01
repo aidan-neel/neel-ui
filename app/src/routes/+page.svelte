@@ -18,7 +18,7 @@
     <Navbar />
 
     <div
-        class="w-screen md:w-1/3 mt-16 md:mt-24 gap-24 flex items-center justify-center text-center flex-col"
+        class="w-[95%] xl:w-1/3 mt-16 md:mt-24 gap-24 flex items-center justify-center text-center flex-col"
     >
         <div class="items-center justify-center flex flex-col gap-4">
             <h1 class="lg:text-5xl text-4xl font-semibold w-full text-center">
@@ -47,7 +47,7 @@
                 </p>
             </header>
             <div
-                class="flex flex-col gap-4 items-center justify-center w-[92.5%] md:w-[80vw] md:grid md:grid-cols-4 grid-rows-2"
+                class="flex flex-col gap-4 items-center justify-center w-[92.5%] lg:w-[95vw] xl:w-[80vw] lg:grid lg:grid-cols-3 xl:grid-cols-4"
             >
                 <div
                     class="w-full items-center flex relative justify-center h-[20rem] bg-alternate-muted border-default rounded-lg"
