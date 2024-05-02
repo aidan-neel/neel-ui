@@ -44,8 +44,13 @@
             goto(`/docs/components/${component}`);
         }}
         href={`/docs/components/${component}`}
-        class={`${isCurrentPage(component) === true ? "bg-ghost-hovered text-white" : "text-foreground-opposite"} p-2 pl-3 text-foreground/80 text-[15px] hover:text-foreground-opposite hover:bg-ghost-hovered rounded-md w-full text-[16px] duration-150`}
+        class={`${isCurrentPage(component) === true ? "bg-ghost-hovered text-white" : "text-foreground-opposite"} flex items-center flex-row gap-2 p-2 pl-3 text-foreground/80 text-[15px] hover:text-foreground-opposite hover:bg-ghost-hovered rounded-md w-full text-[16px] duration-150`}
     >
         {sanitizeComponent(component)}
+		{#if component === "combobox"}
+			<div class="text-xs text-red-500 bg-red-500/30 px-2 p-1 rounded-sm">
+				Disabled
+			</div>
+		{/if}
     </a>
 {/each}

@@ -73,8 +73,7 @@
                 Different Placement
             </h1>
             <p class="mb-2 mt-1">
-                There are many different sides that the popover can open on.
-                Here's an example of the popover opening on the right side.
+                There are many different sides that the popover can open on, and you can also have it be 'auto'.
             </p>
             <UsageCard lang="svelte" name="popover-two">
                 <PopoverTwo />

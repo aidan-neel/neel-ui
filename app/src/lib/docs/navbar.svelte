@@ -9,6 +9,7 @@
     import { onMount } from "svelte";
     import Sun from "lucide-svelte/icons/sun";
     import Moon from "lucide-svelte/icons/moon";
+	import MessageCircleQuestion from 'lucide-svelte/icons/message-circle-question';
     import { lightOrDarkMode } from "$lib/stores";
     import { goto } from "$app/navigation";
     import Menu from "lucide-svelte/icons/menu";
@@ -64,7 +65,7 @@
                 </a>
             </div>
         </Sheet.Trigger>
-        <Sheet.Content class="flex flex-col overflow-y-auto pb-96">
+        <Sheet.Content class="flex flex-col overflow-y-auto">
             <a href="/" class="flex ml-4 flex-row items-center gap-3">
                 <div
                     class="grid grid-rows-2 grid-cols-2 items-center justify-center"
@@ -77,14 +78,14 @@
                 <h1 class="font-semibold text-xl">Neel UI</h1>
             </a>
             <Sheet.Header />
-            <div class="flex mt-8 flex-col lg:w-[250px] pr-[25px] gap-1">
+            <div class="flex mt-8 pb-32 flex-col w-full gap-1">
                 <NavbarItems />
             </div>
         </Sheet.Content>
     </Sheet.Root>
     <div class="flex flex-row gap-4">
-        <Button href="https://github.com/aidan-neel/neel-ui" variant="outlined">
-            Feedback
+        <Button size="icon" href="https://github.com/aidan-neel/neel-ui" variant="outlined">
+            <MessageCircleQuestion class="w-5 h-5" />
         </Button>
         <Button
             on:click={() => {

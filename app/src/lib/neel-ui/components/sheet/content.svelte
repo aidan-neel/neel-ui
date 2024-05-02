@@ -41,7 +41,7 @@
             transition:fly={{ x: side === "left" ? -80 : 80, duration: 250 }}
             {...$$restProps}
             class={cn(
-                `absolute top-0 bg-alternate-muted p-6 h-screen w-[80%] max-w-[30rem] right-0 ${side === "left" ? "border-r-default" : "border-l-default"} ${side}-0`,
+                `absolute top-0 bg-alternate-muted p-6 h-screen w-[90%] max-w-[30rem] right-0 ${side === "left" ? "border-r-default" : "border-l-default"} ${side}-0`,
                 className,
             )}
         >

@@ -93,7 +93,7 @@
                 });
         }}
         variant="ghost"
-        class="h-10 w-10 absolute top-2 right-2"
+        class="h-10 w-10 absolute hidden md:flex top-2 right-2"
     >
         {#if copying}
             <Check class="w-4 h-4 absolute text-foreground-muted" />

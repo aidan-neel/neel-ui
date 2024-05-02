@@ -15,23 +15,25 @@
             <CircleUserRound class="w-[1.375rem] h-[1.375rem]" />
         </Button>
     </DropdownMenu.Trigger>
-    <DropdownMenu.Content class="sm:w-[225px] w-[45vw]">
+    <DropdownMenu.Content class="sm:w-[225px] w-[65vw]">
         <DropdownMenu.Item closeOnClick={true}>Profile</DropdownMenu.Item>
         <DropdownMenu.Item closeOnClick={true}>Settings</DropdownMenu.Item>
         <DropdownMenu.Item closeOnClick={true}>Logout</DropdownMenu.Item>
-        <DropdownMenu.Seperator />
-        <DropdownMenu.SubMenu>
-            <DropdownMenu.SubTrigger let:data>
-                <DropdownMenu.Item {data}>Help</DropdownMenu.Item>
-            </DropdownMenu.SubTrigger>
-            <DropdownMenu.SubContent placement="right-start">
-                <DropdownMenu.Item closeOnClick={true}
-                    >Documentation</DropdownMenu.Item
-                >
-                <DropdownMenu.Item closeOnClick={true}
-                    >Support</DropdownMenu.Item
-                >
-            </DropdownMenu.SubContent>
-        </DropdownMenu.SubMenu>
+        <!--
+			<DropdownMenu.Seperator />
+			<DropdownMenu.SubMenu>
+				<DropdownMenu.SubTrigger let:data>
+					<DropdownMenu.Item {data}>Help</DropdownMenu.Item>
+				</DropdownMenu.SubTrigger>
+				<DropdownMenu.SubContent placement="auto">
+					<DropdownMenu.Item closeOnClick={true}
+						>Documentation</DropdownMenu.Item
+					>
+					<DropdownMenu.Item closeOnClick={true}
+						>Support</DropdownMenu.Item
+					>
+				</DropdownMenu.SubContent>
+			</DropdownMenu.SubMenu>
+		-->
     </DropdownMenu.Content>
 </DropdownMenu.Root>

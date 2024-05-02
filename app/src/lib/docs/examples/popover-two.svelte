@@ -15,7 +15,7 @@
     </Popover.Trigger>
     <Popover.Content
         padding={6}
-        placement="right-start"
+        placement="auto"
         class="w-[95vw] p-0 sm:w-[400px] flex flex-col"
     >
         <h1
