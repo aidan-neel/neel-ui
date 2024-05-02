@@ -1,6 +1,6 @@
 {
-	"name": "neel-ui-dev",
-	"version": "2.0.1",
+	"name": "neel-ui",
+	"version": "2.0.0",
 	"type": "module",
 	"description": "The interactivity of primitives with the styling of a design system, Neel UI is a collection of components that are easy to use and customize.",
 	"main": "cli.js",
