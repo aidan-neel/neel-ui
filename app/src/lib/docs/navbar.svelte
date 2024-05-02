@@ -64,7 +64,7 @@
                 </a>
             </div>
         </Sheet.Trigger>
-        <Sheet.Content class="flex flex-col overflow-y-auto">
+        <Sheet.Content class="flex flex-col overflow-y-auto pb-96">
             <a href="/" class="flex ml-4 flex-row items-center gap-3">
                 <div
                     class="grid grid-rows-2 grid-cols-2 items-center justify-center"
