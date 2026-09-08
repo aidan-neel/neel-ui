@@ -68,7 +68,8 @@
         contentId: `modal-${id}`,
         returnFocusEl: undefined as HTMLElement | undefined,
         state: modalState,
-        footerSlot: undefined as ModalFooterSlot | undefined
+        footerSlot: undefined as ModalFooterSlot | undefined,
+        headerSlot: undefined as ModalFooterSlot | undefined
     });
     let syncedOpen = $state(open);
     let wasOpen = $state(false);

@@ -16,7 +16,6 @@ import SubTrigger from './dropdown-menu-sub-trigger.svelte';
 import Trigger from './dropdown-menu-trigger.svelte';
 
 export type DropdownMenuProps = {
-    inverted?: boolean;
     open?: boolean;
     onOpenChange?: (open: boolean) => void;
     children?: Snippet;

@@ -58,7 +58,7 @@
         <Composer.Toolbar>
             <Composer.Actions>
                 <Select.Root bind:value={mode}>
-                    <Select.Trigger variant="ghost" class="w-32">
+                    <Select.Trigger variant="ghost" class="w-auto max-w-32">
                         <Workflow size={14} aria-hidden="true" />
                         <span class="truncate">{mode}</span>
                     </Select.Trigger>
@@ -71,7 +71,7 @@
                 </Select.Root>
 
                 <Select.Root bind:value={permission}>
-                    <Select.Trigger variant="ghost" class="w-44">
+                    <Select.Trigger variant="ghost" class="w-auto max-w-44">
                         <ShieldCheck size={14} aria-hidden="true" />
                         <span class="truncate">{permission}</span>
                     </Select.Trigger>
@@ -86,7 +86,7 @@
 
             <div class="ml-auto flex min-w-0 items-center gap-1">
                 <DropdownMenu.Root>
-                    <DropdownMenu.Trigger variant="ghost" class="w-52">
+                    <DropdownMenu.Trigger variant="ghost" class="w-auto max-w-52">
                         <span class="flex min-w-0 flex-1 items-center gap-1.5">
                             <span class="truncate">{model}</span>
                             <span class="text-foreground-muted">{effort}</span>

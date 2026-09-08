@@ -1,5 +1,4 @@
 <script lang="ts">
-    import LoaderCircle from '@lucide/svelte/icons/loader-circle';
     import Square from '@lucide/svelte/icons/square';
     import { Button } from '@sivir-ui/svelte/components/button';
     import Shortcut from '@sivir-ui/svelte/components/shortcut';
@@ -11,6 +10,7 @@
         label = 'Send',
         queueLabel = 'Queue message',
         stopLabel = 'Stop response',
+        loadingLabel = 'Sending',
         children,
         element = $bindable(),
         disabled = false,
@@ -33,14 +33,18 @@
         }
         return 'send';
     });
+    const isPending = $derived(action === 'pending');
     const isDisabled = $derived(
-        context.disabled ||
-            disabled ||
-            (action === 'send' && !context.allowEmpty && empty) ||
-            action === 'pending'
+        context.disabled || disabled || (action === 'send' && !context.allowEmpty && empty)
     );
     const actionLabel = $derived(
-        action === 'stop' ? stopLabel : action === 'queue' ? queueLabel : label
+        action === 'stop'
+            ? stopLabel
+            : action === 'queue'
+              ? queueLabel
+              : isPending
+                ? loadingLabel
+                : label
     );
 
     function handleClick(event: MouseEvent) {
@@ -54,24 +58,19 @@
 <Button
     bind:element
     {...rest}
-    type={action === 'stop' || action === 'pending' ? 'button' : 'submit'}
+    type={action === 'stop' || isPending ? 'button' : 'submit'}
     variant="primary"
     data-ui="composer-submit"
     data-state={action}
     disabled={isDisabled}
+    loading={isPending}
+    {loadingLabel}
     aria-label={actionLabel}
     onclick={handleClick}
     class={cn(className, 'shrink-0 px-3')}
 >
     {#if children}
         {@render children({ action, generating: context.generating ?? false, empty })}
-    {:else if action === 'pending'}
-        <LoaderCircle
-            size={15}
-            strokeWidth={2}
-            class="animate-spin motion-reduce:animate-none"
-            aria-hidden="true"
-        />
     {:else if action === 'stop'}
         <Square size={8} fill="currentColor" aria-hidden="true" />
         Stop

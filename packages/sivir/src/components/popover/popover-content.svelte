@@ -351,16 +351,15 @@
             class={cn(
                 classProp,
                 'm-auto flex origin-top-left flex-col overflow-hidden text-sm text-[var(--color-foreground)]',
-                'bg-panel shadow-[var(--elevation-float)]',
-                'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]',
-                'rounded-[var(--radius-lg)] border border-border'
+                'sivir-modal-frame shadow-[var(--elevation-float)] [--sivir-modal-inset:calc(var(--spacing)*0.5)]',
+                'max-w-[min(var(--popover-available-width,calc(100vw-2*var(--popover-viewport-margin))),calc(100vw-2*var(--popover-viewport-margin)))] max-h-[min(var(--popover-available-height,calc(100vh-2*var(--popover-viewport-margin))),calc(100vh-2*var(--popover-viewport-margin)))]'
             )}
         >
-            <!-- The inset surface: children live here, on the panel fill. -->
+            <!-- The inset surface: children live here, on the card fill. -->
             <div
                 class={cn(
                     surfaceClass,
-                    'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain bg-panel p-3'
+                    'min-h-0 max-h-[inherit] flex-1 overflow-auto overscroll-contain sivir-inset-surface p-3'
                 )}
             >
                 {@render children?.()}

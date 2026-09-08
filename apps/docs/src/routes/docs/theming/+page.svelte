@@ -155,10 +155,11 @@ src/lib/sivir/components/button/
     <section id="built-in-presets" class="scroll-mt-20 flex flex-col gap-5">
         <Typography.H2 class="docs-section-heading">Built-in presets</Typography.H2>
         <Typography.Text variant="body" class="m-0 max-w-2xl">
-            Four presets ship with Sivir: <Typography.InlineCode>default</Typography.InlineCode>,
+            Five presets ship with Sivir: <Typography.InlineCode>default</Typography.InlineCode>,
             <Typography.InlineCode>magic</Typography.InlineCode>,
-            <Typography.InlineCode>bitsy</Typography.InlineCode>, and
-            <Typography.InlineCode>open</Typography.InlineCode>. Preview them live on the
+            <Typography.InlineCode>bitsy</Typography.InlineCode>,
+            <Typography.InlineCode>open</Typography.InlineCode>, and
+            <Typography.InlineCode>functional</Typography.InlineCode>. Preview them live on the
             <a class="text-foreground underline underline-offset-2" href={resolve('/themes')}
                 >themes page</a
             >, where you can copy each preset’s CSS or JSON.

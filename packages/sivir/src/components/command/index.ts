@@ -3,6 +3,7 @@ import type { Snippet } from 'svelte';
 import Root from './command.svelte';
 import Content from './command-content.svelte';
 import Group from './command-group.svelte';
+import Header from './command-header.svelte';
 import Item from './command-item.svelte';
 import Results from './command-results.svelte';
 import Search from './command-search.svelte';
@@ -32,6 +33,8 @@ export type CommandItemProps = {
     onclick?: () => void;
 } & DefaultProps;
 
+export type CommandHeaderProps = DefaultProps;
+
 export type CommandState = {
     id: string;
     items: CommandItem[];
@@ -41,4 +44,4 @@ export type CommandState = {
     itemsVersion: number;
 };
 
-export { Content, Group, Item, Results, Root, Search, Separator, Trigger };
+export { Content, Group, Header, Item, Results, Root, Search, Separator, Trigger };

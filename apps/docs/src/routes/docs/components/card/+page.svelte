@@ -11,6 +11,8 @@
     import HeaderFooterSrc from './examples/header-footer.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
+    import Inset from './examples/inset.svelte';
+    import InsetSrc from './examples/inset.svelte?raw';
     import Panel from './examples/panel.svelte';
     import PanelSrc from './examples/panel.svelte?raw';
 
@@ -94,6 +96,13 @@
             <Typography.H3 class="docs-subsection-heading"> Panel frame </Typography.H3>
             <ComponentPreview code={PanelSrc}>
                 <Panel />
+            </ComponentPreview>
+        </div>
+
+        <div id="inset" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading"> Inset frame </Typography.H3>
+            <ComponentPreview code={InsetSrc}>
+                <Inset />
             </ComponentPreview>
         </div>
     </section>

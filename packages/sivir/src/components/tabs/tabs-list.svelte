@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import { cn } from '@sivir-ui/svelte/utils';
     import { getContext, untrack } from 'svelte';

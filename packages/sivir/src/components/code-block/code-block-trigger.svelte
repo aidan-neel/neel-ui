@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import * as Tabs from '@sivir-ui/svelte/components/tabs';
     import { cn } from '@sivir-ui/svelte/utils';
@@ -17,7 +16,7 @@
     {value}
     {disabled}
     data-ui="code-block-trigger"
-    class={cn(className, 'text-[length:var(--font-size-label)] min-h-[28px] py-0')}
+    class={cn(className, 'text-[length:var(--font-size-label)] min-h-[var(--size-control-sm)] py-0')}
     {...rest}
 >
     {@render children?.()}

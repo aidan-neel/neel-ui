@@ -94,10 +94,10 @@
     --elevation-float: 0 8px 24px -8px rgb(0 0 0 / 0.12), 0 2px 6px rgb(0 0 0 / 0.06);
     --elevation-modal: 0 16px 40px -16px rgb(0 0 0 / 0.28), 0 4px 12px -6px rgb(0 0 0 / 0.14);
     --elevation-control:
-        inset 0 0 0 1px var(--color-border), inset 0 -2px 3px -2px rgb(15 15 16 / 0.08),
-        inset 0 1px 0 0 rgb(255 255 255 / 0.4);
+        inset 0 0 0 var(--border-size) var(--color-border),
+        inset 0 -2px 3px -2px rgb(15 15 16 / 0.08), inset 0 1px 0 0 rgb(255 255 255 / 0.4);
     --elevation-button-outline:
-        inset 0 0 0 1px var(--color-border),
+        inset 0 0 0 var(--border-size) var(--color-border),
         inset 0 -2px 3px -2px rgb(15 15 16 / 0.08),
         inset 0 1px 0 0 rgb(255 255 255 / 0.45), 0 1px 1px rgb(28 25 23 / 0.06),
         0 2px 4px -4px rgb(28 25 23 / 0.22);
@@ -113,6 +113,13 @@
     --motion-duration-toast-out: 240ms;
     --motion-panel-y: 2px;
     --motion-panel-scale-start: 0.97;
+    --motion-menu-y: 2px;
+    --motion-menu-scale-start: 0.97;
+    --motion-menu-blur: 2px;
+    --motion-modal-y: 4px;
+    --motion-modal-scale-start: 0.93;
+    --motion-modal-blur: 2px;
+    --motion-opacity-start: 0;
     --motion-duration-panel-in: 110ms;
     --motion-duration-panel-out: 150ms;
     --motion-duration-modal-in: 180ms;
@@ -138,6 +145,7 @@
     --color-primary: #1e78e6;
     --color-primary-hover: color-mix(in srgb, var(--color-primary) 78%, black);
     --color-on-primary: hsl(0 0% 100%);
+    --color-button-foreground: var(--color-foreground);
     --color-primary-stroke: transparent;
     --color-accent-tint: var(--sivir-blue-50);
     --color-ring: color-mix(in srgb, var(--color-primary) 30%, transparent);
@@ -155,6 +163,33 @@
     --color-field: var(--color-card);
     --color-field-hover: var(--color-secondary);
     --color-field-foreground: var(--color-foreground);
+    --color-code-comment: #6a737d;
+    --color-code-keyword: #d73a49;
+    --color-code-string: #032f62;
+    --color-code-number: #005cc5;
+    --color-code-function: #6f42c1;
+    --color-code-property: #005cc5;
+    --color-code-builtin: #e36209;
+    --color-code-entity: #22863a;
+    --color-code-meta: #005cc5;
+    --code-block-token-comment: var(--color-code-comment);
+    --code-block-token-keyword: var(--color-code-keyword);
+    --code-block-token-string: var(--color-code-string);
+    --code-block-token-number: var(--color-code-number);
+    --code-block-token-function: var(--color-code-function);
+    --code-block-token-property: var(--color-code-property);
+    --code-block-token-builtin: var(--color-code-builtin);
+    --code-block-token-entity: var(--color-code-entity);
+    --code-block-token-meta: var(--color-code-meta);
+    --file-diff-token-comment: var(--color-code-comment);
+    --file-diff-token-keyword: var(--color-code-keyword);
+    --file-diff-token-string: var(--color-code-string);
+    --file-diff-token-number: var(--color-code-number);
+    --file-diff-token-function: var(--color-code-function);
+    --file-diff-token-property: var(--color-code-property);
+    --file-diff-token-builtin: var(--color-code-builtin);
+    --file-diff-token-entity: var(--color-code-entity);
+    --file-diff-token-meta: var(--color-code-meta);
 }
 
 .dark {
@@ -180,12 +215,21 @@
     --color-input: hsl(0 0% 24%);
     --color-overlay: rgb(0 0 0 / 0.55);
     --color-field: var(--color-secondary);
+    --color-code-comment: #8b949e;
+    --color-code-keyword: #ff7b72;
+    --color-code-string: #a5d6ff;
+    --color-code-number: #79c0ff;
+    --color-code-function: #d2a8ff;
+    --color-code-property: #79c0ff;
+    --color-code-builtin: #ffa657;
+    --color-code-entity: #7ee787;
+    --color-code-meta: #79c0ff;
     --elevation-1: 0 1px 2px rgb(0 0 0 / 0.4);
     --elevation-control:
-        inset 0 0 0 1px var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32),
+        inset 0 0 0 var(--border-size) var(--color-border), inset 0 -2px 3px -2px rgb(0 0 0 / 0.32),
         inset 0 1px 0 0 rgb(255 255 255 / 0.05);
     --elevation-button-outline:
-        inset 0 0 0 1px var(--color-border),
+        inset 0 0 0 var(--border-size) var(--color-border),
         inset 0 -2px 3px -2px rgb(0 0 0 / 0.32),
         inset 0 1px 0 0 rgb(255 255 255 / 0.05), 0 1px 2px rgb(0 0 0 / 0.3);
 }

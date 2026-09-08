@@ -128,7 +128,6 @@
         interactiveCursor: InteractiveCursor;
     };
 
-    type AdvancedTab = 'colors' | 'spacing' | 'animation';
     type FontWeight = '400' | '500' | '600' | '700';
 
     type RoleWeights = {
@@ -246,17 +245,18 @@
         'fontMono',
         'fontHeader'
     ] as const;
-    const radiusValues = {
-        sharp: '6px lg',
-        default: '10px lg',
-        rounded: '18px lg'
-    } as const;
     const radiusTokenNames = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-xl'] as const;
-    const densityValues = {
-        compact: '3.2px',
-        default: '3.6px',
-        comfortable: '4px'
-    } as const;
+    const movementPresets = ['subtle', 'default', 'expressive'] as const;
+    const motionDurationTokenNames: AnimationTokenName[] = [
+        '--motion-duration-hover',
+        '--motion-duration-menu',
+        '--motion-duration-panel',
+        '--motion-duration-sheet',
+        '--motion-duration-sheet-out',
+        '--motion-duration-overlay',
+        '--motion-duration-toast-in',
+        '--motion-duration-toast-out'
+    ];
     type InvoiceStatus = 'Paid' | 'Due soon' | 'Overdue' | 'Sent' | 'Draft';
     type Invoice = {
         client: string;
@@ -343,6 +343,7 @@
     let previousPreset = $state(DEFAULT_THEME.slug);
     let previousRadius: Theme['radius'] = theme.radius;
     let previousDensity: Theme['density'] = theme.density;
+    let previousMotion: Theme['motion'] = theme.motion;
     let selectedSans = $state('inter');
     let previousSans = $state('inter');
     let selectedHeader = $state('same-as-sans');
@@ -364,8 +365,9 @@
     let travelingHighlight = $state(true);
     let primaryStroke = $state(false);
     let interactiveCursor = $state<InteractiveCursor>('default');
-    let advancedTab = $state<AdvancedTab>('colors');
-    let moreOptionsOpen = $state(false);
+    let colorsModalOpen = $state(false);
+    let spacingModalOpen = $state(false);
+    let animationModalOpen = $state(false);
     let pendingPreset = $state<string | null>(null);
     let presetDialogOpen = $state(false);
     let studioView = $state('invoices');
@@ -594,8 +596,8 @@
         }
         if (!controlShadows) {
             shared.push(
-                '--elevation-control: inset 0 0 0 1px var(--color-border);',
-                '--elevation-button-outline: inset 0 0 0 1px var(--color-border);'
+                '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
+                '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
             );
         }
         if (!travelingHighlight) {
@@ -640,6 +642,18 @@
         if (value === 'expressive') return 'Bold';
         if (value === 'true') return 'True';
         return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function isRadiusScale(value: string): value is Theme['radius'] {
+        return (radiusScales as readonly string[]).includes(value);
+    }
+
+    function isDensity(value: string): value is Theme['density'] {
+        return (densities as readonly string[]).includes(value);
+    }
+
+    function isMotionFeel(value: string): value is Theme['motion'] {
+        return (motionFeels as readonly string[]).includes(value);
     }
 
     function valueBinding<T extends string>(value: T, onChange: (value: T) => void) {
@@ -878,11 +892,6 @@
         roleWeights = { ...roleWeights, [key]: value };
     }
 
-    function openMoreOptions(tab: AdvancedTab) {
-        advancedTab = tab;
-        moreOptionsOpen = true;
-    }
-
     function updateAdvancedColorToken(name: ColorTokenName, value: string) {
         advancedTokens = {
             ...advancedTokens,
@@ -998,7 +1007,7 @@
             return parseDurationMs(raw);
         }
 
-        if (definition.kind === 'scale') {
+        if (definition.kind === 'scale' || definition.kind === 'opacity') {
             return parseScale(raw);
         }
 
@@ -1010,7 +1019,7 @@
             return formatMs(value);
         }
 
-        if (definition.kind === 'scale') {
+        if (definition.kind === 'scale' || definition.kind === 'opacity') {
             return formatScale(value);
         }
 
@@ -1023,7 +1032,7 @@
             return;
         }
 
-        if (definition.kind === 'scale') {
+        if (definition.kind === 'scale' || definition.kind === 'opacity') {
             updateAdvancedAnimationToken(definition.name, formatScale(value));
             return;
         }
@@ -1166,6 +1175,7 @@
         loadStudioExtensions();
         previousRadius = theme.radius;
         previousDensity = theme.density;
+        previousMotion = theme.motion;
         hydrated = true;
         const root = document.documentElement;
         appliedDark = root.classList.contains('dark');
@@ -1194,16 +1204,20 @@
         if (!hydrated) {
             previousRadius = theme.radius;
             previousDensity = theme.density;
+            previousMotion = theme.motion;
             return;
         }
         const radiusChanged = theme.radius !== previousRadius;
         const densityChanged = theme.density !== previousDensity;
-        if (!radiusChanged && !densityChanged) {
+        const motionChanged = theme.motion !== previousMotion;
+        if (!radiusChanged && !densityChanged && !motionChanged) {
             return;
         }
         previousRadius = theme.radius;
         previousDensity = theme.density;
+        previousMotion = theme.motion;
         const nextSpacing = { ...advancedTokens.spacing };
+        const nextAnimation = { ...advancedTokens.animation };
         let changed = false;
         if (radiusChanged) {
             for (const name of radiusTokenNames) {
@@ -1217,8 +1231,16 @@
             delete nextSpacing['--sivir-space-unit'];
             changed = true;
         }
+        if (motionChanged) {
+            for (const name of motionDurationTokenNames) {
+                if (nextAnimation[name]?.trim()) {
+                    delete nextAnimation[name];
+                    changed = true;
+                }
+            }
+        }
         if (changed) {
-            advancedTokens = { ...advancedTokens, spacing: nextSpacing };
+            advancedTokens = { ...advancedTokens, spacing: nextSpacing, animation: nextAnimation };
         }
     });
 
@@ -1258,15 +1280,15 @@
     <meta name="description" content="Build, preview, and export a Sivir theme." />
 </svelte:head>
 
-{#snippet moreOptionsButton(tab: AdvancedTab, label: string)}
+{#snippet advancedButton(label: string, onClick: () => void)}
     <Button
         variant="ghost"
-        size="icon"
-        class="size-7 shrink-0 text-foreground-muted"
-        onclick={() => openMoreOptions(tab)}
+        size="sm"
+        class="shrink-0 text-foreground-muted"
+        onclick={onClick}
         aria-label={label}
     >
-        <MoreHorizontal size={15} />
+        {label}
     </Button>
 {/snippet}
 
@@ -1278,7 +1300,7 @@
 )}
     {@const selection = valueBinding(value, onChange)}
     <div role="group" aria-label={label}>
-        <Tabs.Root bind:value={selection.value} variant="ghost" class="w-full">
+        <Tabs.Root bind:value={selection.value} variant="segmented" class="w-full">
             <Tabs.List
                 class={`grid w-full ${values.length === 2 ? 'grid-cols-2' : values.length === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}
             >
@@ -1292,11 +1314,54 @@
     </div>
 {/snippet}
 
+{#snippet feelSelect(
+        label: string,
+        value: string,
+        options: readonly string[],
+        openAdvanced: () => void,
+        onChange: (value: string) => void
+    )}
+    <div class="flex min-w-0 flex-col gap-2">
+        <Typography.Metadata>{label}</Typography.Metadata>
+        <Select.Root
+            {value}
+            onValueChange={(next) => {
+                    if (next === 'advanced') {
+                        openAdvanced();
+                        return;
+                    }
+                    onChange(next);
+                }}
+        >
+            <Select.Trigger
+                class="h-[34px] min-w-0 px-[9px] text-[13px]"
+                variant="outline"
+                aria-label={label}
+            >
+                <span class="truncate">{formatChoice(value)}</span>
+            </Select.Trigger>
+            <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
+                {#each options as option (option)}
+                    <Select.Item value={option} label={formatChoice(option)}>
+                        {formatChoice(option)}
+                    </Select.Item>
+                {/each}
+                {#if !options.includes(value)}
+                    <Select.Item {value} label={formatChoice(value)}>
+                        {formatChoice(value)}
+                    </Select.Item>
+                {/if}
+                <Select.Item value="advanced" label="Advanced…">Advanced…</Select.Item>
+            </Select.Content>
+        </Select.Root>
+    </div>
+{/snippet}
+
 {#snippet weightControl(
-    label: string,
-    value: FontWeight,
-    onChange: (value: FontWeight) => void
-)}
+        label: string,
+        value: FontWeight,
+        onChange: (value: FontWeight) => void
+    )}
     {@const selection = valueBinding(value, onChange)}
     <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
         <span class="w-[76px] shrink-0 text-[13px] font-medium text-foreground-muted">{label}</span>
@@ -1382,98 +1447,28 @@
     </div>
 {/snippet}
 
+{#snippet modalDoneFooter()}
+    <Modal.Footer class="shrink-0">
+        <Modal.Close>
+            Cancel
+            <Shortcut shortcut="esc" />
+        </Modal.Close>
+        <Modal.Confirm>
+            Done
+            <Shortcut shortcut="enter" />
+        </Modal.Confirm>
+    </Modal.Footer>
+{/snippet}
+
 {#snippet inspector()}
     <ScrollArea class="hide-scrollbar-all h-full min-h-0 flex-1 bg-background" showCues={false}>
-        <div class="flex min-h-full flex-col gap-8 px-2 py-4">
-            <div class="flex shrink-0 flex-col gap-3">
-                <div class="grid grid-cols-2 gap-2">
-                    <CopyButton
-                        text={generatedJson}
-                        label="Copy JSON"
-                        variant="outline"
-                        size="md"
-                        class="w-full"
-                        oncopy={() => {
-                            copiedKey = 'json';
-                            toast({
-                                title: 'JSON copied',
-                                description: 'The draft is ready to paste into your project.',
-                                type: 'success',
-                                duration: 1600
-                            });
-                            window.setTimeout(() => {
-                                if (copiedKey === 'json') {
-                                    copiedKey = null;
-                                }
-                            }, 1200);
-                        }}
-                    >
-                        {copiedKey === 'json' ? 'Copied' : 'Copy JSON'}
-                    </CopyButton>
-                    <CopyButton
-                        text={generatedCss}
-                        label="Copy CSS"
-                        variant="outline"
-                        size="md"
-                        class="w-full"
-                        oncopy={() => {
-                            copiedKey = 'css';
-                            toast({
-                                title: 'CSS copied',
-                                description: 'The draft is ready to paste into your project.',
-                                type: 'success',
-                                duration: 1600
-                            });
-                            window.setTimeout(() => {
-                                if (copiedKey === 'css') {
-                                    copiedKey = null;
-                                }
-                            }, 1200);
-                        }}
-                    >
-                        {copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
-                    </CopyButton>
-                </div>
-            </div>
-
-            <div class="flex shrink-0 items-center gap-2">
-                <Select.Root bind:value={selectedPreset}>
-                    <Select.Trigger
-                        class="h-9 min-w-0 flex-1 px-3 text-sm"
-                        variant="outline"
-                        aria-label="Theme starting point"
-                    >
-                        <span class="truncate">
-                            {builtInThemePresets.find((preset) => preset.slug === selectedPreset)
-                                ?.name ?? 'Default'}
-                            · Sivir UI
-                        </span>
-                    </Select.Trigger>
-                    <Select.Content
-                        class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
-                    >
-                        {#each builtInThemePresets as preset (preset.slug)}
-                            <Select.Item value={preset.slug} label={preset.name}>
-                                {preset.name}
-                            </Select.Item>
-                        {/each}
-                    </Select.Content>
-                </Select.Root>
-                <Button
-                    variant="outline"
-                    size="icon"
-                    class="size-9 shrink-0"
-                    onclick={resetTheme}
-                    aria-label="Reset theme to selected preset"
-                >
-                    <RotateCcw size={15} />
-                </Button>
-            </div>
-
+        <div class="flex min-h-full flex-col gap-8 px-2 pb-4">
             <div class="flex flex-col gap-4">
                 <div class="flex items-center justify-between gap-2">
                     <Typography.Title level={3}>Color</Typography.Title>
-                    {@render moreOptionsButton('colors', 'More color options')}
+                    {@render advancedButton('Advanced', () => {
+                        colorsModalOpen = true;
+                    })}
                 </div>
                 <div class="grid grid-cols-2 gap-2">
                     {@render colorPickerControl(
@@ -1550,34 +1545,6 @@
             <div class="flex flex-col gap-4">
                 <div class="flex items-center justify-between gap-2">
                     <Typography.Title level={3}>Shape & density</Typography.Title>
-                    {@render moreOptionsButton('spacing', 'More shape and density options')}
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-baseline justify-between gap-2">
-                        <Typography.Metadata>Radius</Typography.Metadata>
-                        <Typography.Metadata>{radiusValues[theme.radius]}</Typography.Metadata>
-                    </div>
-                    {@render segmentedChoice(radiusScales, theme.radius, 'Radius scale', (value) => {
-                        if (radiusScales.includes(value as Theme['radius'])) {
-                            theme = { ...theme, radius: value as Theme['radius'] };
-                        }
-                    })}
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-baseline justify-between gap-2">
-                        <Typography.Metadata>Density</Typography.Metadata>
-                        <Typography.Metadata>{densityValues[theme.density]}</Typography.Metadata>
-                    </div>
-                    {@render segmentedChoice(
-                        densities,
-                        theme.density,
-                        'Interface density',
-                        (value) => {
-                            if (densities.includes(value as Theme['density'])) {
-                                theme = { ...theme, density: value as Theme['density'] };
-                            }
-                        }
-                    )}
                 </div>
                 <Switch
                     bind:checked={surfaceShadows}
@@ -1617,6 +1584,51 @@
                         }
                     )}
                 </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-2">
+                    <Typography.Title level={3}>Feel</Typography.Title>
+                </div>
+                {@render feelSelect(
+                    'Radius',
+                    theme.radius,
+                    radiusScales,
+                    () => {
+                        spacingModalOpen = true;
+                    },
+                    (value) => {
+                        if (isRadiusScale(value)) {
+                            theme = { ...theme, radius: value };
+                        }
+                    }
+                )}
+                {@render feelSelect(
+                    'Density',
+                    theme.density,
+                    densities,
+                    () => {
+                        spacingModalOpen = true;
+                    },
+                    (value) => {
+                        if (isDensity(value)) {
+                            theme = { ...theme, density: value };
+                        }
+                    }
+                )}
+                {@render feelSelect(
+                    'Movement',
+                    theme.motion,
+                    movementPresets,
+                    () => {
+                        animationModalOpen = true;
+                    },
+                    (value) => {
+                        if (isMotionFeel(value)) {
+                            theme = { ...theme, motion: value };
+                        }
+                    }
+                )}
             </div>
 
             <div class="flex flex-col gap-4">
@@ -1739,16 +1751,89 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-2">
-                    <Typography.Title level={3}>Motion</Typography.Title>
-                    {@render moreOptionsButton('animation', 'More motion options')}
+            <div class="flex shrink-0 flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    <Select.Root bind:value={selectedPreset}>
+                        <Select.Trigger
+                            class="h-[34px] min-w-0 flex-1 px-3 text-sm"
+                            variant="outline"
+                            aria-label="Theme starting point"
+                        >
+                            <span class="truncate">
+                                {builtInThemePresets.find(
+                                    (preset) => preset.slug === selectedPreset
+                                )?.name ?? 'Default'}
+                                · Sivir UI
+                            </span>
+                        </Select.Trigger>
+                        <Select.Content
+                            class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                        >
+                            {#each builtInThemePresets as preset (preset.slug)}
+                                <Select.Item value={preset.slug} label={preset.name}>
+                                    {preset.name}
+                                </Select.Item>
+                            {/each}
+                        </Select.Content>
+                    </Select.Root>
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        class="size-[34px] shrink-0"
+                        onclick={resetTheme}
+                        aria-label="Reset theme to selected preset"
+                    >
+                        <RotateCcw size={15} />
+                    </Button>
                 </div>
-                {@render segmentedChoice(motionFeels, theme.motion, 'Motion feel', (value) => {
-                    if (motionFeels.includes(value as Theme['motion'])) {
-                        theme = { ...theme, motion: value as Theme['motion'] };
-                    }
-                })}
+                <div class="grid grid-cols-2 gap-2">
+                    <CopyButton
+                        text={generatedJson}
+                        label="Copy JSON"
+                        variant="outline"
+                        size="md"
+                        class="w-full"
+                        oncopy={() => {
+                            copiedKey = 'json';
+                            toast({
+                                title: 'JSON copied',
+                                description: 'The draft is ready to paste into your project.',
+                                type: 'success',
+                                duration: 1600
+                            });
+                            window.setTimeout(() => {
+                                if (copiedKey === 'json') {
+                                    copiedKey = null;
+                                }
+                            }, 1200);
+                        }}
+                    >
+                        {copiedKey === 'json' ? 'Copied' : 'Copy JSON'}
+                    </CopyButton>
+                    <CopyButton
+                        text={generatedCss}
+                        label="Copy CSS"
+                        variant="outline"
+                        size="md"
+                        class="w-full"
+                        oncopy={() => {
+                            copiedKey = 'css';
+                            toast({
+                                title: 'CSS copied',
+                                description: 'The draft is ready to paste into your project.',
+                                type: 'success',
+                                duration: 1600
+                            });
+                            window.setTimeout(() => {
+                                if (copiedKey === 'css') {
+                                    copiedKey = null;
+                                }
+                            }, 1200);
+                        }}
+                    >
+                        {copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
+                    </CopyButton>
+                </div>
             </div>
         </div>
     </ScrollArea>
@@ -1756,7 +1841,7 @@
 
 {#snippet dashboardPreview()}
     <ScrollArea class="h-full min-h-0" showCues={false}>
-        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 py-8">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 pt-2 pb-8">
             <Toolbar class="gap-2 p-0">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger variant="quiet" class="min-w-0 justify-start px-0">
@@ -2339,12 +2424,12 @@
     <section aria-label="Theme workspace" class="flex min-h-0 flex-1 bg-background">
         <aside
             aria-label="Theme configuration"
-            class="hidden min-h-0 w-[328px] shrink-0 px-4 py-3 min-[1100px]:flex min-[1100px]:flex-col"
+            class="hidden min-h-0 w-[328px] shrink-0 px-4 pb-3 min-[1100px]:flex min-[1100px]:flex-col"
         >
             {@render inspector()}
         </aside>
 
-        <div class="min-w-0 flex-1 py-3 pr-3 pl-0">
+        <div class="min-w-0 flex-1 pr-3 pb-3 pl-0">
             <div
                 class="h-full min-h-0 overflow-hidden rounded-[var(--radius-xl)] border border-border bg-background font-[var(--font-sans)] text-foreground"
                 id="theme-preview"
@@ -2366,191 +2451,185 @@
                 <Sheet.Title>Theme configuration</Sheet.Title>
                 <Sheet.Description>Configure the live Sivir theme preview.</Sheet.Description>
             </Sheet.Header>
-            <div class="-my-4 min-h-0 flex-1 overflow-hidden px-6">
+            <div class="-mb-4 min-h-0 flex-1 overflow-hidden px-6">
                 {@render inspector()}
             </div>
         </Sheet.Content>
     </Sheet.Root>
 
-    <Modal.Root bind:open={moreOptionsOpen} orientation="vertical">
+    <Modal.Root bind:open={colorsModalOpen} orientation="vertical">
         <Modal.Content
             size="xl"
             contentClass="!h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-w-5xl"
             surfaceClass="!overflow-hidden"
         >
             <Modal.Header class="shrink-0">
-                <Modal.Title>Advanced options</Modal.Title>
+                <Modal.Title>Colors</Modal.Title>
                 <Modal.Description>
-                    Fine-tune colors, spacing, and motion. Changes override the sidebar controls and
-                    the selected preset.
+                    Fine-tune every color token. Changes override the sidebar controls and the
+                    selected preset.
+                </Modal.Description>
+            </Modal.Header>
+            <Modal.Body class="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
+                <div class="flex shrink-0 items-center justify-between gap-3">
+                    <p class="text-sm text-foreground-muted">
+                        Editing {formatChoice(appMode)} mode
+                    </p>
+                    <Tabs.Root bind:value={appModeBinding.value} variant="ghost">
+                        <Tabs.List>
+                            <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs"
+                                >Light</Tabs.Trigger
+                            >
+                            <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs"
+                                >Dark</Tabs.Trigger
+                            >
+                        </Tabs.List>
+                    </Tabs.Root>
+                </div>
+                <ScrollArea class="min-h-0 flex-1 pr-2">
+                    <div class="flex flex-col gap-5 pb-2">
+                        {#each colorTokenGroups as group (group.label)}
+                            <div class="flex flex-col gap-3">
+                                <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                                    {group.label}
+                                </h3>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                                    {#each group.tokens as definition (definition.name)}
+                                        {@const resolved = resolveColorToken(definition)}
+                                        {@render advancedColorField(
+                                            definition.label,
+                                            resolved.hex,
+                                            (hex) => {
+                                                updateAdvancedColorToken(
+                                                    definition.name,
+                                                    formatCssColor(hex, resolved.alpha)
+                                                );
+                                            }
+                                        )}
+                                    {/each}
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                </ScrollArea>
+            </Modal.Body>
+            {@render modalDoneFooter()}
+        </Modal.Content>
+    </Modal.Root>
+
+    <Modal.Root bind:open={spacingModalOpen} orientation="vertical">
+        <Modal.Content
+            size="xl"
+            contentClass="!h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-w-5xl"
+            surfaceClass="!overflow-hidden"
+        >
+            <Modal.Header class="shrink-0">
+                <Modal.Title>Spacing</Modal.Title>
+                <Modal.Description>
+                    Fine-tune spacing, controls, corners, and borders. Changes override the sidebar
+                    controls and the selected preset.
                 </Modal.Description>
             </Modal.Header>
             <Modal.Body class="min-h-0 flex-1 overflow-hidden">
-                <Tabs.Root
-                    bind:value={advancedTab}
-                    variant="ghost"
-                    class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                >
-                    <Tabs.List class="mb-3 w-full shrink-0">
-                        <Tabs.Trigger value="colors" class="flex-1">Colors</Tabs.Trigger>
-                        <Tabs.Trigger value="spacing" class="flex-1">Spacing</Tabs.Trigger>
-                        <Tabs.Trigger value="animation" class="flex-1">Animation</Tabs.Trigger>
-                    </Tabs.List>
-
-                    <Tabs.Content
-                        value="colors"
-                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                    >
-                        <div class="mb-3 flex shrink-0 items-center justify-between gap-3">
-                            <p class="text-sm text-foreground-muted">
-                                Editing {formatChoice(appMode)} mode
-                            </p>
-                            <Tabs.Root bind:value={appModeBinding.value} variant="ghost">
-                                <Tabs.List>
-                                    <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs"
-                                        >Light</Tabs.Trigger
-                                    >
-                                    <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs"
-                                        >Dark</Tabs.Trigger
-                                    >
-                                </Tabs.List>
-                            </Tabs.Root>
-                        </div>
-                        <ScrollArea class="min-h-0 flex-1 pr-2">
-                            <div class="flex flex-col gap-5 pb-2">
-                                {#each colorTokenGroups as group (group.label)}
-                                    <div class="flex flex-col gap-3">
-                                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
-                                            {group.label}
-                                        </h3>
-                                        <div
-                                            class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"
-                                        >
-                                            {#each group.tokens as definition (definition.name)}
-                                                {@const resolved = resolveColorToken(definition)}
-                                                {@render advancedColorField(
-                                                    definition.label,
-                                                    resolved.hex,
-                                                    (hex) => {
-                                                        updateAdvancedColorToken(
-                                                            definition.name,
-                                                            formatCssColor(hex, resolved.alpha)
-                                                        );
-                                                    }
-                                                )}
-                                            {/each}
-                                        </div>
-                                    </div>
-                                {/each}
+                <ScrollArea class="min-h-0 flex-1 pr-2">
+                    <div class="flex flex-col gap-5 pb-2">
+                        {#each spacingTokenGroups as group (group.label)}
+                            <div class="flex flex-col gap-3">
+                                <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                                    {group.label}
+                                </h3>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                                    {#each group.tokens as definition (definition.name)}
+                                        {@const spacingValue =
+                                            resolveSpacingToken(definition)}
+                                        {@render sliderTokenField(
+                                            definition.label,
+                                            spacingValue,
+                                            definition.min,
+                                            definition.max,
+                                            definition.step,
+                                            formatPx(spacingValue),
+                                            (value) => {
+                                                updateAdvancedSpacingToken(
+                                                    definition.name,
+                                                    formatPx(value)
+                                                );
+                                            }
+                                        )}
+                                    {/each}
+                                </div>
                             </div>
-                        </ScrollArea>
-                    </Tabs.Content>
-
-                    <Tabs.Content
-                        value="spacing"
-                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                    >
-                        <ScrollArea class="min-h-0 flex-1 pr-2">
-                            <div class="flex flex-col gap-5 pb-2">
-                                {#each spacingTokenGroups as group (group.label)}
-                                    <div class="flex flex-col gap-3">
-                                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
-                                            {group.label}
-                                        </h3>
-                                        <div
-                                            class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"
-                                        >
-                                            {#each group.tokens as definition (definition.name)}
-                                                {@const spacingValue =
-                                                    resolveSpacingToken(definition)}
-                                                {@render sliderTokenField(
-                                                    definition.label,
-                                                    spacingValue,
-                                                    definition.min,
-                                                    definition.max,
-                                                    definition.step,
-                                                    formatPx(spacingValue),
-                                                    (value) => {
-                                                        updateAdvancedSpacingToken(
-                                                            definition.name,
-                                                            formatPx(value)
-                                                        );
-                                                    }
-                                                )}
-                                            {/each}
-                                        </div>
-                                    </div>
-                                {/each}
-                            </div>
-                        </ScrollArea>
-                    </Tabs.Content>
-
-                    <Tabs.Content
-                        value="animation"
-                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                    >
-                        <ScrollArea class="min-h-0 flex-1 pr-2">
-                            <div class="flex flex-col gap-5 pb-2">
-                                {#each animationTokenGroups as group (group.label)}
-                                    <div class="flex flex-col gap-3">
-                                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
-                                            {group.label}
-                                        </h3>
-                                        <div
-                                            class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"
-                                        >
-                                            {#each group.tokens as definition (definition.name)}
-                                                {#if definition.kind === 'ease'}
-                                                    {@render easeTokenField(
-                                                        definition.label,
-                                                        animationEaseValue(definition),
-                                                        (value) => {
-                                                            updateAdvancedAnimationToken(
-                                                                definition.name,
-                                                                value
-                                                            );
-                                                        }
-                                                    )}
-                                                {:else}
-                                                    {@const motionValue =
-                                                        animationSliderValue(definition)}
-                                                    {@render sliderTokenField(
-                                                        definition.label,
-                                                        motionValue,
-                                                        definition.min,
-                                                        definition.max,
-                                                        definition.step,
-                                                        animationSliderDisplay(
-                                                            definition,
-                                                            motionValue
-                                                        ),
-                                                        (value) => {
-                                                            commitAnimationSlider(
-                                                                definition,
-                                                                value
-                                                            );
-                                                        }
-                                                    )}
-                                                {/if}
-                                            {/each}
-                                        </div>
-                                    </div>
-                                {/each}
-                            </div>
-                        </ScrollArea>
-                    </Tabs.Content>
-                </Tabs.Root>
+                        {/each}
+                    </div>
+                </ScrollArea>
             </Modal.Body>
-            <Modal.Footer class="shrink-0">
-                <Modal.Close>
-                    Cancel
-                    <Shortcut shortcut="esc" />
-                </Modal.Close>
-                <Modal.Confirm>
-                    Done
-                    <Shortcut shortcut="enter" />
-                </Modal.Confirm>
-            </Modal.Footer>
+            {@render modalDoneFooter()}
+        </Modal.Content>
+    </Modal.Root>
+
+    <Modal.Root bind:open={animationModalOpen} orientation="vertical">
+        <Modal.Content
+            size="xl"
+            contentClass="!h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-w-5xl"
+            surfaceClass="!overflow-hidden"
+        >
+            <Modal.Header class="shrink-0">
+                <Modal.Title>Motion</Modal.Title>
+                <Modal.Description>
+                    Fine-tune speeds and menu versus modal movement. Changes override the sidebar
+                    controls and the selected preset.
+                </Modal.Description>
+            </Modal.Header>
+            <Modal.Body class="min-h-0 flex-1 overflow-hidden">
+                <ScrollArea class="min-h-0 flex-1 pr-2">
+                    <div class="flex flex-col gap-5 pb-2">
+                        {#each animationTokenGroups as group (group.label)}
+                            <div class="flex flex-col gap-3">
+                                <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                                    {group.label}
+                                </h3>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                                    {#each group.tokens as definition (definition.name)}
+                                        {#if definition.kind === 'ease'}
+                                            {@render easeTokenField(
+                                                definition.label,
+                                                animationEaseValue(definition),
+                                                (value) => {
+                                                    updateAdvancedAnimationToken(
+                                                        definition.name,
+                                                        value
+                                                    );
+                                                }
+                                            )}
+                                        {:else}
+                                            {@const motionValue =
+                                                animationSliderValue(definition)}
+                                            {@render sliderTokenField(
+                                                definition.label,
+                                                motionValue,
+                                                definition.min,
+                                                definition.max,
+                                                definition.step,
+                                                animationSliderDisplay(
+                                                    definition,
+                                                    motionValue
+                                                ),
+                                                (value) => {
+                                                    commitAnimationSlider(
+                                                        definition,
+                                                        value
+                                                    );
+                                                }
+                                            )}
+                                        {/if}
+                                    {/each}
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                </ScrollArea>
+            </Modal.Body>
+            {@render modalDoneFooter()}
         </Modal.Content>
     </Modal.Root>
 

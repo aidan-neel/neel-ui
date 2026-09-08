@@ -68,11 +68,11 @@
     data-state={status}
     class={cn(
         className,
-        'flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border border-border bg-card p-2 text-foreground data-[state=error]:border-[var(--color-error)]'
+        'flex min-w-0 items-center gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card p-2 text-foreground data-[state=error]:border-[var(--color-error)]'
     )}
 >
     <div
-        class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted ring-1 ring-inset ring-black/10 dark:ring-white/10"
+        class="relative grid size-[var(--size-touch)] shrink-0 place-items-center overflow-hidden rounded-[var(--radius-md)] bg-secondary text-foreground-muted ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
     >
         {#if file.type.startsWith('image/')}
             <img {@attach preview} alt="" draggable="false" class="size-full object-cover" />

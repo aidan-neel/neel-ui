@@ -33,7 +33,7 @@
         tabindex={visible ? undefined : -1}
         class={cn(
             className,
-            'sivir-press pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border border-border bg-panel text-foreground shadow-[var(--elevation-control)] transition-[background-color,color,opacity,translate,transform,scale] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-secondary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:translate-y-0 motion-reduce:transition-none',
+            'sivir-press pointer-events-auto inline-flex size-9 items-center justify-center rounded-full border-[length:var(--border-size)] border-border bg-panel text-foreground shadow-[var(--elevation-control)] transition-[background-color,color,opacity,translate,transform,scale] [transition-duration:var(--motion-duration-hover)] ease-[var(--ease-out)] hover:bg-secondary focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)] motion-reduce:translate-y-0 motion-reduce:transition-none',
             visible ? 'translate-y-0 opacity-100' : 'pointer-events-none translate-y-1.5 opacity-0'
         )}
         onclick={(event) => {

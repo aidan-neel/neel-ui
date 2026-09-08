@@ -19,6 +19,7 @@
 
     let form: HTMLFormElement | undefined;
     let pending = $state(false);
+    let insetToolbar = $state(false);
     const effectiveStatus = $derived<ComposerStatus>(
         status === 'submitting' || pending ? 'submitting' : status
     );
@@ -46,6 +47,9 @@
         get pending() {
             return pending || (generating !== undefined && status === 'submitting');
         },
+        get insetToolbar() {
+            return insetToolbar;
+        },
         submit() {
             if (!disabled && !pending) {
                 form?.requestSubmit();
@@ -58,6 +62,9 @@
             ) {
                 onStop?.();
             }
+        },
+        setInsetToolbar(next: boolean) {
+            insetToolbar = next;
         }
     });
 
@@ -115,7 +122,7 @@
         onsubmit={handleSubmit}
         class={cn(
             className,
-            'relative flex w-full flex-col overflow-hidden rounded-[var(--radius-xl)] border border-border bg-card text-foreground shadow-[var(--elevation-1)] ring-1 ring-inset ring-[color-mix(in_oklab,var(--color-border)_45%,transparent)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary/60 focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
+            'sivir-modal-frame flex w-full flex-col overflow-hidden text-foreground shadow-[var(--elevation-1)] [--sivir-modal-inset:calc(var(--spacing)*0.5)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:border-primary focus-within:shadow-[var(--focus-ring),var(--elevation-1)] data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
         )}
     >
         {@render children?.()}

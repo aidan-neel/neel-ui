@@ -13,6 +13,8 @@
     import ErrorSrc from './examples/state-error.svelte?raw';
     import Submitting from './examples/submitting.svelte';
     import SubmittingSrc from './examples/submitting.svelte?raw';
+    import ToolbarInset from './examples/toolbar-inset.svelte';
+    import ToolbarInsetSrc from './examples/toolbar-inset.svelte?raw';
 
     const installCommand = 'bunx @sivir-ui/svelte add composer';
 </script>
@@ -107,6 +109,16 @@ async function sendPrompt(prompt: string) {
         <div id="error" class="scroll-mt-20 flex flex-col gap-3">
             <Typography.H3 class="docs-subsection-heading">Error</Typography.H3>
             <ComponentPreview code={ErrorSrc} refreshable><ErrorExample /></ComponentPreview>
+        </div>
+
+        <div id="toolbar-inset" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Toolbar inset</Typography.H3>
+            <Typography.Text variant="supporting">
+                The toolbar defaults to the frame chrome outside the input well. Set
+                <Typography.InlineCode>variant="inset"</Typography.InlineCode>
+                to merge it into the same inset surface as the input.
+            </Typography.Text>
+            <ComponentPreview code={ToolbarInsetSrc}><ToolbarInset /></ComponentPreview>
         </div>
     </section>
 </div>

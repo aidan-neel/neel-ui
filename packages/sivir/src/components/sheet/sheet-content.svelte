@@ -64,6 +64,7 @@
                 data-ui="sheet-content"
                 data-side={side}
                 data-motion="sheet"
+                data-orientation="vertical"
                 in:sheetIn={{ side }}
                 out:sheetOut={{ side }}
                 class={cn(
@@ -72,7 +73,7 @@
                     `fixed top-[calc(var(--sivir-viewport-top)+0.5rem)] bottom-auto z-50 flex h-[calc(var(--sivir-viewport-height)-1rem)] w-[calc(100%-1rem)] max-w-sm flex-col overflow-hidden text-foreground shadow-[var(--elevation-float)] will-change-transform [backface-visibility:hidden] ${
                         side === 'left' ? 'left-2' : 'right-2'
                     }`,
-                    'rounded-[var(--radius-lg)] border border-border bg-panel'
+                    'sivir-modal-frame [--sivir-modal-inset:calc(var(--spacing)*0.5)]'
                 )}
                 role="dialog"
                 aria-modal="true"
@@ -83,8 +84,10 @@
                 {...rest}
             >
                 <div
+                    data-ui="sheet-surface"
                     class={cn(
-                        'flex min-h-0 flex-1 flex-col overflow-y-auto overscroll-contain bg-panel p-4'
+                        'sivir-inset-surface relative flex min-h-0 flex-1 flex-col gap-4 overflow-y-auto overscroll-contain p-5',
+                        '[&_[data-ui=sheet-header]]:pr-8'
                     )}
                 >
                     {@render children?.()}

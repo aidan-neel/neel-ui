@@ -628,6 +628,76 @@ export const animationTokenDefinitions = [
         step: 0.01
     },
     {
+        name: '--motion-menu-y',
+        label: 'Menu offset',
+        group: 'Movement',
+        fallback: '2px',
+        kind: 'length',
+        min: 0,
+        max: 16,
+        step: 1
+    },
+    {
+        name: '--motion-menu-scale-start',
+        label: 'Menu start scale',
+        group: 'Movement',
+        fallback: '0.97',
+        kind: 'scale',
+        min: 0.8,
+        max: 1,
+        step: 0.01
+    },
+    {
+        name: '--motion-menu-blur',
+        label: 'Menu blur',
+        group: 'Movement',
+        fallback: '2px',
+        kind: 'length',
+        min: 0,
+        max: 12,
+        step: 1
+    },
+    {
+        name: '--motion-modal-y',
+        label: 'Modal offset',
+        group: 'Movement',
+        fallback: '4px',
+        kind: 'length',
+        min: 0,
+        max: 24,
+        step: 1
+    },
+    {
+        name: '--motion-modal-scale-start',
+        label: 'Modal start scale',
+        group: 'Movement',
+        fallback: '0.93',
+        kind: 'scale',
+        min: 0.8,
+        max: 1,
+        step: 0.01
+    },
+    {
+        name: '--motion-modal-blur',
+        label: 'Modal blur',
+        group: 'Movement',
+        fallback: '2px',
+        kind: 'length',
+        min: 0,
+        max: 12,
+        step: 1
+    },
+    {
+        name: '--motion-opacity-start',
+        label: 'Movement opacity',
+        group: 'Movement',
+        fallback: '0',
+        kind: 'opacity',
+        min: 0,
+        max: 1,
+        step: 0.05
+    },
+    {
         name: '--motion-press-px',
         label: 'Press distance',
         group: 'Movement',

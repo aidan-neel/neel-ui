@@ -67,7 +67,7 @@
             data-ui="textarea-composer"
             data-variant={variant}
             class={cn(
-                'overflow-hidden rounded-[var(--radius-xl)] border transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] focus-within:shadow-[var(--focus-ring)]',
+                'overflow-hidden rounded-[var(--radius-xl)] border-[length:var(--border-size)] transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] focus-within:shadow-[var(--focus-ring)]',
                 composerClass
             )}
         >

@@ -370,8 +370,8 @@ function chromeBlocks(chrome: ThemeChrome | undefined): string {
     }
     if (!controlShadows) {
         elevationOff.push(
-            '--elevation-control: inset 0 0 0 1px var(--color-border);',
-            '--elevation-button-outline: inset 0 0 0 1px var(--color-border);'
+            '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
+            '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
         );
     }
     const shared = [`--ui-cursor-interactive: ${chrome.interactiveCursor ?? 'default'};`];

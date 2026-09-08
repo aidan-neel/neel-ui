@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import * as Tabs from '@sivir-ui/svelte/components/tabs';
     import { cn } from '@sivir-ui/svelte/utils';
@@ -80,11 +79,8 @@
     class={cn(
         className,
         'sivir-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
-        '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]',
-        theme === 'sivir' &&
-            '[--code-block-token-comment:#6a737d] [--code-block-token-keyword:#d73a49] [--code-block-token-string:#032f62] [--code-block-token-number:#005cc5] [--code-block-token-function:#6f42c1] [--code-block-token-property:#005cc5] [--code-block-token-builtin:#e36209] [--code-block-token-entity:#22863a] [--code-block-token-meta:#005cc5]',
-        theme === 'sivir' &&
-            'dark:[--code-block-token-comment:#8b949e] dark:[--code-block-token-keyword:#ff7b72] dark:[--code-block-token-string:#a5d6ff] dark:[--code-block-token-number:#79c0ff] dark:[--code-block-token-function:#d2a8ff] dark:[--code-block-token-property:#79c0ff] dark:[--code-block-token-builtin:#ffa657] dark:[--code-block-token-entity:#7ee787] dark:[--code-block-token-meta:#79c0ff]'
+        // token-lint-disable-next-line no-literal-length: code-block geometry contract
+        '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}
     {...rest}
 >

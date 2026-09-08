@@ -37,6 +37,7 @@ export type ComposerInputProps = {
 } & Omit<HTMLTextareaAttributes, 'children' | 'class' | 'value'>;
 
 export type ComposerToolbarProps = {
+    variant?: 'chrome' | 'inset';
     class?: string;
     children?: Snippet;
 } & Omit<HTMLAttributes<HTMLDivElement>, 'children' | 'class' | 'role'>;
@@ -50,6 +51,7 @@ export type ComposerSubmitProps = {
     label?: string;
     queueLabel?: string;
     stopLabel?: string;
+    loadingLabel?: string;
     children?: Snippet<[ComposerSubmitState]>;
     element?: HTMLButtonElement | HTMLAnchorElement;
     onclick?: (event: MouseEvent) => void;

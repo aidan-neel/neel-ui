@@ -10,7 +10,12 @@
     const { state: sheetState } = getSheetContext();
 </script>
 
-<div {...rest} class={cn(className, 'flex flex-col gap-1 pb-6')}>
+<div
+    {...rest}
+    data-ui="sheet-header"
+    data-orientation="vertical"
+    class={cn(className, 'flex flex-col gap-1.5')}
+>
     {@render children?.()}
     <Button
         onclick={() => {

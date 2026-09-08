@@ -4,17 +4,15 @@
     let {
         onItem1 = () => {},
         onItem2 = () => {},
-        onItem3 = () => {},
-        inverted = false
+        onItem3 = () => {}
     }: {
         onItem1?: () => void;
         onItem2?: () => void;
         onItem3?: () => void;
-        inverted?: boolean;
     } = $props();
 </script>
 
-<DropdownMenu.Root {inverted}>
+<DropdownMenu.Root>
     <DropdownMenu.Trigger>
         <span data-testid="dropdown-trigger">Open menu</span>
     </DropdownMenu.Trigger>

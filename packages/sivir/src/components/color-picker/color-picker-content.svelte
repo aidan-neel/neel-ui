@@ -255,9 +255,11 @@
     </div>
 
     <!-- Hue + preview row -->
-    <div class="flex items-center gap-2.5 border-b border-border/60 p-2">
+    <div
+        class="flex items-center gap-2.5 border-b-[length:var(--border-size)] border-border/60 p-2"
+    >
         <span
-            class="size-7 shrink-0 rounded-md ring-1 ring-inset ring-black/10"
+            class="size-7 shrink-0 rounded-md ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
             style:background={previewHex}
             aria-hidden="true"
         ></span>
@@ -276,7 +278,7 @@
                 ></div>
             </div>
             <div
-                class="flex items-center gap-1 rounded-[var(--radius-md)] border border-border/60 bg-background px-1.5 transition-[border-color,box-shadow] focus-within:border-primary/50 focus-within:shadow-[0_0_0_2px_var(--color-ring)]"
+                class="flex items-center gap-1 rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border/60 bg-background px-1.5 transition-[border-color,box-shadow] focus-within:border-primary/50 focus-within:shadow-[0_0_0_2px_var(--color-ring)]"
             >
                 <span class="font-mono text-[0.78rem] text-foreground-muted">#</span>
                 <input
@@ -297,7 +299,7 @@
     </div>
 
     <!-- Format channel sliders -->
-    <div class="flex flex-col gap-1.5 border-b border-border/60 p-2">
+    <div class="flex flex-col gap-1.5 border-b-[length:var(--border-size)] border-border/60 p-2">
         {#if ctx.format === 'hsl'}
             {#each [{ key: 'h', label: 'H', max: 360, value: hslH, unit: '°' }, { key: 's', label: 'S', max: 100, value: hslS, unit: '%' }, { key: 'l', label: 'L', max: 100, value: hslL, unit: '%' }] as channel (channel.key)}
                 {@const thumbBg =
@@ -409,7 +411,7 @@
                     onclick={() => applyHex(opt.value)}
                     title={opt.label}
                     aria-label={opt.label}
-                    class="group relative grid size-6 place-items-center rounded-md ring-1 ring-inset ring-black/10 transition-[transform,box-shadow] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
+                    class="group relative grid size-6 place-items-center rounded-md ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)] transition-[transform,box-shadow] hover:scale-110 focus:outline-none focus:ring-2 focus:ring-primary"
                     style:background={opt.value}
                 >
                     {#if isActive}

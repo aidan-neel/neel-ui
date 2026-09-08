@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import { cn } from '@sivir-ui/svelte/utils';
     import { onMount } from 'svelte';
@@ -185,7 +184,7 @@
     {...rest}
     class={cn(
         className,
-        'hidden min-h-4 min-w-4 shrink-0 select-none items-center justify-center rounded-[var(--radius-sm)] border border-border bg-card px-1 py-1 align-middle font-sans text-[length:var(--font-size-meta)] font-medium leading-none text-foreground-muted sm:inline-flex',
+        'hidden min-h-4 min-w-4 shrink-0 select-none items-center justify-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] border-border bg-card px-1 py-1 align-middle font-sans text-[length:var(--font-size-meta)] font-medium leading-none text-foreground-muted sm:inline-flex',
         '[[data-variant=primary]_&]:border-transparent [[data-variant=primary]_&]:bg-[color-mix(in_oklab,var(--color-on-primary)_18%,transparent)] [[data-variant=primary]_&]:text-[var(--color-on-primary)]',
         '[[data-variant=destructive]_&]:border-transparent [[data-variant=destructive]_&]:bg-[color-mix(in_oklab,currentColor_16%,transparent)] [[data-variant=destructive]_&]:text-current'
     )}

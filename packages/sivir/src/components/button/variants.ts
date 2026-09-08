@@ -12,15 +12,15 @@ export const button = tv({
             primary:
                 'bg-primary text-[var(--color-on-primary)] shadow-[inset_0_0_0_var(--border-size)_var(--color-primary-stroke)] hover:bg-[var(--color-primary-hover)] data-[state=open]:bg-[var(--color-primary-hover)]',
             secondary:
-                'bg-secondary text-foreground hover:bg-[color-mix(in_srgb,var(--color-secondary)_92%,black)] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_92%,black)]',
-            ghost: 'bg-transparent text-foreground hover:bg-foreground/[0.08] data-[state=open]:bg-foreground/[0.08]',
-            quiet: 'bg-transparent text-foreground',
+                'bg-secondary text-[var(--color-button-foreground)] hover:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))] data-[state=open]:bg-[color-mix(in_srgb,var(--color-secondary)_92%,var(--color-foreground))]',
+            ghost: 'bg-transparent text-[var(--color-button-foreground)] hover:bg-foreground/[0.08] data-[state=open]:bg-foreground/[0.08]',
+            quiet: 'bg-transparent text-[var(--color-button-foreground)]',
             /**
              * Outline keeps the soft raised shadow. Focus composes the ring on top
              * of the lift so the raised look survives focus.
              */
             outline:
-                'bg-card text-foreground shadow-[var(--elevation-button-outline)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-button-outline)]',
+                'bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-button-outline)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-button-outline)]',
             destructive:
                 'bg-error-soft text-[var(--color-error)] hover:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)] data-[state=open]:bg-[color-mix(in_srgb,var(--color-error)_20%,transparent)]',
             /**
@@ -28,7 +28,7 @@ export const button = tv({
              * concentric frame -- the semantic border outside and the inset surface
              * ring inside read as Panel's double edge.
              */
-            panel: 'border border-border bg-card text-foreground shadow-[var(--elevation-1)] ring-1 ring-inset ring-[color-mix(in_oklab,var(--color-border)_50%,transparent)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
+            panel: 'border-[length:var(--border-size)] border-border bg-card text-[var(--color-button-foreground)] shadow-[var(--elevation-1)] ring-1 ring-inset ring-[color-mix(in_oklab,var(--color-border)_50%,transparent)] hover:bg-secondary data-[state=open]:bg-secondary focus-visible:shadow-[var(--focus-ring),var(--elevation-1)]'
         },
         size: {
             sm: 'h-[calc(var(--size-control-sm)-var(--size-hairline))] px-[calc(var(--spacing)*3+var(--size-hairline)/4)]',

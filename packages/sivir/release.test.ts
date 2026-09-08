@@ -43,7 +43,9 @@ describe('publishable package contract', () => {
      * (`.sivir-menu-item`, `.sivir-card-*`, `.sivir-tooltip*`). Those moved here
      * out of shared TypeScript class strings. The collection highlight adds one
      * more shared contract instead of repeating geometry CSS in five families.
-     * Treat further growth as a signal that private styling is leaking here.
+     * Independent menu/modal movement controls and the code/file-diff syntax
+     * theme are token contracts too. Treat further growth as a signal that
+     * private styling is leaking here.
      */
     test('keeps distributable CSS within the public-token budget', async () => {
         const css = await readFile(new URL('./src/ui.css', import.meta.url), 'utf8');
@@ -51,8 +53,8 @@ describe('publishable package contract', () => {
         const privatePrefix =
             /^\s*--(?:button|badge|field|panel|card|menu|command|tooltip|switch|checkbox|toast|tabs|progress|modal|sheet|textarea|breadcrumb|toggle|shortcut|slider)-/m;
 
-        expect(css.split('\n').length).toBeLessThanOrEqual(520);
-        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(16 * 1024);
+        expect(css.split('\n').length).toBeLessThanOrEqual(556);
+        expect(Buffer.byteLength(normalizedCss)).toBeLessThanOrEqual(18 * 1024);
         expect(css).not.toMatch(privatePrefix);
         expect(css).not.toMatch(/(^|})\s*\*\s*\{/);
         expect(css).not.toContain('@layer base');

@@ -13,19 +13,44 @@
 <section
     class="mx-auto flex min-h-[calc(100vh-4rem)] max-w-xl flex-col items-center justify-start gap-6 px-6 pt-[clamp(7rem,18vh,12rem)] text-center"
 >
-    <div class="flex flex-col items-center gap-3">
-        <p class="m-0 font-mono text-sm tabular-nums text-foreground-muted">{page.status}</p>
-        <h1 class="m-0 text-balance text-4xl font-semibold tracking-tight text-foreground">
+    <div class="flex max-w-[38rem] flex-col items-center">
+        <p
+            class="m-0 font-mono text-sm tabular-nums text-foreground-muted motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both]"
+        >
+            {page.status}
+        </p>
+        <h1
+            class="m-0 mt-2 text-balance tracking-tight text-foreground motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:80ms]"
+            style="font-size: 18px; font-weight: var(--font-weight-label);"
+        >
             {page.status === 404 ? 'Page not found' : 'Something went wrong'}
         </h1>
-        <p class="m-0 max-w-lg text-pretty leading-relaxed text-foreground-muted">
+        <p
+            class="m-0 mt-1 max-w-[38rem] text-pretty leading-relaxed text-foreground-muted motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:115ms]"
+            style="font-size: 18px; font-weight: var(--font-weight-label);"
+        >
             {page.status === 404
                 ? 'The page may have moved, or the address may be incomplete.'
                 : 'The request could not be completed. Try again, or return to the documentation.'}
         </p>
     </div>
-    <div class="flex flex-wrap justify-center gap-3">
-        <Button href={resolve('/docs/introduction')}><ArrowLeft size={16} />Back to docs</Button>
-        <Button href={resolve('/')} variant="outline">Home</Button>
+    <div
+        class="flex flex-wrap justify-center gap-3 motion-safe:[animation:docs-block-in_280ms_var(--ease-out)_both] motion-safe:[animation-delay:145ms]"
+    >
+        <Button
+            href={resolve('/docs/introduction')}
+            size="lg"
+            class="w-full justify-center sm:w-auto"
+        >
+            <ArrowLeft size={16} />Back to docs
+        </Button>
+        <Button
+            href={resolve('/')}
+            variant="outline"
+            size="lg"
+            class="w-full justify-center sm:w-auto"
+        >
+            Home
+        </Button>
     </div>
 </section>

@@ -8,7 +8,6 @@
     const parentMenu = getDropdownMenuContext();
     /** Extend the cone: ancestors are the path from root through this sub's parent. */
     setDropdownMenuContext({
-        inverted: parentMenu.inverted,
         ancestors: [...parentMenu.ancestors, parentState],
         submenus: [],
         parentSubmenus: parentMenu.submenus

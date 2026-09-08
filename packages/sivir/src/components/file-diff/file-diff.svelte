@@ -52,11 +52,8 @@
     class={cn(
         className,
         'sivir-inset-frame flex w-full flex-col overflow-hidden text-foreground',
-        '[--file-diff-line-height:1.7] [--file-diff-max-height:min(32rem,70vh)]',
-        theme === 'sivir' &&
-            '[--file-diff-token-comment:#6a737d] [--file-diff-token-keyword:#d73a49] [--file-diff-token-string:#032f62] [--file-diff-token-number:#005cc5] [--file-diff-token-function:#6f42c1] [--file-diff-token-property:#005cc5] [--file-diff-token-builtin:#e36209] [--file-diff-token-entity:#22863a] [--file-diff-token-meta:#005cc5]',
-        theme === 'sivir' &&
-            'dark:[--file-diff-token-comment:#8b949e] dark:[--file-diff-token-keyword:#ff7b72] dark:[--file-diff-token-string:#a5d6ff] dark:[--file-diff-token-number:#79c0ff] dark:[--file-diff-token-function:#d2a8ff] dark:[--file-diff-token-property:#79c0ff] dark:[--file-diff-token-builtin:#ffa657] dark:[--file-diff-token-entity:#7ee787] dark:[--file-diff-token-meta:#79c0ff]'
+        // token-lint-disable-next-line no-literal-length: file-diff geometry contract
+        '[--file-diff-line-height:1.7] [--file-diff-max-height:min(32rem,70vh)]'
     )}
     {...rest}
 >

@@ -5,7 +5,7 @@ export const toggle = tv({
     variants: {
         variant: {
             default: '',
-            outlined: 'border border-border'
+            outlined: 'border-[length:var(--border-size)] border-border'
         },
         pressed: {
             true: 'bg-secondary text-foreground hover:bg-secondary',

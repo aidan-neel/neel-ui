@@ -6,7 +6,7 @@
     import { getComboboxContext } from './context.svelte';
 
     const searchClass =
-        'mx-1 mt-1 flex h-[calc(var(--size-control-sm)+var(--spacing))] shrink-0 items-center gap-2 rounded-[var(--radius-lg)] border border-transparent bg-secondary px-3';
+        'mx-1 mt-1 flex h-[calc(var(--size-control-sm)+var(--spacing))] shrink-0 items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-transparent bg-secondary px-3';
     const { id, state: comboboxState } = getComboboxContext();
 
     let inputElement = $state<HTMLInputElement>();

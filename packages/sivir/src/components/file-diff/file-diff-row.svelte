@@ -25,11 +25,11 @@
     const showLineNumbers = $derived(context?.showLineNumbers ?? true);
     const html = $derived(highlight(code, resolvedLang));
     const sign = $derived(type === 'add' ? '+' : type === 'remove' ? '−' : ' ');
-    const columns = $derived(
-        showLineNumbers
-            ? 'grid-cols-[2.75rem_2.75rem_1.5rem_minmax(0,1fr)]'
-            : 'grid-cols-[1.5rem_minmax(0,1fr)]'
-    );
+    // token-lint-disable-next-line no-literal-length: sign column width
+    const numberedColumns = 'grid-cols-[var(--size-touch)_var(--size-touch)_1.5rem_minmax(0,1fr)]';
+    // token-lint-disable-next-line no-literal-length: sign column width
+    const plainColumns = 'grid-cols-[1.5rem_minmax(0,1fr)]';
+    const columns = $derived(showLineNumbers ? numberedColumns : plainColumns);
 </script>
 
 <div
@@ -40,9 +40,9 @@
         'grid min-w-full items-stretch',
         columns,
         type === 'add' &&
-            'bg-success-soft shadow-[inset_2px_0_0_var(--color-success)] dark:bg-success-soft/60',
+            'bg-success-soft shadow-[inset_var(--size-hairline)_0_0_var(--color-success)] dark:bg-success-soft/60',
         type === 'remove' &&
-            'bg-error-soft shadow-[inset_2px_0_0_var(--color-error)] dark:bg-error-soft/60'
+            'bg-error-soft shadow-[inset_var(--size-hairline)_0_0_var(--color-error)] dark:bg-error-soft/60'
     )}
     {...rest}
 >

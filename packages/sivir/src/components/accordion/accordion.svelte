@@ -51,7 +51,10 @@
 <div
     data-ui="accordion"
     data-type={type}
-    class={cn(className, 'divide-y divide-border border-y border-border')}
+    class={cn(
+        className,
+        'divide-y-[length:var(--border-size)] divide-border border-y-[length:var(--border-size)] border-border'
+    )}
     {...rest}
 >
     {@render children?.()}

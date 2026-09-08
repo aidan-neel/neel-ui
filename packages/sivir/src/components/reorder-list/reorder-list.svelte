@@ -338,19 +338,19 @@
                         }
                     }}
                     class={cn(
-                        'relative flex w-full touch-pan-x select-none items-center gap-2.5 rounded-[var(--radius-lg)] border border-border bg-card px-3 py-2.5 text-left text-foreground outline-none transition-[background-color,border-color,box-shadow,translate] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)]',
+                        'relative flex w-full touch-pan-x select-none items-center gap-2.5 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card px-3 py-2.5 text-left text-foreground outline-none transition-[background-color,border-color,box-shadow,color,translate] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
                         'disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
                         // token-lint-disable-next-line no-literal-length
                         'focus-visible:bg-[color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] focus-visible:shadow-[inset_0_0_0_1px_var(--color-primary)]',
                         lifted
-                            ? 'z-10 cursor-grabbing border-primary/45 shadow-[var(--elevation-float)]'
-                            : 'cursor-grab shadow-[var(--elevation-1)]'
+                            ? 'z-10 cursor-grabbing border-primary/45 bg-[color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] shadow-[var(--elevation-float)] [&>svg]:text-foreground-muted enabled:hover:border-primary/60 enabled:hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] enabled:active:border-primary/60 enabled:active:bg-[color-mix(in_srgb,var(--color-primary)_14%,var(--color-card))]'
+                            : 'cursor-grab shadow-[var(--elevation-1)] enabled:hover:border-border-strong enabled:hover:bg-secondary enabled:hover:[&>svg]:text-foreground-muted enabled:active:cursor-grabbing enabled:active:border-border-strong enabled:active:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] enabled:active:[&>svg]:text-foreground-muted'
                     )}
                 >
                     <svg
                         aria-hidden="true"
                         viewBox="0 0 10 14"
-                        class="h-3.5 w-2.5 shrink-0 fill-current text-foreground-muted/55"
+                        class="h-3.5 w-2.5 shrink-0 fill-current text-foreground-muted/55 transition-colors [transition-duration:var(--motion-duration-item)] motion-reduce:transition-none"
                     >
                         <circle cx="2.5" cy="2.5" r="1.2" />
                         <circle cx="7.5" cy="2.5" r="1.2" />

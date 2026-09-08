@@ -5,4 +5,6 @@
 - Fix Theme Studio radius customization going stale: custom corner values no longer pin the radius after switching the Sharp/Default/Rounded scale, and a custom spacing unit no longer pins the density preset. Custom values still persist across reloads until the scale changes.
 - Fix the Code Block frame rendering transparent in dark mode: its background referenced the removed `--color-muted` surface, so the tab strip showed whatever sat behind the block. It now uses the near-background fill from the modal frame, keeping the code body on the card surface.
 - Move the Modal border to the outer frame: the frame keeps its border in dark mode instead of going transparent, and the inner surface drops its border while keeping its background and concentric radius.
-- Make Tag Input tags visible in dark mode: the tag fill matched the field exactly, so tags get a hairline border and a lifted fill in dark mode while light mode keeps its gray-on-white look.
+- Make Tag Input tags visible in dark mode: the tag fill matched the field exactly, so tags get a subtly lifted fill in dark mode while light mode keeps its gray-on-white look.
+- Align Tag Input tags with the field's top padding and give the textbox a touch more left padding.
+- Tighten the gap between Tag Input tags and soften the tag hover so it barely shifts.

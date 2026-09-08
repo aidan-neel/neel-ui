@@ -226,7 +226,7 @@
         onclick={handleFieldClick}
         class={cn(
             className,
-            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1.5 rounded-[var(--radius-lg)] border px-2 py-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+            'flex min-h-[var(--size-control-md)] w-full cursor-text flex-wrap items-center gap-1 rounded-[var(--radius-lg)] border-[length:var(--border-size)] p-1 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none focus-within:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
             controlClass,
             error && 'border-[var(--color-error)] focus-within:border-[var(--color-error)]'
         )}

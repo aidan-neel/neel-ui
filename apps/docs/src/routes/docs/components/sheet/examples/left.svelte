@@ -8,9 +8,25 @@
     import { Badge } from '@sivir-ui/svelte/components/badge';
     import { Button } from '@sivir-ui/svelte/components/button';
     import * as Sheet from '@sivir-ui/svelte/components/sheet';
+    import Shortcut from '@sivir-ui/svelte/components/shortcut';
+
+    let open = $state(false);
+    let current = $state('home');
+
+    const links = [
+        { value: 'home', label: 'Home', icon: Home },
+        { value: 'inbox', label: 'Inbox', icon: Inbox, count: 3 },
+        { value: 'projects', label: 'Projects', icon: FolderKanban },
+        { value: 'settings', label: 'Settings', icon: Settings }
+    ];
+
+    function navigate(value: string) {
+        current = value;
+        open = false;
+    }
 </script>
 
-<Sheet.Root>
+<Sheet.Root bind:open>
     <Sheet.Trigger variant="outline">
         <Menu size={14} />
         Menu
@@ -21,29 +37,26 @@
             <Sheet.Description>Jump to a section of the app.</Sheet.Description>
         </Sheet.Header>
 
-        <div class="flex flex-col gap-1 py-4">
-            <Button variant="ghost" class="w-full justify-start gap-2">
-                <Home size={16} />
-                Home
-            </Button>
-            <Button variant="ghost" class="w-full justify-start gap-2">
-                <Inbox size={16} />
-                Inbox
-                <Badge variant="secondary" class="ml-auto">3</Badge>
-            </Button>
-            <Button variant="ghost" class="w-full justify-start gap-2">
-                <FolderKanban size={16} />
-                Projects
-            </Button>
-            <Button variant="ghost" class="w-full justify-start gap-2">
-                <Settings size={16} />
-                Settings
-            </Button>
-        </div>
+        <nav aria-label="App sections" class="flex flex-col gap-1">
+            {#each links as link (link.value)}
+                <Button
+                    variant="ghost"
+                    class="w-full justify-start gap-2"
+                    aria-current={current === link.value ? 'page' : undefined}
+                    onclick={() => navigate(link.value)}
+                >
+                    <link.icon size={16} />
+                    {link.label}
+                    {#if link.count}
+                        <Badge variant="secondary" class="ml-auto">{link.count}</Badge>
+                    {/if}
+                </Button>
+            {/each}
+        </nav>
 
         <div class="h-px w-full bg-border" role="separator"></div>
 
-        <div class="flex items-center gap-3 py-4">
+        <div class="flex items-center gap-3">
             <Avatar.Root size="sm">
                 <Avatar.Fallback>AN</Avatar.Fallback>
             </Avatar.Root>
@@ -57,7 +70,10 @@
         </div>
 
         <Sheet.Footer>
-            <Sheet.Close class="w-full" variant="outline">Close</Sheet.Close>
+            <Sheet.Close class="w-full" variant="outline">
+                Close
+                <Shortcut shortcut="esc" />
+            </Sheet.Close>
         </Sheet.Footer>
     </Sheet.Content>
 </Sheet.Root>

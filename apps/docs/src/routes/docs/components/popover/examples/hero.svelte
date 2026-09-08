@@ -12,7 +12,7 @@
         <Share2 size={14} />
         Share
     </Popover.Trigger>
-    <Popover.Content class="w-80">
+    <Popover.Content class="w-[26rem] max-w-[calc(100vw-2rem)]">
         <div class="flex flex-col gap-3 p-1">
             <!-- Invite -->
             <div class="flex w-full items-stretch gap-2">

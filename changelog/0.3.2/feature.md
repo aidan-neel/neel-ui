@@ -1,0 +1,7 @@
+- Rebuild the Sheet drawer on the shared panel frame with an inset scroll surface, and restyle the footer with Modal footer spacing in a vertical stacked layout.
+- Drive every component border from the border-width token: border, side, and divider widths now resolve to `--border-size`, including the control elevation hairlines.
+- Split overlay movement into independent menu and modal controls for offset, start scale, and blur, plus a shared movement start opacity.
+- Rework the Theme Studio sidebar: a grouped Feel section offers Radius, Density, and Movement preset selects with an Advanced entry opening the Spacing or Motion modal, the tabbed advanced dialog becomes three independent modals, and export controls move to the bottom.
+- Give Composer.Toolbar a `variant` prop: `chrome` keeps the toolbar in the frame chrome outside the input well, and `inset` merges it into the same inset surface as the input.
+- Give Card an `inset` variant on the shared Modal frame: content sits on the inset surface while Footer renders in the frame chrome below it.
+- Add the Functional built-in theme: a rounded, subtle-motion ledger system with a blue accent, Inter and Roboto Mono type, per-mode foundation colors, compact radii, fast animation tokens, flat controls, no traveling highlight, and a pointer cursor.

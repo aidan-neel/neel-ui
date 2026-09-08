@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import Check from '@lucide/svelte/icons/circle-check';
     import CircleX from '@lucide/svelte/icons/circle-x';
@@ -49,9 +48,9 @@
     aria-atomic="true"
     class={cn(
         'group relative flex w-full flex-col overflow-hidden',
-        'rounded-[calc(var(--radius-lg)+0.15rem)] border border-border',
-        'bg-panel shadow-[var(--elevation-float)] backdrop-blur-[14px]',
-        'ring-1 ring-black/4 sm:ring-0',
+        'rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border',
+        'bg-panel shadow-[var(--elevation-float)] backdrop-blur-md',
+        'ring-1 ring-[color-mix(in_srgb,var(--color-foreground)_4%,transparent)] sm:ring-0',
         'text-foreground'
     )}
     onmouseenter={() => {
@@ -84,7 +83,7 @@
 
         <div class="flex min-w-0 flex-1 flex-col gap-0.5">
             <p
-                class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-body)] leading-snug tracking-[-0.015em] text-foreground"
+                class="[font-size:var(--font-size-body)] [font-weight:var(--font-weight-body)] [letter-spacing:var(--tracking-header)] leading-snug text-foreground"
             >
                 {toast.title}
             </p>

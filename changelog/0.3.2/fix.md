@@ -1,0 +1,6 @@
+- Rebuild Composer on the shared panel frame with the prompt input on the inset surface and toolbar chrome in the frame, and drive the Send button through the Button loading state with content-sized example triggers.
+- Match Composer focus to Input/Textarea with a solid primary border plus the focus glow, and raise the prompt input resting height to 128px.
+- Route syntax highlighting and chrome edges through semantic color tokens so components follow the active theme instead of hardcoded light/dark palettes.
+- Give Reorder List rows hover and press feedback, with a primary tint and float elevation while a row is grabbed or dragging that deepens on hover and press.
+- Route the remaining fixed 1px borders (Input, Button panel, Badge outline, Checkbox, Toggle outline) through the border-width token so the Studio stroke slider affects them.
+- Re-baseline the distributable CSS budget for the new movement and syntax-token contracts, and update the modal exit-motion expectation to the independent modal controls.

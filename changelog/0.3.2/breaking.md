@@ -1,0 +1,1 @@
+- Remove the Dropdown Menu `inverted` prop. Menus always follow the active theme's panel, border, and foreground tokens.

@@ -90,6 +90,21 @@
                 "task": "deny"
             },
             "prompt": "You are an independent, read-only reviewer. Inspect the current working-tree diff and relevant surrounding code against the stated feature objective. Identify only concrete defects or missing requirements. Return findings ordered by severity with file and line references. Return exactly APPROVED when there are no actionable findings. Do not change files."
+        },
+        "spark": {
+            "description": "Muse Spark 1.3 Contributor explore agent. Use when exploring Sivir components, tracing composition, or checking themeability.",
+            "mode": "subagent",
+            "hidden": false,
+            "model": "opencode/muse-spark-1.3-contributor-free",
+            "permission": {
+                "read": "allow",
+                "glob": "allow",
+                "grep": "allow",
+                "edit": "deny",
+                "bash": "deny",
+                "task": "deny"
+            },
+            "prompt": "You are a fast, read-only explore agent. Inspect Sivir components, their public composition, and whether they theme correctly through semantic tokens rather than hardcoded colors. Return a concise map of relevant files, how parts compose, and any themeability gaps. Do not change files or delegate work."
         }
     },
     "lsp": {

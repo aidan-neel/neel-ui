@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import Search from '@lucide/svelte/icons/search';
     import { cn } from '@sivir-ui/svelte/utils';
@@ -121,7 +120,9 @@
     });
 </script>
 
-<div class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b border-border px-3">
+<div
+    class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
+>
     <Search size={15} strokeWidth={1.75} class="shrink-0 text-foreground-muted" />
     <input
         bind:this={searchInput}

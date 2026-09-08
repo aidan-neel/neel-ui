@@ -203,7 +203,7 @@ describe('Modal -- ARIA contract in browser', () => {
         expect(enter.duration).toBe(180);
         expect(enter.css?.(0, 1)).toContain('translateY(4px) scale(0.93)');
         expect(exit.duration).toBe(110);
-        expect(exit.css?.(0, 1)).toContain('translateY(-3px) scale(0.98)');
+        expect(exit.css?.(0, 1)).toContain('translateY(-4px) scale(0.9825)');
         expect(enter.easing?.(0.5)).toBeGreaterThan(exit.easing?.(0.5) ?? 1);
     });
 

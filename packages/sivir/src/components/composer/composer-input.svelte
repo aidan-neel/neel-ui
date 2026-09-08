@@ -99,6 +99,7 @@
     }}
     class={cn(
         className,
-        'min-h-20 max-h-52 w-full resize-none overflow-y-hidden bg-transparent px-3.5 pt-3 pb-2 [font-size:var(--font-size-body)] leading-body text-foreground outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] read-only:cursor-default'
+        'sivir-inset-surface min-h-32 max-h-52 w-full resize-none overflow-y-hidden px-3.5 pt-3 pb-2 [font-size:var(--font-size-body)] leading-body text-foreground outline-none placeholder:text-foreground-muted disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)] read-only:cursor-default',
+        context.insetToolbar && 'rounded-b-none'
     )}
 ></textarea>

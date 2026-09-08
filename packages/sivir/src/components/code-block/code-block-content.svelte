@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import type { TabsState } from '@sivir-ui/svelte/components/tabs';
     import { cn } from '@sivir-ui/svelte/utils';
@@ -113,7 +112,7 @@
                 {#if showLineNumbers}
                     <pre
                         aria-hidden="true"
-                        class="m-0 shrink-0 select-none border-r border-border px-3 py-[var(--code-block-padding-y)] text-right text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)] text-[var(--code-block-gutter)]"
+                        class="m-0 shrink-0 select-none border-r-[length:var(--border-size)] border-border px-3 py-[var(--code-block-padding-y)] text-right text-[length:var(--font-size-label)] leading-[var(--code-block-line-height)] text-[var(--code-block-gutter)]"
                     >{#each Array.from({ length: lineCount }, (_, i) => i) as i (i)}{i +
                                 1}{newline}{/each}</pre>
                 {/if}

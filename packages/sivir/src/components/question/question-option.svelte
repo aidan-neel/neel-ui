@@ -33,7 +33,7 @@
         data-disabled={isDisabled || undefined}
         class={cn(
             className,
-            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-lg)] border px-3 py-2.5 text-start transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
+            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 py-2.5 text-start transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
             selected
                 ? 'border-primary/60 bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))]'
                 : 'border-border bg-background hover:border-border-strong hover:bg-secondary/35',
@@ -57,7 +57,7 @@
         />
         <span
             class={cn(
-                'mt-0.5 grid size-4 shrink-0 place-items-center border transition-[background-color,border-color] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
+                'mt-0.5 grid size-4 shrink-0 place-items-center border-[length:var(--border-size)] transition-[background-color,border-color] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none',
                 context.type === 'multiple' ? 'rounded-[var(--radius-sm)]' : 'rounded-full',
                 selected ? 'border-primary bg-primary' : 'border-border bg-background'
             )}
