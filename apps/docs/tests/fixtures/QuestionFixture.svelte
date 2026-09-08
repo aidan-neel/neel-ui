@@ -1,6 +1,7 @@
 <script lang="ts">
     import type {
         QuestionAnswer,
+        QuestionProps,
         QuestionStatus,
         QuestionType
     } from '@sivir-ui/svelte/components/question';
@@ -8,6 +9,7 @@
     import { untrack } from 'svelte';
 
     let {
+        variant = 'default',
         type = 'single',
         value = $bindable(),
         status = 'idle',
@@ -18,6 +20,7 @@
         showActions = true,
         asyncSubmit = false
     }: {
+        variant?: QuestionProps['variant'];
         type?: QuestionType;
         value?: QuestionAnswer;
         status?: QuestionStatus;
@@ -59,6 +62,7 @@
 <Question.Root
     bind:value
     {type}
+    {variant}
     {status}
     {required}
     {autofocus}

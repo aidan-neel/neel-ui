@@ -62,7 +62,7 @@
     <title>Sivir UI · Themed Svelte components</title>
     <meta
         name="description"
-        content="55 Svelte 5 components. Restyle all of them from a handful of design tokens."
+        content="57 Svelte 5 components. Restyle all of them from a handful of design tokens."
     />
 </svelte:head>
 

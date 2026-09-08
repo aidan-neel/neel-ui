@@ -3,6 +3,9 @@
     import { ScrollArea } from '@sivir-ui/svelte/components/scroll-area';
     import { cn, dynamicWidth, travelingHighlight } from '@sivir-ui/svelte/utils';
     import type { Snippet } from 'svelte';
+    import { getDropdownMenuContext } from './context.svelte';
+
+    getDropdownMenuContext();
 
     type Props = {
         children: Snippet;

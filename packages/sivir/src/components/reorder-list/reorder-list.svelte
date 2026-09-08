@@ -32,7 +32,7 @@
               pointerId: number;
               startY: number;
               currentY: number;
-              startLayoutTop: number;
+              startListTop: number;
               grabOffset: number;
               centers: { id: string; center: number }[];
           }
@@ -123,7 +123,6 @@
             listElement.releasePointerCapture?.(session.pointerId);
         }
         if (settle && !reduced) {
-            // Restore the translate transition before clearing the drag offset.
             session.node.style.removeProperty('transition-property');
             void session.node.offsetWidth;
         }
@@ -196,14 +195,13 @@
         const node = event.currentTarget as HTMLButtonElement;
         snapshot = [...items];
         const rect = node.getBoundingClientRect();
-        const row = node.parentElement;
         pointerSession = {
             id,
             node,
             pointerId: event.pointerId,
             startY: event.clientY,
             currentY: event.clientY,
-            startLayoutTop: row?.offsetTop ?? 0,
+            startListTop: listElement?.getBoundingClientRect().top ?? 0,
             grabOffset: event.clientY - rect.top,
             centers: Array.from(
                 listElement?.querySelectorAll<HTMLButtonElement>('[data-reorder-id]') ?? []
@@ -215,12 +213,17 @@
                 };
             })
         };
+        event.preventDefault();
+        node.focus({ preventScroll: true });
         listElement?.setPointerCapture?.(event.pointerId);
     }
 
     function positionDraggedRow(session: NonNullable<typeof pointerSession>) {
-        const layoutDelta = (session.node.parentElement?.offsetTop ?? 0) - session.startLayoutTop;
-        session.node.style.translate = `0 ${session.currentY - session.startY - layoutDelta}px`;
+        const rowTop = session.node.parentElement?.getBoundingClientRect().top;
+        if (rowTop === undefined) {
+            return;
+        }
+        session.node.style.translate = `0 ${session.currentY - session.grabOffset - rowTop}px`;
     }
 
     function movePointer(event: PointerEvent) {
@@ -237,7 +240,6 @@
                 return;
             }
             dragging = session.id;
-            // Direct manipulation must track the pointer without interpolation.
             session.node.style.setProperty(
                 'transition-property',
                 'background-color, border-color, box-shadow'
@@ -252,9 +254,10 @@
 
         const from = indexOf(session.id);
         const pointerCenter = event.clientY + (session.node.offsetHeight / 2 - session.grabOffset);
+        const scrollDelta = listElement.getBoundingClientRect().top - session.startListTop;
         const to = session.centers
             .filter((entry) => entry.id !== session.id)
-            .filter((entry) => pointerCenter > entry.center).length;
+            .filter((entry) => pointerCenter > entry.center + scrollDelta).length;
         if (from >= 0 && to !== from) {
             emit(moveItem(items, from, to));
             void tick().then(() => {
@@ -290,6 +293,18 @@
         }
     }
 
+    function losePointerCapture(event: PointerEvent) {
+        if (event.target === listElement) {
+            cancelPointer(event);
+        }
+    }
+
+    function scrollPointer() {
+        if (pointerSession && dragging) {
+            positionDraggedRow(pointerSession);
+        }
+    }
+
     function cancelInterruptedGesture() {
         if (pointerSession || dragging || grabbed) {
             cancel();
@@ -302,6 +317,7 @@
     onpointerup={finishPointer}
     onpointercancel={cancelPointer}
     onblur={cancelInterruptedGesture}
+    onscrollcapture={scrollPointer}
 />
 <svelte:document
     onvisibilitychange={() => {
@@ -315,7 +331,7 @@
     <ol
         bind:this={listElement}
         aria-label={label}
-        onlostpointercapture={cancelPointer}
+        onlostpointercapture={losePointerCapture}
         class="m-0 list-none space-y-1.5 p-0"
     >
         {#each items as item (getId(item))}
@@ -327,30 +343,29 @@
                     type="button"
                     data-reorder-id={id}
                     data-lifted={lifted}
-                    aria-pressed={held}
+                    aria-pressed={lifted}
                     aria-describedby={`${uid}-hint`}
                     {disabled}
                     onkeydown={(event) => onRowKeydown(event, id)}
                     onpointerdown={(event) => startPointer(event, id)}
+                    ondragstart={(event) => event.preventDefault()}
                     onblur={() => {
                         if (held) {
                             cancel();
                         }
                     }}
                     class={cn(
-                        'relative flex w-full touch-pan-x select-none items-center gap-2.5 rounded-[var(--radius-lg)] border-[length:var(--border-size)] border-border bg-card px-3 py-2.5 text-left text-foreground outline-none transition-[background-color,border-color,box-shadow,color,translate] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
-                        'disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]',
-                        // token-lint-disable-next-line no-literal-length
-                        'focus-visible:bg-[color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] focus-visible:shadow-[inset_0_0_0_1px_var(--color-primary)]',
                         lifted
-                            ? 'z-10 cursor-grabbing border-primary/45 bg-[color-mix(in_srgb,var(--color-primary)_6%,var(--color-card))] shadow-[var(--elevation-float)] [&>svg]:text-foreground-muted enabled:hover:border-primary/60 enabled:hover:bg-[color-mix(in_srgb,var(--color-primary)_10%,var(--color-card))] enabled:active:border-primary/60 enabled:active:bg-[color-mix(in_srgb,var(--color-primary)_14%,var(--color-card))]'
-                            : 'cursor-grab shadow-[var(--elevation-1)] enabled:hover:border-border-strong enabled:hover:bg-secondary enabled:hover:[&>svg]:text-foreground-muted enabled:active:cursor-grabbing enabled:active:border-border-strong enabled:active:bg-[color-mix(in_srgb,var(--color-secondary)_88%,var(--color-foreground))] enabled:active:[&>svg]:text-foreground-muted'
+                            ? 'z-10 cursor-grabbing border-primary bg-secondary shadow-[var(--elevation-float)] [&>svg]:text-foreground'
+                            : 'cursor-grab border-border bg-card enabled:hover:border-border-strong enabled:hover:bg-secondary enabled:hover:[&>svg]:text-foreground enabled:active:cursor-grabbing enabled:active:bg-foreground/[0.08]',
+                        'relative flex w-full touch-pinch-zoom select-none items-center gap-3 rounded-[var(--radius-md)] border-[length:var(--border-size)] px-3 py-2.5 text-left text-sm text-foreground outline-none transition-[background-color,border-color,box-shadow,color,translate] [transition-duration:var(--motion-duration-item)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                        'focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]'
                     )}
                 >
                     <svg
                         aria-hidden="true"
                         viewBox="0 0 10 14"
-                        class="h-3.5 w-2.5 shrink-0 fill-current text-foreground-muted/55 transition-colors [transition-duration:var(--motion-duration-item)] motion-reduce:transition-none"
+                        class="h-3.5 w-2.5 shrink-0 fill-current text-foreground-muted transition-colors [transition-duration:var(--motion-duration-item)] motion-reduce:transition-none"
                     >
                         <circle cx="2.5" cy="2.5" r="1.2" />
                         <circle cx="7.5" cy="2.5" r="1.2" />

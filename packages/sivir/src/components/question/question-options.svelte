@@ -11,7 +11,7 @@
     {...rest}
     data-ui="question-options"
     data-type={context.type}
-    class={cn(className, 'grid gap-2 px-3.5 pt-3 pb-2')}
+    class={cn(className, 'grid gap-1 px-3 pt-4 pb-3')}
 >
     {@render children?.()}
 </div>

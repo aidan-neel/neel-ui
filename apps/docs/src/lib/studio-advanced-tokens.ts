@@ -150,6 +150,12 @@ export const colorTokenDefinitions = [
         fallback: 'var(--sivir-neutral-500)'
     },
     {
+        name: '--color-button-foreground',
+        label: 'Button text',
+        group: 'Text',
+        fallback: 'var(--color-foreground)'
+    },
+    {
         name: '--color-tooltip',
         label: 'Tooltip',
         group: 'Text',

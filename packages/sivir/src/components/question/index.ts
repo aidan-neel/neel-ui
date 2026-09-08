@@ -2,6 +2,7 @@ import type { Snippet } from 'svelte';
 import type {
     HTMLAttributes,
     HTMLButtonAttributes,
+    HTMLFieldsetAttributes,
     HTMLFormAttributes,
     HTMLInputAttributes,
     HTMLTextareaAttributes
@@ -9,6 +10,7 @@ import type {
 import Root from './question.svelte';
 import Actions from './question-actions.svelte';
 import Cancel from './question-cancel.svelte';
+import Content from './question-content.svelte';
 import Description from './question-description.svelte';
 import Input from './question-input.svelte';
 import Option from './question-option.svelte';
@@ -21,6 +23,7 @@ export type QuestionAnswer = string | string[];
 export type QuestionStatus = 'idle' | 'submitting' | 'error';
 
 export type QuestionProps = {
+    variant?: 'default' | 'inset';
     type?: QuestionType;
     value?: QuestionAnswer;
     status?: QuestionStatus;
@@ -37,6 +40,11 @@ export type QuestionProps = {
     HTMLFormAttributes,
     'children' | 'class' | 'onsubmit' | 'action' | 'method' | 'target' | 'enctype' | 'name'
 >;
+
+export type QuestionContentProps = {
+    class?: string;
+    children?: Snippet;
+} & Omit<HTMLFieldsetAttributes, 'children' | 'class'>;
 
 export type QuestionTitleProps = {
     class?: string;
@@ -105,4 +113,4 @@ export type QuestionSubmitProps = {
     element?: HTMLButtonElement | HTMLAnchorElement;
 } & Omit<HTMLButtonAttributes, 'children' | 'type'>;
 
-export { Actions, Cancel, Description, Input, Option, Options, Root, Submit, Title };
+export { Actions, Cancel, Content, Description, Input, Option, Options, Root, Submit, Title };

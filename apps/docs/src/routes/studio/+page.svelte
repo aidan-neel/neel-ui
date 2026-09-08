@@ -98,6 +98,7 @@
         foreground: string;
         foregroundMuted: string;
         onPrimary: string;
+        buttonForeground: string;
     };
 
     type FoundationColors = {
@@ -147,7 +148,8 @@
             secondary: '#efefee',
             foreground: '#1c1c1b',
             foregroundMuted: '#737373',
-            onPrimary: '#ffffff'
+            onPrimary: '#ffffff',
+            buttonForeground: '#1c1c1b'
         },
         dark: {
             base: '#171717',
@@ -156,7 +158,8 @@
             secondary: '#252525',
             foreground: '#ededed',
             foregroundMuted: '#a3a3a3',
-            onPrimary: '#ffffff'
+            onPrimary: '#ffffff',
+            buttonForeground: '#ededed'
         }
     };
     const DEFAULT_ROLE_WEIGHTS: RoleWeights = {
@@ -570,7 +573,8 @@
             `--color-secondary: ${colors.secondary};`,
             `--color-foreground: ${colors.foreground};`,
             `--color-foreground-muted: ${colors.foregroundMuted};`,
-            `--color-on-primary: ${colors.onPrimary};`
+            `--color-on-primary: ${colors.onPrimary};`,
+            `--color-button-foreground: ${colors.buttonForeground};`
         ];
 
         return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
@@ -1537,6 +1541,16 @@
                         foregroundSwatches,
                         (value) => {
                             updateFoundationColor('foreground', value);
+                        }
+                    )}
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    {@render colorPickerControl(
+                        'Button text',
+                        foundationColors[appMode].buttonForeground,
+                        foregroundSwatches,
+                        (value) => {
+                            updateFoundationColor('buttonForeground', value);
                         }
                     )}
                 </div>

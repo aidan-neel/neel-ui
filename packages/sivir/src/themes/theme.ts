@@ -27,6 +27,7 @@ export type ThemeFoundationPalette = {
     foreground?: string;
     foregroundMuted?: string;
     onPrimary?: string;
+    buttonForeground?: string;
 };
 
 export type ThemeFoundation = {
@@ -300,7 +301,8 @@ const FOUNDATION_TOKEN_MAP = {
     secondary: ['--color-secondary'],
     foreground: ['--color-foreground'],
     foregroundMuted: ['--color-foreground-muted'],
-    onPrimary: ['--color-on-primary']
+    onPrimary: ['--color-on-primary'],
+    buttonForeground: ['--color-button-foreground']
 } as const;
 
 type FoundationPaletteKey = keyof typeof FOUNDATION_TOKEN_MAP;
@@ -563,7 +565,8 @@ function optionalFoundation(value: unknown): ThemeFoundation | undefined {
         'secondary',
         'foreground',
         'foregroundMuted',
-        'onPrimary'
+        'onPrimary',
+        'buttonForeground'
     ] as const;
     const parsePalette = (raw: unknown, field: string) => {
         if (raw === undefined) {

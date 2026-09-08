@@ -215,10 +215,15 @@ describe('docs release contracts', () => {
         ];
         for (const page of pages) {
             const source = readFileSync(resolve(root, page), 'utf8');
-            expect(source, page).not.toMatch(/Theme Studio|theme studio|\/themes\/studio/i);
             expect(source, page).not.toContain('bunx @sivir-ui/svelte init');
             expect(source, page).not.toContain('bunx @sivir-ui/svelte add');
             expect(source, page).not.toContain('/docs/styling');
+        }
+        // The theming guide documents the visual theme builder; the install
+        // path pages stay free of it.
+        for (const page of pages.slice(0, 2)) {
+            const source = readFileSync(resolve(root, page), 'utf8');
+            expect(source, page).not.toMatch(/Theme Studio|theme studio|\/themes\/studio/i);
         }
         const install = readFileSync(
             resolve(root, 'apps/docs/src/routes/docs/installation/+page.svelte'),

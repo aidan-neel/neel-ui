@@ -4,3 +4,7 @@
 - Give Reorder List rows hover and press feedback, with a primary tint and float elevation while a row is grabbed or dragging that deepens on hover and press.
 - Route the remaining fixed 1px borders (Input, Button panel, Badge outline, Checkbox, Toggle outline) through the border-width token so the Studio stroke slider affects them.
 - Re-baseline the distributable CSS budget for the new movement and syntax-token contracts, and update the modal exit-motion expectation to the independent modal controls.
+- Correct Reorder List grabbed, hover, and pressed styling, keep dragged rows aligned while scrolling, and prevent touch capture changes from cancelling a reorder.
+- Keep inset Card footers synchronized when their actions are changed or removed.
+- Keep Question content static during navigation so the answer surface remains calm and readable.
+- Restore the Dropdown Menu outside-root error so content rendered without a root names `<DropdownMenu.Root>` instead of the underlying popover.

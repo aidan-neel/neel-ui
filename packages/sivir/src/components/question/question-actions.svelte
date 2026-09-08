@@ -1,4 +1,5 @@
 <script lang="ts">
+    import * as Card from '@sivir-ui/svelte/components/card';
     import { cn } from '@sivir-ui/svelte/utils';
     import type { QuestionActionsProps } from '.';
     import { getQuestionContext } from './context.svelte';
@@ -7,13 +8,13 @@
     const context = getQuestionContext();
 </script>
 
-<div
-    {...rest}
-    data-ui="question-actions"
-    data-state={context.status}
-    class={cn(className, 'px-2.5 pt-1 pb-2.5')}
->
-    <div class="flex flex-wrap items-center justify-end gap-2">
+<Card.Footer class="m-0 block p-0">
+    <div
+        {...rest}
+        data-ui="question-actions"
+        data-state={context.status}
+        class={cn(className, 'flex flex-wrap items-center justify-end gap-2 px-3 py-2.5')}
+    >
         {@render children?.()}
     </div>
-</div>
+</Card.Footer>

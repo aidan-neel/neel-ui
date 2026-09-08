@@ -113,6 +113,7 @@ src/lib/sivir/components/button/
                 <Typography.InlineCode>--color-foreground-muted</Typography.InlineCode>,
                 <Typography.InlineCode>--color-primary</Typography.InlineCode>,
                 <Typography.InlineCode>--color-on-primary</Typography.InlineCode>,
+                <Typography.InlineCode>--color-button-foreground</Typography.InlineCode>,
                 <Typography.InlineCode>--color-border</Typography.InlineCode>,
                 <Typography.InlineCode>--color-input</Typography.InlineCode>,
                 <Typography.InlineCode>--color-ring</Typography.InlineCode>

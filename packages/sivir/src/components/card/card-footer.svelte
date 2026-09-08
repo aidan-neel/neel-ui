@@ -2,7 +2,7 @@
     import { cn } from '@sivir-ui/svelte/utils';
     import type { Snippet } from 'svelte';
     import { untrack } from 'svelte';
-    import { getCardContext } from './context.svelte';
+    import { type CardFooterSlot, getCardContext } from './context.svelte';
 
     let {
         children,
@@ -23,13 +23,35 @@
     const card = readCardContext();
     const inInsetChrome = $derived(card?.variant === 'inset');
 
+    const footerSlot = $state<CardFooterSlot>({
+        get children() {
+            return children;
+        },
+        get className() {
+            return classProp;
+        },
+        get rest() {
+            return rest;
+        }
+    });
+
     if (inInsetChrome && card) {
-        card.footerSlot = untrack(() => ({
-            children,
-            className: classProp,
-            rest
-        }));
+        card.footerSlot = footerSlot;
     }
+
+    $effect(() => {
+        if (!card || !inInsetChrome) {
+            return;
+        }
+        card.footerSlot = footerSlot;
+        return () => {
+            untrack(() => {
+                if (card.footerSlot === footerSlot) {
+                    card.footerSlot = undefined;
+                }
+            });
+        };
+    });
 </script>
 
 {#if !inInsetChrome}

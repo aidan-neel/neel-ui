@@ -24,6 +24,10 @@ function mockLayout(item: HTMLElement, width: number) {
         value: () => [rect(width)],
         configurable: true
     });
+    Object.defineProperty(item, 'offsetWidth', {
+        value: width,
+        configurable: true
+    });
 }
 
 function setup(widths: number[]) {

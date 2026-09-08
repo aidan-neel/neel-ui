@@ -146,9 +146,9 @@ describe('CodeBlock theme', () => {
             }
         });
 
-        const root = container.querySelector('[data-ui="code-block"]');
-        expect(root?.className).toContain('code-block-token-keyword');
-        expect(root?.className).toContain('code-block-token-entity');
+        const surface = container.querySelector('[data-ui="code-block-content"]');
+        expect(surface?.querySelector('div[class*="code-block-token-keyword"]')).not.toBeNull();
+        expect(surface?.querySelector('div[class*="code-block-token-entity"]')).not.toBeNull();
     });
 
     it('omits the built-in token variables with theme="custom"', () => {
@@ -162,6 +162,8 @@ describe('CodeBlock theme', () => {
 
         const root = container.querySelector('[data-ui="code-block"]');
         expect(root?.className).not.toContain('code-block-token-');
+        const surface = container.querySelector('[data-ui="code-block-content"]');
+        expect(surface?.querySelector('div[class*="code-block-token-"]')).toBeNull();
     });
 });
 

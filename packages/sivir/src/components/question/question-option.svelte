@@ -33,11 +33,11 @@
         data-disabled={isDisabled || undefined}
         class={cn(
             className,
-            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 py-2.5 text-start transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
+            isDisabled && 'cursor-not-allowed opacity-[var(--opacity-disabled)]',
+            'group relative flex min-h-12 cursor-[var(--ui-cursor-interactive)] items-start gap-3 rounded-[var(--radius-md)] border-[length:var(--border-size)] px-3 py-2.5 text-start transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)]',
             selected
                 ? 'border-primary/60 bg-[color-mix(in_srgb,var(--color-primary)_8%,var(--color-card))]'
-                : 'border-border bg-background hover:border-border-strong hover:bg-secondary/35',
-            isDisabled && 'cursor-not-allowed opacity-50'
+                : 'border-transparent bg-transparent [&:not([data-disabled]):hover]:border-border [&:not([data-disabled]):hover]:bg-secondary'
         )}
     >
         <input

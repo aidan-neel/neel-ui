@@ -72,3 +72,11 @@ Do not put `dark:[--code-block-token-*:#…]` on the component.
 Image rings, switch knobs, and similar chrome use
 `color-mix(..., var(--color-foreground), …)` or `--color-on-primary`. Do
 not use `black` / `white` Tailwind palette classes for those edges.
+
+## Question inset cards and step content
+
+Question.Root accepts `variant="inset"` to use the shared Card inset surface and footer chrome. The omitted variant remains `default`, rendered as a plain Card. Do not wrap an inset Question in another Card to recreate its frame. Question.Actions uses Card.Footer; keep it outside Question.Content so navigation stays in the footer instead of moving with the answers. Actions remains inside the form even when rendered in inset chrome.
+
+Wrap the title, optional description, and options or input in Question.Content. It is a static fieldset, so Question.Title remains a legend for the answer group. Content has no built-in navigation animation and does not own step state. Store answers per step in the parent and change the index from existing Submit and Cancel controls. When using Cancel for Back, call `event.preventDefault()` to suppress the Root onCancel callback.
+
+Keep Actions outside Question.Content. Changing Root's answer type still resets its value; for mixed-type flows, key the Root per question and restore each saved answer from parent state.
