@@ -25,7 +25,14 @@ export type TagInputProps = {
     description?: string;
     error?: string;
     name?: string;
+    /**
+     * Requires at least one tag for native form submission. Carried by a
+     * dedicated validation anchor, since hidden inputs are barred from
+     * constraint validation.
+     */
     required?: boolean;
+    /** Validation message shown when `required` is set and no tags are added. */
+    requiredMessage?: string;
     variant?: TagInputVariant;
     validate?: (tag: string) => boolean | string;
     normalize?: (tag: string) => string;

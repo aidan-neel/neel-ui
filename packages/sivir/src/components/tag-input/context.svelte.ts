@@ -5,6 +5,8 @@ export type TagInputContext = {
     readonly disabled: boolean;
     readonly inputId: string;
     readonly describedBy: string | undefined;
+    /** True when Root renders a `<label for>`, so Input must not shadow it with `aria-label`. */
+    readonly hasLabel: boolean;
     readonly draft: string;
     readonly atMax: boolean;
     readonly delimiters: string[];

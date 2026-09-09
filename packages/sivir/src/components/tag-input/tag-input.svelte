@@ -1,6 +1,6 @@
 <script lang="ts">
     import { cn } from '@sivir-ui/svelte/utils';
-    import type { TagInputProps } from '.';
+    import type { TagInputProps, TagInputRejection } from '.';
     import { setTagInputContext } from './context.svelte';
 
     let {
@@ -14,6 +14,7 @@
         error,
         name,
         required = false,
+        requiredMessage = 'Add at least one tag.',
         variant = 'outline',
         validate,
         normalize,
@@ -65,6 +66,20 @@
         onTagsChange?.(next);
     }
 
+    /**
+     * Reports a refused candidate to the consumer and to assistive tech.
+     *
+     * `onReject` alone is invisible to a screen reader: the draft just clears.
+     * Routing the reason through the same live region that announces additions
+     * and removals keeps refusals audible without a second mechanism.
+     */
+    function reject(rejection: TagInputRejection) {
+        spoken = rejection.reason;
+        onReject?.(rejection);
+
+        return false;
+    }
+
     function add(raw: string) {
         if (disabled) {
             return false;
@@ -77,46 +92,38 @@
         }
 
         if (!allowDuplicates && safeTags.includes(candidate)) {
-            onReject?.({
+            return reject({
                 code: 'duplicate',
                 reason: `"${candidate}" is already added.`,
                 value: candidate
             });
-
-            return false;
         }
 
         if (max !== undefined && safeTags.length >= max) {
-            onReject?.({
+            return reject({
                 code: 'max-tags',
                 reason: `Only ${max} ${max === 1 ? 'tag is' : 'tags are'} allowed.`,
                 value: candidate
             });
-
-            return false;
         }
 
         if (validate) {
             const result = validate(candidate);
 
             if (result === false) {
-                onReject?.({
+                return reject({
                     code: 'invalid',
                     reason: `"${candidate}" is not a valid tag.`,
                     value: candidate
                 });
-
-                return false;
             }
 
             if (typeof result === 'string' && result !== '') {
-                onReject?.({
+                return reject({
                     code: 'invalid',
                     reason: result,
                     value: candidate
                 });
-
-                return false;
             }
         }
 
@@ -173,6 +180,21 @@
         }
     }
 
+    /**
+     * Carries `required` on the visible text input via `setCustomValidity`.
+     *
+     * The per-tag `name` inputs cannot hold the constraint: `type="hidden"` is
+     * barred from constraint validation, and they do not exist at all while
+     * the list is empty -- the one case `required` is for. A custom validity
+     * message invalidates a control on its own, so the `required` attribute
+     * stays off and the draft text never satisfies the constraint by itself.
+     * Anchoring it here also means the browser focuses the real field and
+     * shows its bubble there.
+     */
+    $effect(() => {
+        inputElement?.setCustomValidity(required && safeTags.length === 0 ? requiredMessage : '');
+    });
+
     setTagInputContext({
         get tags() {
             return safeTags;
@@ -200,6 +222,9 @@
         },
         get describedBy() {
             return describedBy;
+        },
+        get hasLabel() {
+            return label !== undefined && label !== '';
         },
         setDraft(next: string) {
             query = next;
@@ -234,8 +259,8 @@
         {@render children?.()}
     </div>
     {#if name}
-        {#each safeTags as tag, index (index)}
-            <input type="hidden" {name} value={tag} {required} />
+        {#each safeTags as tag, index (`${tag}-${index}`)}
+            <input type="hidden" {name} value={tag} />
         {/each}
     {/if}
     <span role="status" aria-live="polite" class="sr-only">{spoken}</span>

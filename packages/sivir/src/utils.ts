@@ -725,15 +725,15 @@ type TravelingHighlightOptions = {
 /**
  * Draws one highlight that travels between the active items in a collection.
  * Geometry is written directly so pointer movement never causes a component render.
+ *
+ * Touch pointers never move the highlight -- `onPointerMove` / `onPointerOver`
+ * ignore them -- so on a coarse-pointer device it follows keyboard focus only.
+ * The action still mounts everywhere: skipping it on touch would drop the
+ * highlight entirely on hybrid machines that have both a touchscreen and a
+ * keyboard.
  */
 export function travelingHighlight(node: HTMLElement, options: TravelingHighlightOptions = {}) {
     if (typeof window === 'undefined') {
-        return {};
-    }
-    if (
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(hover: none), (pointer: coarse)').matches
-    ) {
         return {};
     }
     const traveling =
@@ -742,10 +742,6 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
     const restingSelector =
         options.restingSelector ??
         `${itemSelector}[data-collection-active="true"], ${itemSelector}[aria-selected="true"], ${itemSelector}[data-state="open"]`;
-    const coarsePointer =
-        typeof window !== 'undefined' &&
-        typeof window.matchMedia === 'function' &&
-        window.matchMedia('(hover: none), (pointer: coarse)').matches;
     const highlight = document.createElement('span');
     highlight.className = 'sivir-item-highlight';
     highlight.setAttribute('aria-hidden', 'true');
@@ -885,11 +881,9 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
         ]
     });
 
-    if (!coarsePointer) {
-        node.addEventListener('pointermove', onPointerMove);
-        node.addEventListener('pointerover', onPointerOver);
-        node.addEventListener('pointerleave', onPointerLeave);
-    }
+    node.addEventListener('pointermove', onPointerMove);
+    node.addEventListener('pointerover', onPointerOver);
+    node.addEventListener('pointerleave', onPointerLeave);
     node.addEventListener('focusin', onFocusIn);
     node.addEventListener('focusout', onFocusOut);
     queueMicrotask(() => schedule(restingTarget()));
@@ -900,11 +894,9 @@ export function travelingHighlight(node: HTMLElement, options: TravelingHighligh
             cancelAnimationFrame(readyFrame);
             resizeObserver.disconnect();
             mutationObserver.disconnect();
-            if (!coarsePointer) {
-                node.removeEventListener('pointermove', onPointerMove);
-                node.removeEventListener('pointerover', onPointerOver);
-                node.removeEventListener('pointerleave', onPointerLeave);
-            }
+            node.removeEventListener('pointermove', onPointerMove);
+            node.removeEventListener('pointerover', onPointerOver);
+            node.removeEventListener('pointerleave', onPointerLeave);
             node.removeEventListener('focusin', onFocusIn);
             node.removeEventListener('focusout', onFocusOut);
             highlight.remove();

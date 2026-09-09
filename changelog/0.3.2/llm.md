@@ -80,3 +80,37 @@ Question.Root accepts `variant="inset"` to use the shared Card inset surface and
 Wrap the title, optional description, and options or input in Question.Content. It is a static fieldset, so Question.Title remains a legend for the answer group. Content has no built-in navigation animation and does not own step state. Store answers per step in the parent and change the index from existing Submit and Cancel controls. When using Cancel for Back, call `event.preventDefault()` to suppress the Root onCancel callback.
 
 Keep Actions outside Question.Content. Changing Root's answer type still resets its value; for mixed-type flows, key the Root per question and restore each saved answer from parent state.
+
+## Tag Input required and labelling
+
+`required` on `TagInput.Root` is enforced by `setCustomValidity` on the visible
+`TagInput.Input`, not by the per-tag `name` inputs — those are `type="hidden"`,
+which the HTML spec bars from constraint validation, and they do not exist at
+all while the list is empty. Do not move `required` onto the hidden inputs, and
+do not add a `display:none`, `readonly`, or `aria-hidden` proxy input to carry
+it: the first three are barred from validation and the last hides a focusable
+control from assistive tech. The `required` attribute itself stays off the
+input, so a typed draft never satisfies the constraint — only a committed tag
+clears it. Override the message with `requiredMessage`.
+
+Enter commits only when the draft is non-blank. On an empty draft the event is
+left alone so an enclosing form submits. Do not restore an unconditional
+`preventDefault()` on Enter.
+
+`TagInput.Input` sets `aria-label` only when Root renders no `label`. When a
+label exists, the `<label for>` is the accessible name and an `aria-label` would
+outrank it, dropping the visible text out of the name (WCAG 2.5.3). Pass an
+explicit `aria-label` only for an unlabelled field.
+
+Rejections are announced: `duplicate`, `invalid`, and `max-tags` reasons go to
+the same polite live region as additions and removals, in addition to
+`onReject`. Do not add a second announcement mechanism.
+
+## Traveling highlight mounts everywhere
+
+`travelingHighlight` mounts on every device, coarse pointer included. Touch is
+handled by the `pointerType === 'touch'` guards inside the pointer listeners, so
+the highlight follows keyboard focus and never the finger. Do not add an early
+return for `(hover: none)` / `(pointer: coarse)`: it drops the highlight
+entirely on hybrid machines that have both a touchscreen and a keyboard, which
+contradicts the documented contract that the highlight still tracks focus there.

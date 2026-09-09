@@ -47,6 +47,62 @@ describe('travelingHighlight', () => {
         action.destroy?.();
     });
 
+    it('still mounts on a coarse-pointer device', async () => {
+        // Skipping the action on touch would drop the highlight entirely on a
+        // hybrid machine, including for keyboard focus.
+        vi.stubGlobal(
+            'matchMedia',
+            (query: string) => ({ matches: true, media: query }) as MediaQueryList
+        );
+        const surface = document.createElement('div');
+        const active = document.createElement('button');
+        active.dataset.collectionItem = '';
+        active.dataset.collectionActive = 'true';
+        Object.defineProperty(surface, 'getBoundingClientRect', { value: () => rect(0, 0) });
+        Object.defineProperty(active, 'getBoundingClientRect', { value: () => rect(0, 0) });
+        surface.append(active);
+        document.body.append(surface);
+
+        const action = travelingHighlight(surface);
+        await settle();
+
+        expect(surface.querySelector('.sivir-item-highlight')).not.toBeNull();
+        expect(surface.classList.contains('sivir-collection-surface')).toBe(true);
+        action.destroy?.();
+    });
+
+    it('follows keyboard focus but not touch pointers', async () => {
+        const surface = document.createElement('div');
+        const first = document.createElement('button');
+        const second = document.createElement('button');
+        first.dataset.collectionItem = '';
+        first.dataset.collectionActive = 'true';
+        second.dataset.collectionItem = '';
+        Object.defineProperty(surface, 'getBoundingClientRect', { value: () => rect(0, 0) });
+        Object.defineProperty(first, 'getBoundingClientRect', { value: () => rect(0, 0) });
+        Object.defineProperty(second, 'getBoundingClientRect', { value: () => rect(0, 60) });
+        surface.append(first, second);
+        document.body.append(surface);
+
+        const action = travelingHighlight(surface);
+        await settle();
+
+        second.dispatchEvent(
+            new PointerEvent('pointerover', { bubbles: true, pointerType: 'touch' })
+        );
+        await settle();
+        expect(
+            surface.querySelector<HTMLElement>('.sivir-item-highlight')?.style.transform
+        ).toContain('0px');
+
+        second.dispatchEvent(new FocusEvent('focusin', { bubbles: true }));
+        await settle();
+        expect(
+            surface.querySelector<HTMLElement>('.sivir-item-highlight')?.style.transform
+        ).toContain('60px');
+        action.destroy?.();
+    });
+
     it('keeps a nested collection from moving its parent highlight', async () => {
         const parent = document.createElement('div');
         const parentItem = document.createElement('button');

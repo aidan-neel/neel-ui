@@ -40,7 +40,13 @@
             return;
         }
 
+        // Only swallow Enter when there is a draft to commit. Preventing it
+        // unconditionally would stop Enter ever submitting an enclosing form.
         if (event.key === 'Enter') {
+            if (context.draft.trim() === '') {
+                return;
+            }
+
             event.preventDefault();
             context.commitDraft();
 
@@ -149,7 +155,7 @@
     value={context.draft}
     {placeholder}
     {disabled}
-    aria-label={ariaLabel ?? placeholder}
+    aria-label={ariaLabel ?? (context.hasLabel ? undefined : placeholder)}
     aria-describedby={context.describedBy}
     oninput={handleInput}
     onkeydown={handleKeydown}
