@@ -1,8 +1,7 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import Search from '@lucide/svelte/icons/search';
     import { cn } from '@sivir-ui/svelte/utils';
-    import { onMount, tick } from 'svelte';
+    import { onMount } from 'svelte';
     import type { HTMLInputAttributes } from 'svelte/elements';
     import { getCommandContext, getCommandResults } from './context.svelte';
     import { DEFAULT_COMMAND_SEARCH_THRESHOLD, searchCommandItems } from './search';
@@ -15,7 +14,6 @@
 
     let searchInput = $state<HTMLInputElement | undefined>();
     let searchTimeout: ReturnType<typeof setTimeout> | undefined;
-    let resultsAnimation: Animation | undefined;
     let spoken = $state('');
 
     const {
@@ -33,15 +31,11 @@
             if (searchTimeout) {
                 clearTimeout(searchTimeout);
             }
-            resultsAnimation?.cancel();
         };
     });
 
-    async function updateResults(query: string) {
+    function updateResults(query: string) {
         searchTimeout = undefined;
-        const resultsElement = document.getElementById(`${command.id}-listbox`);
-        const startHeight = resultsElement?.getBoundingClientRect().height;
-        resultsAnimation?.cancel();
 
         const q = query.trim();
         if (q === '') {
@@ -50,30 +44,6 @@
             command.results = searchCommandItems(command.items, q, threshold);
         }
         command.activeId = getCommandResults(command)[0]?.id;
-
-        if (!resultsElement || window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-            return;
-        }
-        await tick();
-        if (!resultsElement.isConnected) {
-            return;
-        }
-
-        const endHeight = resultsElement.getBoundingClientRect().height;
-        if (startHeight === undefined || startHeight === endHeight) {
-            return;
-        }
-
-        const animation = resultsElement.animate(
-            [{ height: `${startHeight}px` }, { height: `${endHeight}px` }],
-            { duration: 125, easing: 'cubic-bezier(0.16, 1, 0.3, 1)' }
-        );
-        resultsAnimation = animation;
-        animation.onfinish = animation.oncancel = () => {
-            if (resultsAnimation === animation) {
-                resultsAnimation = undefined;
-            }
-        };
     }
 
     function handleInput() {
@@ -150,7 +120,9 @@
     });
 </script>
 
-<div class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b border-border px-3">
+<div
+    class="flex h-[var(--size-touch)] w-full items-center gap-2.5 border-b-[length:var(--border-size)] border-border px-3"
+>
     <Search size={15} strokeWidth={1.75} class="shrink-0 text-foreground-muted" />
     <input
         bind:this={searchInput}

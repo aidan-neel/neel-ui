@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import { travelingHighlight } from '@sivir-ui/svelte/utils';
     import type { Snippet } from 'svelte';

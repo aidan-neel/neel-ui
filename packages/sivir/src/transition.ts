@@ -65,9 +65,15 @@ function sampleBezier(t: number, p1: number, p2: number) {
 /** iOS-like drawer curve: cubic-bezier(0.32, 0.72, 0, 1) */
 const drawerEase = cubicBezier(0.32, 0.72, 0, 1);
 
-function getCssNumber(node: Element, variableName: string, fallback: number) {
-    const parsed = Number.parseFloat(getComputedStyle(node).getPropertyValue(variableName));
-    return Number.isFinite(parsed) ? parsed : fallback;
+function readCssNumber(node: Element, names: string[], fallback: number) {
+    const style = getComputedStyle(node);
+    for (const name of names) {
+        const parsed = Number.parseFloat(style.getPropertyValue(name));
+        if (Number.isFinite(parsed)) {
+            return parsed;
+        }
+    }
+    return fallback;
 }
 
 function panelTransition(
@@ -75,41 +81,92 @@ function panelTransition(
     durationVariable: string,
     fallbackDuration: number,
     options?: {
-        offsetY?: number;
-        startScale?: number;
         easing?: EasingFunction;
+        /** Exit mirrors the enter path upward instead of retracing it. */
+        exit?: boolean;
+        offsetVars?: string[];
+        offsetFallback?: number;
+        scaleVars?: string[];
+        scaleFallback?: number;
+        blurVars?: string[];
+        blurFallback?: number;
+        opacityVars?: string[];
+        opacityFallback?: number;
     }
 ): TransitionConfig {
     const style = getComputedStyle(node);
     const opacity = Number(style.opacity);
     const baseTransform = style.transform === 'none' ? '' : style.transform;
     const baseFilter = style.filter === 'none' ? '' : style.filter;
-    const offsetY = options?.offsetY ?? getCssNumber(node, '--motion-panel-y', 2);
-    const startScale =
-        options?.startScale ?? getCssNumber(node, '--motion-panel-scale-start', 0.97);
+    const direction = options?.exit ? -1 : 1;
+    const offsetY =
+        direction *
+        readCssNumber(
+            node,
+            options?.offsetVars ?? ['--motion-panel-y'],
+            options?.offsetFallback ?? 2
+        );
+    const startScale = readCssNumber(
+        node,
+        options?.scaleVars ?? ['--motion-panel-scale-start'],
+        options?.scaleFallback ?? 0.97
+    );
+    // Exits shrink a quarter as far as enters grow, so the shared start-scale
+    // token keeps close animations subtle while open animations stay expressive.
+    const endScale = options?.exit ? 1 - (1 - startScale) * 0.25 : startScale;
+    const blur = readCssNumber(node, options?.blurVars ?? [], options?.blurFallback ?? 2);
+    const opacityStart = readCssNumber(
+        node,
+        options?.opacityVars ?? ['--motion-opacity-start'],
+        options?.opacityFallback ?? 0
+    );
 
     return {
         duration: getCssDuration(node, durationVariable, fallbackDuration),
         easing: options?.easing ?? cubicOut,
         css: (t) => {
-            return `opacity:${t * opacity};transform:${baseTransform} translateY(${(1 - t) * offsetY}px) scale(${startScale + (1 - startScale) * t});filter:${baseFilter} blur(${(1 - t) * 2}px)`;
+            return `opacity:${(opacityStart + (1 - opacityStart) * t) * opacity};transform:${baseTransform} translateY(${(1 - t) * offsetY}px) scale(${endScale + (1 - endScale) * t});filter:${baseFilter} blur(${(1 - t) * blur}px)`;
         }
     };
 }
 
+const MENU_MOVEMENT: {
+    offsetVars: string[];
+    offsetFallback: number;
+    scaleVars: string[];
+    scaleFallback: number;
+    blurVars: string[];
+    blurFallback: number;
+} = {
+    offsetVars: ['--motion-menu-y', '--motion-panel-y'],
+    offsetFallback: 2,
+    scaleVars: ['--motion-menu-scale-start', '--motion-panel-scale-start'],
+    scaleFallback: 0.97,
+    blurVars: ['--motion-menu-blur'],
+    blurFallback: 2
+};
+
+const MODAL_MOVEMENT: typeof MENU_MOVEMENT = {
+    offsetVars: ['--motion-modal-y'],
+    offsetFallback: 4,
+    scaleVars: ['--motion-modal-scale-start'],
+    scaleFallback: 0.93,
+    blurVars: ['--motion-modal-blur'],
+    blurFallback: 2
+};
+
 export function panelIn(node: Element) {
-    return panelTransition(node, '--motion-duration-panel-in', 110);
+    return panelTransition(node, '--motion-duration-panel-in', 110, { ...MENU_MOVEMENT });
 }
 
 export function panelOut(node: Element) {
-    return panelTransition(node, '--motion-duration-panel-out', 150);
+    return panelTransition(node, '--motion-duration-panel-out', 150, { ...MENU_MOVEMENT });
 }
 
 /** Dialog enter: a soft centered scale that rises into place. */
 export function dialogIn(node: Element) {
     return panelTransition(node, '--motion-duration-modal-in', 180, {
-        offsetY: 4,
-        startScale: 0.93,
+        ...MODAL_MOVEMENT,
         easing: quintOut
     });
 }
@@ -117,9 +174,9 @@ export function dialogIn(node: Element) {
 /** Dialog exit: move slightly upward instead of retracing the enter path. */
 export function dialogOut(node: Element) {
     return panelTransition(node, '--motion-duration-modal-out', 110, {
-        offsetY: -3,
-        startScale: 0.98,
-        easing: cubicIn
+        ...MODAL_MOVEMENT,
+        easing: cubicIn,
+        exit: true
     });
 }
 

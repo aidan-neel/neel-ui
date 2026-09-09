@@ -1,0 +1,5 @@
+- Widen the Popover documentation hero example for more spacious content previews while preserving a narrow-screen maximum width.
+- Align the error page with the homepage's bottom-left content treatment and responsive action layout.
+- Refresh the Sheet examples with controlled open state, footer keyboard shortcuts, active-filter counts, and semantic navigation and form groupings.
+- Note that Code Block and File Diff syntax colors follow theme tokens rather than a built-in hardcoded palette.
+- Add a bare Task Steps documentation example showing the steps rendered without card chrome.

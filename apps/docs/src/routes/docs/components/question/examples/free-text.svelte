@@ -7,17 +7,20 @@
 
 <div class="flex w-full max-w-2xl flex-col gap-3">
     <Question.Root
+        variant="inset"
         type="text"
         bind:value={answer}
         onSubmit={(value) => {
             submitted = Array.isArray(value) ? value.join(', ') : value;
         }}
     >
-        <Question.Title>What constraint should I preserve?</Question.Title>
-        <Question.Description>
-            Add any implementation detail that is not captured by the current plan.
-        </Question.Description>
-        <Question.Input placeholder="For example: Keep the existing API stable" />
+        <Question.Content>
+            <Question.Title>What constraint should I preserve?</Question.Title>
+            <Question.Description>
+                Add any implementation detail that is not captured by the current plan.
+            </Question.Description>
+            <Question.Input placeholder="For example: Keep the existing API stable" />
+        </Question.Content>
         <Question.Actions>
             <Question.Submit />
         </Question.Actions>

@@ -14,7 +14,7 @@
 
 <div class="w-full max-w-md">
     <div class="mb-3 flex justify-end">
-        <Button size="sm" variant="ghost" onclick={() => (items = [...initial])}>Reset</Button>
+        <Button size="md" variant="ghost" onclick={() => (items = [...initial])}>Reset</Button>
     </div>
     <ReorderList
         bind:items
@@ -25,7 +25,7 @@
         {#snippet children(item)}
             <span class="flex min-w-0 items-center justify-between gap-4">
                 <span class="truncate text-sm font-medium">{item.name}</span>
-                <span class="shrink-0 font-mono text-[10.5px] tabular-nums text-foreground-muted"
+                <span class="shrink-0 text-xs tabular-nums text-foreground-muted"
                     >{item.duration}</span
                 >
             </span>

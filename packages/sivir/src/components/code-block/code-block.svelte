@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import * as Tabs from '@sivir-ui/svelte/components/tabs';
     import { cn } from '@sivir-ui/svelte/utils';
@@ -8,7 +7,6 @@
     import Content from './code-block-content.svelte';
     import Header from './code-block-header.svelte';
     import List from './code-block-list.svelte';
-    import Roll from './code-block-roll.svelte';
     import Trigger from './code-block-trigger.svelte';
 
     let {
@@ -21,6 +19,7 @@
         showLineNumbers = false,
         copy = 'actionbar',
         actions,
+        theme = 'sivir',
         ...rest
     }: CodeBlockProps = $props();
 
@@ -64,13 +63,14 @@
         active: untrack(() => value ?? ''),
         order: [],
         contained: untrack(() => isHighLevel),
-        tabbed: false
+        theme: untrack(() => theme)
     } as CodeBlockRegistry);
     setContext('code-block', registry);
 
     $effect(() => {
         registry.active = value ?? '';
         registry.contained = isHighLevel;
+        registry.theme = theme;
     });
 </script>
 
@@ -79,15 +79,14 @@
     class={cn(
         className,
         'sivir-inset-frame flex max-h-[var(--code-block-max-height)] w-full flex-col overflow-hidden text-foreground',
-        '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]',
-        '[--code-block-token-comment:#b0b0b0] [--code-block-token-keyword:#565656] [--code-block-token-string:#565656] [--code-block-token-number:#868686] [--code-block-token-function:#565656] [--code-block-token-property:#868686] [--code-block-token-builtin:#868686] [--code-block-token-meta:#868686]',
-        'dark:[--code-block-token-comment:#a0a0a0] dark:[--code-block-token-keyword:#7ec4ff] dark:[--code-block-token-string:#ffc966] dark:[--code-block-token-number:#ffc966] dark:[--code-block-token-function:#7ec4ff] dark:[--code-block-token-property:#7ec4ff] dark:[--code-block-token-builtin:#7ec4ff] dark:[--code-block-token-meta:#a0a0a0]'
+        // token-lint-disable-next-line no-literal-length: code-block geometry contract
+        '[--code-block-gutter:var(--color-foreground-muted)] [--code-block-padding-x:1.1rem] [--code-block-padding-y:0.9rem] [--code-block-line-height:1.7] [--code-block-max-height:min(32rem,70vh)] [--code-block-slide:1.25rem]'
     )}
     {...rest}
 >
     <Tabs.Root bind:value variant="segmented" class="contents">
         {#if isHighLevel}
-            {#if hasTabRow || actions}
+            {#if hasTabRow || actions || copy === 'actionbar'}
                 <Header>
                     {#if hasTabRow}
                         <List>
@@ -109,7 +108,15 @@
                     )}
                 >
                     {#if hasTabRow}
-                        <Roll tabs={resolvedTabs} {showLineNumbers} copyPlacement={bodyCopy} />
+                        {#each resolvedTabs as t (t.value)}
+                            <Content
+                                value={t.value as string}
+                                code={t.code}
+                                lang={t.lang}
+                                {showLineNumbers}
+                                copyPlacement={bodyCopy}
+                            />
+                        {/each}
                     {:else if code != null}
                         <Content
                             value={SINGLE}
@@ -123,16 +130,6 @@
             {/if}
         {:else}
             {@render children?.()}
-            {#if registry.tabbed}
-                <div
-                    data-ui="code-block-surface"
-                    class={cn(
-                        'sivir-inset-surface relative flex min-h-0 w-full self-stretch flex-1 overflow-auto'
-                    )}
-                >
-                    <Roll {showLineNumbers} copyPlacement={bodyCopy} />
-                </div>
-            {/if}
         {/if}
     </Tabs.Root>
 </div>

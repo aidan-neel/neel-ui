@@ -2,7 +2,7 @@ import type { Manifest } from '@sivir-ui/svelte/_manifest/types';
 
 export const manifest: Manifest = {
     name: 'card',
-    version: '1.0.1',
+    version: '1.1.0',
     visibility: 'public',
     description: 'Surface container with Header, Title, Description, Content, and Footer subparts.',
     files: [
@@ -12,11 +12,12 @@ export const manifest: Manifest = {
         'components/card/card-description.svelte',
         'components/card/card-content.svelte',
         'components/card/card-footer.svelte',
+        'components/card/context.svelte.ts',
         'components/card/index.ts',
         'components/card/manifest.ts'
     ],
     components: ['typography'],
-    shared: ['utils.cn'],
+    shared: ['utils.cn', 'utils.createContext'],
     peerDependencies: {
         cnfast: '^0.0.8',
         svelte: '^5.0.0'

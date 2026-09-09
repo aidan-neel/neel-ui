@@ -19,15 +19,13 @@ export const magicTheme: Theme = {
             base: '#ffffff',
             border: '#dedede',
             background: '#fafafa',
-            secondary: '#efefee',
-            muted: '#f0f0f0'
+            secondary: '#efefee'
         },
         dark: {
             base: '#171717',
             border: '#1f1f1f',
             background: '#0f0f0f',
-            secondary: '#1f1f1f',
-            muted: '#1a1a1a'
+            secondary: '#1f1f1f'
         }
     },
     tokens: {
@@ -75,15 +73,13 @@ export const bitsyTheme: Theme = {
             base: '#ffffff',
             border: '#d4d4d4',
             background: '#fdfdfc',
-            secondary: '#efefee',
-            muted: '#f7f7f5'
+            secondary: '#efefee'
         },
         dark: {
             base: '#171717',
             border: '#2a2a2a',
             background: '#0a0a0a',
-            secondary: '#252525',
-            muted: '#1a1a1a'
+            secondary: '#252525'
         }
     },
     typography: {
@@ -104,6 +100,166 @@ export const bitsyTheme: Theme = {
     }
 };
 
-export const builtInThemePresets: readonly Theme[] = [DEFAULT_THEME, magicTheme, bitsyTheme];
+export const openTheme: Theme = {
+    version: THEME_VERSION,
+    slug: 'open',
+    name: 'Open',
+    description: 'Calm warm-neutral system with a graphite accent, Geist type, and flat controls.',
+    publisher: 'Sivir UI',
+    brand: '#333333',
+    neutral: 'warm',
+    radius: 'rounded',
+    density: 'default',
+    motion: 'subtle',
+    fontSans: "'Geist', sans-serif",
+    fontMono: "'Roboto Mono', monospace",
+    fontHeader: 'var(--font-sans)',
+    foundation: {
+        light: {
+            base: '#ffffff',
+            border: '#ededed',
+            background: '#ffffff',
+            secondary: '#efefee',
+            foreground: '#1c1c1b',
+            foregroundMuted: '#787878',
+            onPrimary: '#ffffff'
+        },
+        dark: {
+            base: '#171717',
+            border: '#262626',
+            background: '#0a0a0a',
+            secondary: '#252525',
+            foreground: '#e6e6e6',
+            foregroundMuted: '#a3a3a3',
+            onPrimary: '#1a1a1a'
+        }
+    },
+    tokens: {
+        shared: {
+            '--sivir-space-unit': '3.4px',
+            '--radius-lg': '12px',
+            '--radius-md': '10px',
+            '--radius-xl': '14px',
+            '--radius-sm': '7px'
+        },
+        dark: {
+            '--color-primary': '#e6e6e6',
+            '--color-primary-hover': 'color-mix(in srgb, #e6e6e6 78%, black)',
+            '--color-ring': 'color-mix(in srgb, #e6e6e6 30%, transparent)'
+        }
+    },
+    typography: {
+        headerSize: 18,
+        headerWeight: '500',
+        roleWeights: {
+            body: '500',
+            label: '500',
+            button: '500',
+            badge: '500',
+            description: '500'
+        }
+    },
+    chrome: {
+        surfaceShadows: false,
+        controlShadows: false
+    }
+};
+
+export const functionalTheme: Theme = {
+    version: THEME_VERSION,
+    slug: 'functional',
+    name: 'Functional',
+    description: 'Sivir default — a calm, warm-neutral interface system.',
+    publisher: 'Sivir UI',
+    brand: '#0088ff',
+    neutral: 'warm',
+    radius: 'rounded',
+    density: 'default',
+    motion: 'subtle',
+    fontSans: "'Inter', sans-serif",
+    fontMono: "'Roboto Mono', monospace",
+    fontHeader: 'var(--font-sans)',
+    foundation: {
+        light: {
+            base: '#ffffff',
+            border: '#f2f2f2',
+            background: '#ffffff',
+            secondary: '#efefee',
+            foreground: '#4a4a49',
+            foregroundMuted: '#828282',
+            onPrimary: '#ffffff'
+        },
+        dark: {
+            base: '#171717',
+            border: '#212121',
+            background: '#0a0a0a',
+            secondary: '#252525',
+            foreground: '#d6d6d6',
+            foregroundMuted: '#6b6b6b',
+            onPrimary: '#ffffff'
+        }
+    },
+    tokens: {
+        shared: {
+            '--radius-xl': '12px',
+            '--radius-lg': '8px',
+            '--radius-md': '6px',
+            '--radius-sm': '3px',
+            '--border-size': '1px',
+            '--sivir-space-unit': '3.5px',
+            '--motion-duration-item': '0ms',
+            '--motion-duration-modal-in': '70ms',
+            '--motion-duration-toast-out': '0ms',
+            '--motion-duration-sheet-out': '0ms',
+            '--motion-duration-menu': '70ms',
+            '--motion-duration-hover': '0ms',
+            '--motion-duration-sheet': '0ms',
+            '--motion-duration-toast-in': '70ms',
+            '--motion-duration-panel-out': '0ms',
+            '--motion-duration-press': '0ms',
+            '--motion-duration-modal-out': '0ms',
+            '--motion-duration-panel-in': '70ms',
+            '--motion-duration-overlay': '20ms',
+            '--motion-duration-panel': '70ms',
+            '--motion-panel-scale-start': '1',
+            '--motion-menu-blur': '0px',
+            '--motion-modal-blur': '0px',
+            '--motion-menu-scale-start': '1',
+            '--motion-modal-scale-start': '1',
+            '--motion-press-px': '1px',
+            '--motion-panel-y': '3px',
+            '--motion-menu-y': '3px'
+        },
+        dark: {
+            '--color-primary': '#1e78e6',
+            '--color-primary-hover': 'color-mix(in srgb, #1e78e6 78%, black)',
+            '--color-ring': 'color-mix(in srgb, #1e78e6 30%, transparent)'
+        }
+    },
+    typography: {
+        headerSize: 16,
+        headerWeight: '600',
+        roleWeights: {
+            body: '400',
+            label: '400',
+            button: '400',
+            badge: '400',
+            description: '400'
+        }
+    },
+    chrome: {
+        controlShadows: false,
+        travelingHighlight: false,
+        interactiveCursor: 'pointer'
+    }
+};
+
+export const builtInThemePresets: readonly Theme[] = [
+    DEFAULT_THEME,
+    magicTheme,
+    bitsyTheme,
+    openTheme,
+    functionalTheme
+];
 
 export const defaultTheme = DEFAULT_THEME;

@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import { cn, pressable } from '@sivir-ui/svelte/utils';
     import { getContext } from 'svelte';

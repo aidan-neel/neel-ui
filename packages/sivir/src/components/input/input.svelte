@@ -51,7 +51,7 @@
             data-ui="input-control"
             data-variant={variant}
             class={cn(
-                'flex min-h-[var(--size-control-md)] w-full items-center gap-2 rounded-[var(--radius-lg)] border px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
+                'flex min-h-[var(--size-control-md)] w-full items-center gap-2 rounded-[var(--radius-lg)] border-[length:var(--border-size)] px-3 text-[var(--color-field-foreground)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none has-[:focus-visible]:shadow-[var(--focus-ring)] has-[input:disabled]:cursor-not-allowed has-[input:disabled]:opacity-[var(--opacity-disabled)]',
                 controlClass
             )}
         >

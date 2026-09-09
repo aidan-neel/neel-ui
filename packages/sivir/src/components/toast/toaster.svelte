@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import { getCssDuration } from '@sivir-ui/svelte/transition';
     import { visualViewportBounds } from '@sivir-ui/svelte/utils';
@@ -36,6 +35,13 @@
     const EXPANDED_GAP = 10;
 
     const reversedToasts = $derived([...toastState.data.toasts].reverse());
+
+    const viewportClass =
+        // token-lint-disable-next-line no-literal-length: safe-area fallbacks
+        'pointer-events-none fixed inset-x-0 top-[var(--sivir-viewport-top)] z-200 flex h-[var(--sivir-viewport-height)] items-end justify-center px-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))] sm:justify-end sm:p-6';
+    const stackClass =
+        // token-lint-disable-next-line no-literal-length: toast stack max width
+        'pointer-events-auto relative w-full max-w-[min(100%,26rem)] transition-[height] duration-[460ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:max-w-90';
 
     function getExpandedY(index: number): number {
         let y = 0;
@@ -109,15 +115,11 @@
 </script>
 
 {#if isPrimary && toastState.data}
-    <div
-        bind:this={portalEl}
-        use:visualViewportBounds
-        class="pointer-events-none fixed inset-x-0 top-[var(--sivir-viewport-top)] z-200 flex h-[var(--sivir-viewport-height)] items-end justify-center px-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pt-[max(1.5rem,env(safe-area-inset-top))] sm:justify-end sm:p-6"
-    >
+    <div bind:this={portalEl} use:visualViewportBounds class={viewportClass}>
         <div
             role="region"
             aria-label="Notifications"
-            class="pointer-events-auto relative w-full max-w-[min(100%,26rem)] transition-[height] duration-[460ms] ease-[cubic-bezier(0.22,1,0.36,1)] sm:max-w-90"
+            class={stackClass}
             style:height={`${containerHeight}px`}
             onmouseenter={() => (expanded = true)}
             onmouseleave={() => (expanded = false)}

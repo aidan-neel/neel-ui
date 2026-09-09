@@ -47,6 +47,46 @@ describe('ReorderList pointer reordering', () => {
         expect(first.getBoundingClientRect().top - initialRect.top).toBeCloseTo(0, 0);
     });
 
+    it('continues dragging when a child releases implicit pointer capture', async () => {
+        render(ReorderListFixture);
+
+        const first = page.getByRole('button', { name: 'First' }).element() as HTMLButtonElement;
+        const third = page.getByRole('button', { name: 'Third' }).element() as HTMLButtonElement;
+        const list = first.closest('ol') as HTMLOListElement;
+        list.setPointerCapture = () => {};
+        list.hasPointerCapture = () => false;
+
+        const firstRect = first.getBoundingClientRect();
+        const thirdRect = third.getBoundingClientRect();
+        const pointerId = 2;
+        first.dispatchEvent(
+            new PointerEvent('pointerdown', {
+                bubbles: true,
+                button: 0,
+                clientY: firstRect.top + firstRect.height / 2,
+                pointerId,
+                pointerType: 'touch'
+            })
+        );
+        first.dispatchEvent(new PointerEvent('lostpointercapture', { bubbles: true, pointerId }));
+        window.dispatchEvent(
+            new PointerEvent('pointermove', {
+                clientY: thirdRect.bottom,
+                pointerId
+            })
+        );
+
+        await expect.element(first).toHaveAttribute('data-lifted', 'true');
+        await expect
+            .element(page.getByRole('status', { name: 'Order' }))
+            .toHaveTextContent('two,three,one');
+
+        window.dispatchEvent(new PointerEvent('pointerup', { pointerId }));
+
+        await expect.element(first).toHaveAttribute('data-lifted', 'false');
+        await expect.element(page.getByRole('status', { name: 'Commits' })).toHaveTextContent('1');
+    });
+
     it('moves and commits a row dragged over another row', async () => {
         render(ReorderListFixture);
 

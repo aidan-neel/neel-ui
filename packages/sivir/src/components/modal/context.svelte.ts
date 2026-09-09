@@ -14,6 +14,7 @@ export type ModalContext = {
     returnFocusEl: HTMLElement | undefined;
     state: ModalState;
     footerSlot: ModalFooterSlot | undefined;
+    headerSlot: ModalFooterSlot | undefined;
 };
 
 const { set: setModalContext, get: getModalContext } = createContext<ModalContext>('modal');

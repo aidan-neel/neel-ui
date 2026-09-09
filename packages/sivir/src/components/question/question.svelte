@@ -1,11 +1,13 @@
 <script lang="ts">
     import CircleAlert from '@lucide/svelte/icons/circle-alert';
+    import * as Card from '@sivir-ui/svelte/components/card';
     import { cn } from '@sivir-ui/svelte/utils';
     import { untrack } from 'svelte';
     import type { QuestionAnswer, QuestionProps, QuestionStatus, QuestionType } from '.';
     import { setQuestionContext } from './context.svelte';
 
     let {
+        variant = 'default',
         type = 'single',
         value = $bindable(),
         status = 'idle',
@@ -223,6 +225,7 @@
 <div
     data-ui="question"
     data-type={type}
+    data-variant={variant}
     data-state={displayStatus}
     data-disabled={disabled || undefined}
     aria-busy={effectiveStatus === 'submitting'}
@@ -254,10 +257,7 @@
         aria-busy={effectiveStatus === 'submitting'}
         novalidate
         onsubmit={handleSubmit}
-        class={cn(
-            className,
-            'relative w-full overflow-hidden rounded-[var(--radius-xl)] border border-border bg-card text-foreground shadow-[var(--elevation-1)] ring-1 ring-inset ring-[color-mix(in_oklab,var(--color-border)_45%,transparent)] transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-[color-mix(in_srgb,var(--color-error)_70%,transparent)] data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent),var(--elevation-1)]'
-        )}
+        class={cn(className, 'relative w-full min-w-0 text-foreground')}
     >
         <p
             data-ui="question-validation-announcement"
@@ -267,8 +267,19 @@
         >
             {validationMessage}
         </p>
-        <fieldset {disabled} class="m-0 flex min-w-0 flex-col border-0 p-0">
-            {@render children?.()}
+        <fieldset {disabled} class="m-0 min-w-0 border-0 p-0">
+            <Card.Root
+                {variant}
+                data-state={displayStatus}
+                class={cn(
+                    variant === 'default' && 'p-0',
+                    'w-full transition-[border-color,box-shadow] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-out)] motion-reduce:transition-none data-[state=error]:border-error data-[state=error]:shadow-[0_0_0_calc(var(--border-size)*2)_color-mix(in_srgb,var(--color-error)_25%,transparent)] [&>[data-ui=card-surface]]:p-0'
+                )}
+            >
+                <fieldset class="m-0 flex min-w-0 flex-col border-0 p-0">
+                    {@render children?.()}
+                </fieldset>
+            </Card.Root>
         </fieldset>
     </form>
 </div>

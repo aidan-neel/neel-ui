@@ -1,47 +1,140 @@
 <script lang="ts">
+    import ArrowLeft from '@lucide/svelte/icons/arrow-left';
+    import { Button } from '@sivir-ui/svelte/components/button';
     import type { QuestionAnswer } from '@sivir-ui/svelte/components/question';
     import * as Question from '@sivir-ui/svelte/components/question';
 
-    let answer = $state<QuestionAnswer>();
-    let submitted = $state('');
+    const questions = [
+        {
+            title: 'Where should we start?',
+            description: 'Choose a starting point for the next round of work.',
+            options: [
+                {
+                    value: 'interface',
+                    label: 'The interface',
+                    description: 'Refine the screens people use every day.'
+                },
+                {
+                    value: 'workflow',
+                    label: 'The workflow',
+                    description: 'Make the path from start to finish simpler.'
+                },
+                {
+                    value: 'foundation',
+                    label: 'The foundation',
+                    description: 'Improve the architecture behind the product.'
+                }
+            ]
+        },
+        {
+            title: 'How much should change?',
+            description: 'Set the scope so the work stays focused.',
+            options: [
+                {
+                    value: 'polish',
+                    label: 'A little polish',
+                    description: 'Keep the structure and refine the details.'
+                },
+                {
+                    value: 'focused',
+                    label: 'A focused update',
+                    description: 'Rework one part of the experience.'
+                },
+                {
+                    value: 'rethink',
+                    label: 'A fresh direction',
+                    description: 'Explore a different approach from the ground up.'
+                }
+            ]
+        },
+        {
+            title: 'What should I bring back?',
+            description: 'Choose what you want to review before we continue.',
+            options: [
+                {
+                    value: 'plan',
+                    label: 'A clear plan',
+                    description: 'Outline the changes and their trade-offs.'
+                },
+                {
+                    value: 'prototype',
+                    label: 'A working prototype',
+                    description: 'Make the idea tangible and easy to try.'
+                },
+                {
+                    value: 'implementation',
+                    label: 'The implementation',
+                    description: 'Build the change and summarize the result.'
+                }
+            ]
+        }
+    ];
+    let step = $state(0);
+    let answers = $state<QuestionAnswer[]>(['', '', '']);
+    const complete = $derived(step === questions.length);
+    const question = $derived(questions[Math.min(step, questions.length - 1)]);
 
-    function submit(value: QuestionAnswer) {
-        submitted = Array.isArray(value) ? value.join(', ') : value;
+    function next() {
+        if (!complete) {
+            step += 1;
+        }
+    }
+
+    function restart() {
+        answers = ['', '', ''];
+        step = 0;
     }
 </script>
 
-<div class="flex w-full max-w-2xl flex-col gap-3">
-    <Question.Root bind:value={answer} onSubmit={submit}>
-        <Question.Title>How should I structure the authentication work?</Question.Title>
-        <Question.Description>
-            I found two viable approaches. Choose one so I can continue with the implementation.
-        </Question.Description>
-        <Question.Options>
-            <Question.Option
-                value="focused"
-                label="Focused change"
-                description="Add the current provider with the smallest public API."
-            />
-            <Question.Option
-                value="extensible"
-                label="Extensible foundation"
-                description="Create a provider interface before adding the first integration."
-            />
-            <Question.Option
-                value="explain"
-                label="Explain the trade-offs first"
-                description="Pause implementation and compare both approaches in detail."
-            />
-        </Question.Options>
+<div class="w-full max-w-xl">
+    <Question.Root variant="inset" bind:value={answers[step]} required={!complete} onSubmit={next}>
+        <Question.Content class="min-h-80">
+            {#if complete}
+                <Question.Title>Ready to get started</Question.Title>
+                <Question.Description>
+                    Here’s the direction you chose. You can go back to adjust it.
+                </Question.Description>
+                <dl class="grid gap-4 px-4 py-5">
+                    {#each questions as item, index (item.title)}
+                        <div class="grid gap-1">
+                            <dt class="text-xs text-foreground-muted">{item.title}</dt>
+                            <dd class="m-0 text-sm font-medium">
+                                {item.options.find((option) => option.value === answers[index])?.label}
+                            </dd>
+                        </div>
+                    {/each}
+                </dl>
+            {:else}
+                <Question.Title>{question.title}</Question.Title>
+                <Question.Description>{question.description}</Question.Description>
+                <Question.Options>
+                    {#each question.options as option (option.value)}
+                        <Question.Option {...option} />
+                    {/each}
+                </Question.Options>
+            {/if}
+        </Question.Content>
         <Question.Actions>
-            <Question.Cancel onclick={() => (submitted = 'Question skipped')}
-                >Answer later</Question.Cancel
+            <span class="me-auto text-xs tabular-nums text-foreground-muted" role="status">
+                {complete ? 'All questions answered' : `Question ${step + 1} of ${questions.length}`}
+            </span>
+            <Question.Cancel
+                disabled={step === 0}
+                onclick={(event) => {
+                    event.preventDefault();
+                    step -= 1;
+                }}
             >
-            <Question.Submit />
+                <ArrowLeft size={14} aria-hidden="true" />
+                Back
+            </Question.Cancel>
+            {#if complete}
+                <Button type="button" variant="primary" size="md" onclick={restart}>
+                    Start again
+                </Button>
+            {:else}
+                <Question.Submit label={step === questions.length - 1 ? 'Finish' : 'Next'} />
+            {/if}
         </Question.Actions>
     </Question.Root>
-
-    <p class="min-h-5 text-sm text-foreground-muted" role="status">
-        {submitted ? `Answer: ${submitted}` : 'Waiting for an answer'}
-    </p>
 </div>

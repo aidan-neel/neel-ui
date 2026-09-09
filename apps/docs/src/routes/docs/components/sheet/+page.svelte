@@ -56,7 +56,7 @@
             Import Sheet and compose it with sub-components:
         </Typography.Text>
         <CodeBlock
-            code={`import * as Sheet from '$lib/sivir/components/sheet';\n\n<Sheet.Root>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content>\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n    </Sheet.Header>\n    {/* content */}\n  </Sheet.Content>\n</Sheet.Root>`}
+            code={`import * as Sheet from '$lib/sivir/components/sheet';\nimport Shortcut from '$lib/sivir/components/shortcut';\n\n<Sheet.Root bind:open>\n  <Sheet.Trigger>Open</Sheet.Trigger>\n  <Sheet.Content side="right">\n    <Sheet.Header>\n      <Sheet.Title>Title</Sheet.Title>\n      <Sheet.Description>Describe what lives here.</Sheet.Description>\n    </Sheet.Header>\n    {/* content */}\n    <Sheet.Footer>\n      <Sheet.Close>Cancel <Shortcut shortcut="esc" /></Sheet.Close>\n      <Button>Save <Shortcut shortcut="enter" /></Button>\n    </Sheet.Footer>\n  </Sheet.Content>\n</Sheet.Root>`}
             lang="svelte"
             copy="overlay"
         />

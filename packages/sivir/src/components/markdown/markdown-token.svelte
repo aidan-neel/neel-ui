@@ -1,4 +1,3 @@
-<!-- token-lint-disable-file -->
 <script lang="ts">
     import { CodeBlock } from '@sivir-ui/svelte/components/code-block';
     import * as Typography from '@sivir-ui/svelte/components/typography';
@@ -6,6 +5,19 @@
     import Self from './markdown-token.svelte';
 
     let { tokens }: { tokens: MarkdownToken[] } = $props();
+
+    const taskCheckboxClass =
+        // token-lint-disable-next-line no-literal-length: checkbox aligns to surrounding text
+        'absolute top-[0.32em] -start-5 size-3.5 accent-primary';
+    const tableClass =
+        // token-lint-disable-next-line no-literal-length: table type scales with surrounding text
+        'w-full min-w-max border-collapse text-[0.925em]';
+    const htmlBlockClass =
+        // token-lint-disable-next-line no-literal-length: inline code scales with surrounding text
+        'my-3 overflow-x-auto whitespace-pre-wrap rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border bg-secondary/50 px-3 py-2 font-mono text-[0.875em] leading-relaxed text-foreground-muted';
+    const htmlInlineClass =
+        // token-lint-disable-next-line no-literal-length: inline code scales with surrounding text
+        'font-mono text-[0.875em] text-foreground-muted';
 
     function safeUrl(value?: string) {
         const url = value?.trim();
@@ -161,7 +173,7 @@
                 loading="lazy"
                 decoding="async"
                 referrerpolicy="no-referrer"
-                class="my-4 h-auto max-w-full rounded-[var(--radius-md)] outline outline-1 -outline-offset-1 outline-black/10 dark:outline-white/10"
+                class="my-4 h-auto max-w-full rounded-[var(--radius-md)] outline outline-1 -outline-offset-1 outline-[color-mix(in_srgb,var(--color-foreground)_10%,transparent)]"
             />
         {:else}
             {token.text ?? ''}
@@ -180,7 +192,7 @@
                                 checked={item.checked}
                                 disabled
                                 aria-label={item.checked ? 'Completed task' : 'Incomplete task'}
-                                class="absolute top-[0.32em] -start-5 size-3.5 accent-primary"
+                                class={taskCheckboxClass}
                             />
                         {/if}
                         <Self tokens={item.tokens ?? [{ type: 'text', text: item.text ?? '' }]} />
@@ -197,7 +209,7 @@
                                 checked={item.checked}
                                 disabled
                                 aria-label={item.checked ? 'Completed task' : 'Incomplete task'}
-                                class="absolute top-[0.32em] -start-5 size-3.5 accent-primary"
+                                class={taskCheckboxClass}
                             />
                         {/if}
                         <Self tokens={item.tokens ?? [{ type: 'text', text: item.text ?? '' }]} />
@@ -212,7 +224,7 @@
             <Self tokens={token.tokens ?? [{ type: 'text', text: token.text ?? '' }]} />
         </blockquote>
     {:else if token.type === 'hr'}
-        <hr class="my-6 border-0 border-t border-border" />
+        <hr class="my-6 border-0 border-t-[length:var(--border-size)] border-border" />
     {:else if token.type === 'table'}
         <!-- Named overflow regions need keyboard scrolling. -->
         <!-- svelte-ignore a11y_no_noninteractive_tabindex -->
@@ -220,15 +232,15 @@
             role="region"
             aria-label="Markdown table"
             tabindex="0"
-            class="my-4 max-w-full overflow-x-auto rounded-[var(--radius-md)] border border-border focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
+            class="my-4 max-w-full overflow-x-auto rounded-[var(--radius-md)] border-[length:var(--border-size)] border-border focus-visible:outline-none focus-visible:shadow-[var(--focus-ring)]"
         >
-            <table class="w-full min-w-max border-collapse text-[0.925em]">
+            <table class={tableClass}>
                 <thead class="bg-secondary/60 text-foreground">
                     <tr>
                         {#each token.header ?? [] as cell, column (cellKey(cell, column))}
                             <th
                                 scope="col"
-                                class={`border-b border-border px-3 py-2 [font-weight:var(--font-weight-header)] ${alignmentClass(token.align?.[column])}`}
+                                class={`border-b-[length:var(--border-size)] border-border px-3 py-2 [font-weight:var(--font-weight-header)] ${alignmentClass(token.align?.[column])}`}
                             >
                                 <Self tokens={cellTokens(cell)} />
                             </th>
@@ -237,7 +249,9 @@
                 </thead>
                 <tbody>
                     {#each token.rows ?? [] as row, rowIndex (rowKey(row, rowIndex))}
-                        <tr class="border-b border-border/70 last:border-b-0">
+                        <tr
+                            class="border-b-[length:var(--border-size)] border-border/70 last:border-b-0"
+                        >
                             {#each row as cell, column (cellKey(cell, column))}
                                 <td
                                     class={`px-3 py-2 align-top ${alignmentClass(token.align?.[column])}`}
@@ -254,15 +268,11 @@
         <br />
     {:else if token.type === 'html'}
         {#if token.block}
-            <pre
-                class="my-3 overflow-x-auto whitespace-pre-wrap rounded-[var(--radius-md)] border border-border bg-secondary/50 px-3 py-2 font-mono text-[0.875em] leading-relaxed text-foreground-muted"
-            ><code
+            <pre class={htmlBlockClass}><code
                     >{token.text ?? token.raw ?? ''}</code
                 ></pre>
         {:else}
-            <span class="font-mono text-[0.875em] text-foreground-muted"
-                >{token.text ?? token.raw ?? ''}</span
-            >
+            <span class={htmlInlineClass}>{token.text ?? token.raw ?? ''}</span>
         {/if}
     {:else if token.tokens?.length}
         <Self tokens={token.tokens} />

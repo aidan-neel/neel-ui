@@ -12,14 +12,14 @@
         <Share2 size={14} />
         Share
     </Popover.Trigger>
-    <Popover.Content class="w-80">
+    <Popover.Content class="w-[26rem] max-w-[calc(100vw-2rem)]">
         <div class="flex flex-col gap-3 p-1">
             <!-- Invite -->
             <div class="flex w-full items-stretch gap-2">
                 <div class="min-w-0 flex-1">
                     <Input placeholder="Add people, emails or groups…" class="h-9 text-sm" />
                 </div>
-                <Button size="sm" class="h-9 flex-shrink-0">Invite</Button>
+                <Button size="md" class="flex-shrink-0">Invite</Button>
             </div>
 
             <div class="h-px bg-border"></div>
@@ -73,7 +73,7 @@
                     </p>
                     <p class="m-0 text-xs text-foreground-muted">Can view</p>
                 </div>
-                <Button size="sm" variant="ghost" class="flex-shrink-0">
+                <Button size="md" variant="ghost" class="flex-shrink-0">
                     <Link size={14} />
                     Copy link
                 </Button>

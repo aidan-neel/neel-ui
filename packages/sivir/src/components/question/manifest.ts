@@ -8,6 +8,7 @@ export const manifest: Manifest = {
         'Inline agent question form with single-choice, multiple-choice, and free-text answers.',
     files: [
         'components/question/question.svelte',
+        'components/question/question-content.svelte',
         'components/question/question-title.svelte',
         'components/question/question-description.svelte',
         'components/question/question-options.svelte',
@@ -20,8 +21,8 @@ export const manifest: Manifest = {
         'components/question/index.ts',
         'components/question/manifest.ts'
     ],
-    components: ['button', 'spinner', 'textarea'],
-    shared: ['utils.cn', 'utils.createContext'],
+    components: ['card', 'button', 'spinner', 'textarea'],
+    shared: ['utils.cn', 'utils.createContext', 'transition'],
     peerDependencies: {
         '@lucide/svelte': '^1.7.0',
         cnfast: '^0.0.8',

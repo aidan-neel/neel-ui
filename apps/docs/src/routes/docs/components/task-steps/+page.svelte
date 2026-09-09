@@ -3,6 +3,8 @@
     import * as Typography from '@sivir-ui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
+    import Bare from './examples/bare.svelte';
+    import BareSrc from './examples/bare.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
 
@@ -51,5 +53,21 @@
   label="Deploy progress"
 />`}
         />
+    </section>
+
+    <section id="examples" class="scroll-mt-20 flex flex-col gap-10">
+        <div>
+            <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
+            <Typography.Text variant="supporting" class="mt-2">
+                Task Steps rendered on its own, without card chrome.
+            </Typography.Text>
+        </div>
+
+        <div id="bare" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Bare</Typography.H3>
+            <ComponentPreview code={BareSrc}>
+                <Bare />
+            </ComponentPreview>
+        </div>
     </section>
 </div>

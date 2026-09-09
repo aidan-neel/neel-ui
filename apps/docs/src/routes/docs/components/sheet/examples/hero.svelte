@@ -12,8 +12,10 @@
     import { Label } from '@sivir-ui/svelte/components/label';
     import * as Select from '@sivir-ui/svelte/components/select';
     import * as Sheet from '@sivir-ui/svelte/components/sheet';
+    import Shortcut from '@sivir-ui/svelte/components/shortcut';
     import { Textarea } from '@sivir-ui/svelte/components/textarea';
 
+    let open = $state(false);
     let issueTitle = $state('');
     let issueDescription = $state('');
     let status = $state('');
@@ -43,22 +45,47 @@
     const statusMeta = $derived(statuses.find((s) => s.value === status));
     const priorityMeta = $derived(priorities.find((p) => p.value === priority));
     const assigneeMeta = $derived(assignees.find((a) => a.value === assignee));
+    const canCreate = $derived(issueTitle.trim().length > 0);
+
+    function reset() {
+        issueTitle = '';
+        issueDescription = '';
+        status = '';
+        priority = '';
+        assignee = '';
+    }
+
+    function createIssue() {
+        if (!canCreate) {
+            return;
+        }
+        reset();
+        open = false;
+    }
 </script>
 
 <div class="flex items-center justify-center">
-    <Sheet.Root>
+    <Sheet.Root bind:open>
         <Sheet.Trigger>
             <SquarePen size={16} />
             New issue
         </Sheet.Trigger>
         <Sheet.Content side="right">
             <Sheet.Header>
-                <Sheet.Title>New issue</Sheet.Title>
+                <div class="flex items-center gap-2.5">
+                    <SquarePen size={18} class="text-foreground-muted" />
+                    <Sheet.Title>New issue</Sheet.Title>
+                </div>
                 <Sheet.Description>Create a new issue in Engineering.</Sheet.Description>
             </Sheet.Header>
 
-            <div class="flex flex-col gap-4 py-4">
-                <Input bind:value={issueTitle} label="Title" placeholder="Issue title" />
+            <div class="flex flex-col gap-4">
+                <Input
+                    bind:value={issueTitle}
+                    label="Title"
+                    placeholder="Issue title"
+                    description="A short, specific summary of the work."
+                />
 
                 <Textarea
                     bind:value={issueDescription}
@@ -73,7 +100,7 @@
                     <div class="flex flex-col gap-1.5">
                         <Label>Status</Label>
                         <Select.Root bind:value={status}>
-                            <Select.Trigger class="w-full" variant="outline">
+                            <Select.Trigger class="w-full" variant="outline" size="md">
                                 <span class="flex min-w-0 items-center gap-2">
                                     {#if statusMeta}
                                         <statusMeta.icon
@@ -100,7 +127,7 @@
                     <div class="flex flex-col gap-1.5">
                         <Label>Priority</Label>
                         <Select.Root bind:value={priority}>
-                            <Select.Trigger class="w-full" variant="outline">
+                            <Select.Trigger class="w-full" variant="outline" size="md">
                                 <span class="flex min-w-0 items-center gap-2">
                                     {#if priorityMeta}
                                         <priorityMeta.icon
@@ -127,7 +154,7 @@
                     <div class="flex flex-col gap-1.5">
                         <Label>Assignee</Label>
                         <Select.Root bind:value={assignee}>
-                            <Select.Trigger class="w-full" variant="outline">
+                            <Select.Trigger class="w-full" variant="outline" size="md">
                                 <span class="flex min-w-0 items-center gap-2">
                                     {#if assigneeMeta}
                                         <Avatar.Root size="sm" class="size-5 shrink-0 text-[10px]">
@@ -157,8 +184,14 @@
             </div>
 
             <Sheet.Footer>
-                <Sheet.Close variant="ghost">Cancel</Sheet.Close>
-                <Button>Create issue</Button>
+                <Sheet.Close onclick={reset}>
+                    Cancel
+                    <Shortcut shortcut="esc" />
+                </Sheet.Close>
+                <Button onclick={() => createIssue()}>
+                    Create issue
+                    <Shortcut shortcut="enter" />
+                </Button>
             </Sheet.Footer>
         </Sheet.Content>
     </Sheet.Root>

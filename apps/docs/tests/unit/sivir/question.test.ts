@@ -8,6 +8,24 @@ import QuestionTakeoverFixture from '../../fixtures/QuestionTakeoverFixture.svel
 import { queryRequired, required } from '../../test-utils';
 
 describe('Question', () => {
+    it('submits from inset footer chrome and removes conditional actions', async () => {
+        const view = render(QuestionFixture, { variant: 'inset' });
+        const user = userEvent.setup();
+        const submit = screen.getByRole('button', { name: 'Submit answer' });
+        const option = screen.getByRole('radio', { name: /Safe rollout/ });
+
+        expect(submit.closest('[data-ui="card-footer"]')).not.toBeNull();
+        expect(submit.closest('[data-ui="card-surface"]')).toBeNull();
+        expect(submit.closest('form')).toBe(option.closest('form'));
+
+        await user.click(option);
+        await user.click(submit);
+        expect(screen.getByTestId('submit-count')).toHaveTextContent('1');
+
+        await view.rerender({ variant: 'inset', showActions: false });
+        expect(screen.queryByRole('button', { name: 'Submit answer' })).not.toBeInTheDocument();
+    });
+
     it('submits one selected answer', async () => {
         render(QuestionFixture);
         const user = userEvent.setup();

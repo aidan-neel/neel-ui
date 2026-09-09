@@ -39,7 +39,9 @@
         <Typography.Text variant="supporting">
             Bind the controlled array for live movement. Use
             <Typography.InlineCode>onCommit</Typography.InlineCode>
-            for persistence so a drag writes once rather than on every crossing.
+            for persistence so a drag writes once rather than on every crossing. Drag anywhere on a
+            row with a mouse, pen, or touch. Hover highlights the row; a grabbed row keeps its
+            raised surface and primary border until dropped.
         </Typography.Text>
         <CodeBlock
             lang="svelte"

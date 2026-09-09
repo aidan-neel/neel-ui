@@ -7,7 +7,7 @@ import Header from './card-header.svelte';
 import Title from './card-title.svelte';
 
 export type CardProps = {
-    variant?: 'default' | 'panel';
+    variant?: 'default' | 'panel' | 'inset';
 } & DefaultProps;
 
 export type CardHeaderProps = DefaultProps;

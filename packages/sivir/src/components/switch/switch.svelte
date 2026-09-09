@@ -22,7 +22,7 @@
     const descriptionId = `${id}-description`;
 
     const buttonClasses =
-        'group relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
+        'group relative inline-flex h-5 w-9 shrink-0 items-center rounded-full border-[length:var(--border-size)] p-0.5 transition-[background-color,border-color,box-shadow] [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none focus-visible:outline-none focus-visible:ring-0 focus-visible:shadow-[var(--focus-ring)] disabled:cursor-not-allowed disabled:opacity-[var(--opacity-disabled)]';
 
     function toggle(event: Event) {
         if (disabled) {
@@ -56,7 +56,7 @@
             className,
             buttonClasses,
             isOn
-                ? 'border-[color-mix(in_srgb,var(--color-primary)_78%,black)] bg-primary'
+                ? 'border-[var(--color-primary-hover)] bg-primary'
                 : 'border-[color-mix(in_srgb,var(--color-border-strong)_88%,transparent)] bg-[color-mix(in_srgb,var(--color-foreground)_18%,transparent)] dark:bg-[color-mix(in_srgb,var(--color-foreground)_24%,transparent)]'
         )}
         onclick={toggle}
@@ -65,7 +65,7 @@
             aria-hidden="true"
             data-state={isOn ? 'checked' : 'unchecked'}
             class={cn(
-                'block size-3.5 rounded-full bg-white ring-1 ring-inset ring-black/[0.08] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
+                'block size-3.5 rounded-full bg-[var(--color-on-primary)] ring-1 ring-inset ring-[color-mix(in_srgb,var(--color-foreground)_8%,transparent)] will-change-transform transition-transform [transition-duration:var(--motion-duration-panel)] ease-[var(--ease-out)] motion-reduce:transition-none',
                 isOn ? 'translate-x-4' : 'translate-x-0',
                 !disabled && 'group-active:scale-x-125 motion-reduce:group-active:scale-x-100'
             )}

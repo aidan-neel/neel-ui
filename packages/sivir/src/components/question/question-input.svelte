@@ -26,7 +26,7 @@
 </script>
 
 {#if context.type === 'text'}
-    <div data-ui="question-input-wrap" class="px-3.5 pt-3 pb-2">
+    <div data-ui="question-input-wrap" class="px-4 pt-4 pb-4">
         <Textarea
             bind:element
             {...rest}

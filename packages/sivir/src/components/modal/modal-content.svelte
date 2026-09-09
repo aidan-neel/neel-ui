@@ -113,6 +113,19 @@
                 tabindex="-1"
                 {...rest}
             >
+                {#if modal.headerSlot}
+                    <div
+                        {...modal.headerSlot.rest}
+                        data-ui="modal-frame-header"
+                        data-orientation={modal.state.orientation}
+                        class={cn(
+                            modal.headerSlot.className,
+                            'flex w-full flex-row items-center gap-2'
+                        )}
+                    >
+                        {@render modal.headerSlot.children?.()}
+                    </div>
+                {/if}
                 <div
                     class={cn(
                         surfaceClass,

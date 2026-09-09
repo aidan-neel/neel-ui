@@ -1,8 +1,7 @@
-import { createContext } from '@sivir-ui/svelte/utils';
 import type { PopoverState } from '@sivir-ui/svelte/components/popover';
+import { createContext } from '@sivir-ui/svelte/utils';
 
 export type DropdownMenuContext = {
-    inverted: boolean;
     /** Open menu layers from root → immediate parent (submenu cone ancestors). */
     ancestors: PopoverState[];
     /** Submenus owned by this menu layer. Only one may be open at a time. */
@@ -14,4 +13,4 @@ export type DropdownMenuContext = {
 const { set: setDropdownMenuContext, get: getDropdownMenuContext } =
     createContext<DropdownMenuContext>('dropdown-menu');
 
-export { setDropdownMenuContext, getDropdownMenuContext };
+export { getDropdownMenuContext, setDropdownMenuContext };

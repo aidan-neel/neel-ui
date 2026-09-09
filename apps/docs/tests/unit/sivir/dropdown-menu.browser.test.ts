@@ -1,7 +1,7 @@
-import { describe, expect, it, vi } from 'vitest';
-import { render } from 'vitest-browser-svelte';
-import { page, userEvent } from 'vitest/browser';
 import { tick } from 'svelte';
+import { describe, expect, it, vi } from 'vitest';
+import { page, userEvent } from 'vitest/browser';
+import { render } from 'vitest-browser-svelte';
 import DropdownMenuFixture from '../../fixtures/DropdownMenuFixture.svelte';
 
 /*
@@ -71,30 +71,6 @@ describe('DropdownMenu -- open and close', () => {
         await flush();
         await openMenu();
         await expect.element(page.getByText('Group label')).toBeInTheDocument();
-    });
-});
-
-describe('DropdownMenu -- inverted', () => {
-    function menuClass() {
-        return (page.getByRole('menu').element() as HTMLElement).className;
-    }
-
-    it('overrides the surface fill var (--color-panel) when inverted', async () => {
-        render(DropdownMenuFixture, { inverted: true });
-        await flush();
-        await openMenu();
-
-        await expect.element(page.getByRole('menu')).toBeInTheDocument();
-        expect(menuClass()).toContain('[--color-panel:hsl(0_0%_13%)]');
-    });
-
-    it('does not apply the inverted override by default', async () => {
-        render(DropdownMenuFixture, {});
-        await flush();
-        await openMenu();
-
-        await expect.element(page.getByRole('menu')).toBeInTheDocument();
-        expect(menuClass()).not.toContain('[--color-panel:hsl(0_0%_13%)]');
     });
 });
 

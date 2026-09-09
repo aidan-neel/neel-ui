@@ -48,6 +48,25 @@ async function flush() {
     await new Promise((r) => setTimeout(r, 30));
 }
 
+/**
+ * Waits out the collection-item transitions before sampling the DOM.
+ *
+ * Filtering a combobox collapses non-matching items with a 120ms
+ * `height`/`opacity` transition, which outlasts `flush()`'s 30ms sleep. Axe
+ * sampled mid-collapse sees a list that still overflows its scrollport and
+ * reports `scrollable-region-focusable`, even though the settled list fits.
+ * Only CSS transitions are awaited, so an indefinite animation can never hang
+ * the run.
+ */
+async function settleCollectionTransitions() {
+    await flush();
+    const transitions = Array.from(document.querySelectorAll('[data-collection-item]'))
+        .flatMap((item) => item.getAnimations())
+        .filter((animation) => animation instanceof CSSTransition);
+    await Promise.allSettled(transitions.map((animation) => animation.finished));
+    await new Promise((resolve) => requestAnimationFrame(() => resolve(undefined)));
+}
+
 async function runAxe(): Promise<{
     violations: axe.Result[];
     violationsFiltered: axe.Result[];
@@ -190,7 +209,7 @@ describe('A11y -- floating components (axe, open state)', () => {
         expectNoViolations('combobox (open)', violationsFiltered);
 
         await page.getByPlaceholder('Search fruits').fill('cherry');
-        await flush();
+        await settleCollectionTransitions();
         const filtered = await runAxe();
         expectNoViolations('combobox (filtered)', filtered.violationsFiltered);
     });

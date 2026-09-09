@@ -95,12 +95,20 @@
         border: string;
         background: string;
         secondary: string;
-        muted: string;
+        foreground: string;
+        foregroundMuted: string;
+        onPrimary: string;
+        buttonForeground: string;
     };
 
     type FoundationColors = {
         light: FoundationPalette;
         dark: FoundationPalette;
+    };
+
+    type BrandColors = {
+        light: string;
+        dark: string;
     };
 
     type InteractiveCursor = 'default' | 'pointer';
@@ -110,14 +118,17 @@
         headerSize: number;
         headerWeight: FontWeight;
         roleWeights: RoleWeights;
+        brandColors: BrandColors;
         foundationColors: FoundationColors;
         advancedTokens: AdvancedTokens;
-        shadows: boolean;
+        surfaceShadows: boolean;
+        controlShadows: boolean;
+        dialogShadows: boolean;
+        travelingHighlight: boolean;
         primaryStroke: boolean;
         interactiveCursor: InteractiveCursor;
     };
 
-    type AdvancedTab = 'colors' | 'spacing' | 'animation';
     type FontWeight = '400' | '500' | '600' | '700';
 
     type RoleWeights = {
@@ -135,14 +146,20 @@
             border: '#e8e8e6',
             background: '#fdfdfc',
             secondary: '#efefee',
-            muted: '#f7f7f5'
+            foreground: '#1c1c1b',
+            foregroundMuted: '#737373',
+            onPrimary: '#ffffff',
+            buttonForeground: '#1c1c1b'
         },
         dark: {
             base: '#171717',
             border: '#2a2a2a',
             background: '#0a0a0a',
             secondary: '#252525',
-            muted: '#1a1a1a'
+            foreground: '#ededed',
+            foregroundMuted: '#a3a3a3',
+            onPrimary: '#ffffff',
+            buttonForeground: '#ededed'
         }
     };
     const DEFAULT_ROLE_WEIGHTS: RoleWeights = {
@@ -186,11 +203,17 @@
         { label: 'Smoke', value: '#303030' },
         { label: 'Carbon', value: '#252525' }
     ];
-    const mutedSwatches = [
-        { label: 'Whisper', value: '#f7f7f5' },
-        { label: 'Fog', value: '#eeeeec' },
-        { label: 'Ash', value: '#242424' },
-        { label: 'Coal', value: '#1a1a1a' }
+    const foregroundSwatches = [
+        { label: 'Ink', value: '#1c1c1b' },
+        { label: 'Charcoal', value: '#3a3a3a' },
+        { label: 'Mist', value: '#a3a3a3' },
+        { label: 'Snow', value: '#ededed' }
+    ];
+    const onPrimarySwatches = [
+        { label: 'White', value: '#ffffff' },
+        { label: 'Porcelain', value: '#fafaf9' },
+        { label: 'Ink', value: '#1c1c1b' },
+        { label: 'Night', value: '#0a0a0a' }
     ];
 
     type AdvancedTokens = {
@@ -225,16 +248,18 @@
         'fontMono',
         'fontHeader'
     ] as const;
-    const radiusValues = {
-        sharp: '6px lg',
-        default: '10px lg',
-        rounded: '18px lg'
-    } as const;
-    const densityValues = {
-        compact: '3.2px',
-        default: '3.6px',
-        comfortable: '4px'
-    } as const;
+    const radiusTokenNames = ['--radius-sm', '--radius-md', '--radius-lg', '--radius-xl'] as const;
+    const movementPresets = ['subtle', 'default', 'expressive'] as const;
+    const motionDurationTokenNames: AnimationTokenName[] = [
+        '--motion-duration-hover',
+        '--motion-duration-menu',
+        '--motion-duration-panel',
+        '--motion-duration-sheet',
+        '--motion-duration-sheet-out',
+        '--motion-duration-overlay',
+        '--motion-duration-toast-in',
+        '--motion-duration-toast-out'
+    ];
     type InvoiceStatus = 'Paid' | 'Due soon' | 'Overdue' | 'Sent' | 'Draft';
     type Invoice = {
         client: string;
@@ -319,6 +344,9 @@
     let baseTheme = $state<Theme>({ ...DEFAULT_THEME });
     let selectedPreset = $state(DEFAULT_THEME.slug);
     let previousPreset = $state(DEFAULT_THEME.slug);
+    let previousRadius: Theme['radius'] = theme.radius;
+    let previousDensity: Theme['density'] = theme.density;
+    let previousMotion: Theme['motion'] = theme.motion;
     let selectedSans = $state('inter');
     let previousSans = $state('inter');
     let selectedHeader = $state('same-as-sans');
@@ -333,11 +361,16 @@
         dark: { ...DEFAULT_FOUNDATION_COLORS.dark }
     });
     let advancedTokens = $state<AdvancedTokens>(emptyAdvancedTokens());
-    let shadows = $state(true);
+    let brandColors = $state<BrandColors>({ light: '#1e78e6', dark: '#1e78e6' });
+    let surfaceShadows = $state(true);
+    let controlShadows = $state(true);
+    let dialogShadows = $state(true);
+    let travelingHighlight = $state(true);
     let primaryStroke = $state(false);
     let interactiveCursor = $state<InteractiveCursor>('default');
-    let advancedTab = $state<AdvancedTab>('colors');
-    let moreOptionsOpen = $state(false);
+    let colorsModalOpen = $state(false);
+    let spacingModalOpen = $state(false);
+    let animationModalOpen = $state(false);
     let pendingPreset = $state<string | null>(null);
     let presetDialogOpen = $state(false);
     let studioView = $state('invoices');
@@ -472,18 +505,24 @@
     );
     const changedAxisCount = $derived(
         themeAxes.filter((axis) => theme[axis] !== baseTheme[axis]).length +
+            (brandColors.light !== baseTheme.brand || brandColors.dark !== baseTheme.brand
+                ? 1
+                : 0) +
             foundationColorChanges +
             advancedTokenChanges +
             (headerSize === 16 ? 0 : 1) +
             (headerWeight === '600' ? 0 : 1) +
             roleWeightChanges +
-            (shadows ? 0 : 1) +
+            (surfaceShadows ? 0 : 1) +
+            (controlShadows ? 0 : 1) +
+            (dialogShadows ? 0 : 1) +
+            (travelingHighlight ? 0 : 1) +
             (primaryStroke ? 1 : 0) +
             (interactiveCursor === 'default' ? 0 : 1)
     );
     const dirty = $derived(changedAxisCount > 0);
     const generatedCss = $derived(
-        `${themeToCss(theme)}\n:root,\n.dark {\n\t--font-size-header: ${headerSize}px;\n\t--font-weight-header: ${headerWeight};\n\t--font-weight-body: ${roleWeights.body};\n\t--font-weight-label: ${roleWeights.label};\n\t--font-weight-button: ${roleWeights.button};\n\t--font-weight-badge: ${roleWeights.badge};\n\t--font-weight-description: ${roleWeights.description};\n}\n${foundationCssBlock(':root:not(.dark)', foundationColors.light)}${foundationCssBlock('.dark', foundationColors.dark)}${tokenOverridesCssBlock(':root:not(.dark)', advancedTokens.colors.light)}${tokenOverridesCssBlock('.dark', advancedTokens.colors.dark)}${tokenOverridesCssBlock(':root,\n.dark', advancedTokens.spacing)}${tokenOverridesCssBlock(':root,\n.dark', advancedTokens.animation)}${chromeCssBlock()}`
+        `${themeToCss(theme)}\n:root,\n.dark {\n\t--font-size-header: ${headerSize}px;\n\t--font-weight-header: ${headerWeight};\n\t--font-weight-body: ${roleWeights.body};\n\t--font-weight-label: ${roleWeights.label};\n\t--font-weight-button: ${roleWeights.button};\n\t--font-weight-badge: ${roleWeights.badge};\n\t--font-weight-description: ${roleWeights.description};\n}\n${brandCssBlock(':root:not(.dark)', brandColors.light)}${brandCssBlock('.dark', brandColors.dark)}${foundationCssBlock(':root:not(.dark)', foundationColors.light)}${foundationCssBlock('.dark', foundationColors.dark)}${tokenOverridesCssBlock(':root:not(.dark)', advancedTokens.colors.light)}${tokenOverridesCssBlock('.dark', advancedTokens.colors.dark)}${tokenOverridesCssBlock(':root,\n.dark', advancedTokens.spacing)}${tokenOverridesCssBlock(':root,\n.dark', advancedTokens.animation)}${chromeCssBlock()}`
     );
     const generatedJson = $derived(
         JSON.stringify(
@@ -494,9 +533,13 @@
                     headerSize,
                     headerWeight,
                     roleWeights,
+                    brandColors,
                     foundationColors,
                     advancedTokens,
-                    shadows,
+                    surfaceShadows,
+                    controlShadows,
+                    dialogShadows,
+                    travelingHighlight,
                     primaryStroke,
                     interactiveCursor
                 },
@@ -525,9 +568,23 @@
             `--color-card: ${colors.base};`,
             `--color-panel: ${colors.base};`,
             `--color-border: ${colors.border};`,
+            `--color-input: ${colors.border};`,
             `--color-background: ${colors.background};`,
             `--color-secondary: ${colors.secondary};`,
-            `--color-muted: ${colors.muted};`
+            `--color-foreground: ${colors.foreground};`,
+            `--color-foreground-muted: ${colors.foregroundMuted};`,
+            `--color-on-primary: ${colors.onPrimary};`,
+            `--color-button-foreground: ${colors.buttonForeground};`
+        ];
+
+        return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
+    }
+
+    function brandCssBlock(selector: string, color: string) {
+        const declarations = [
+            `--color-primary: ${color};`,
+            `--color-primary-hover: color-mix(in srgb, ${color} 78%, black);`,
+            `--color-ring: color-mix(in srgb, ${color} 30%, transparent);`
         ];
 
         return `${selector} {\n${declarations.map((declaration) => `\t${declaration}`).join('\n')}\n}\n`;
@@ -535,14 +592,20 @@
 
     function chromeCssBlock() {
         const shared = [`--ui-cursor-interactive: ${interactiveCursor};`];
-        if (!shadows) {
+        if (!surfaceShadows) {
+            shared.push('--elevation-1: none;', '--elevation-float: none;');
+        }
+        if (!dialogShadows) {
+            shared.push('--elevation-modal: none;');
+        }
+        if (!controlShadows) {
             shared.push(
-                '--elevation-1: none;',
-                '--elevation-float: none;',
-                '--elevation-modal: none;',
-                '--elevation-control: inset 0 0 0 1px var(--color-border);',
-                '--elevation-button-outline: inset 0 0 0 1px var(--color-border);'
+                '--elevation-control: inset 0 0 0 var(--border-size) var(--color-border);',
+                '--elevation-button-outline: inset 0 0 0 var(--border-size) var(--color-border);'
             );
+        }
+        if (!travelingHighlight) {
+            shared.push('--sivir-traveling-highlight: none;');
         }
         const light = [
             `--color-primary-stroke: ${
@@ -583,6 +646,18 @@
         if (value === 'expressive') return 'Bold';
         if (value === 'true') return 'True';
         return value.charAt(0).toUpperCase() + value.slice(1);
+    }
+
+    function isRadiusScale(value: string): value is Theme['radius'] {
+        return (radiusScales as readonly string[]).includes(value);
+    }
+
+    function isDensity(value: string): value is Theme['density'] {
+        return (densities as readonly string[]).includes(value);
+    }
+
+    function isMotionFeel(value: string): value is Theme['motion'] {
+        return (motionFeels as readonly string[]).includes(value);
     }
 
     function valueBinding<T extends string>(value: T, onChange: (value: T) => void) {
@@ -638,29 +713,69 @@
                 roleWeights = { ...DEFAULT_ROLE_WEIGHTS, ...value.roleWeights };
             }
             if (value.foundationColors) {
+                const lightFoundationColors = value.foundationColors.light as FoundationPalette & {
+                    muted?: string;
+                };
+                const darkFoundationColors = value.foundationColors.dark as FoundationPalette & {
+                    muted?: string;
+                };
+                const { muted: _lightMuted, ...light } = lightFoundationColors;
+                const { muted: _darkMuted, ...dark } = darkFoundationColors;
+
                 foundationColors = {
                     light: {
                         ...DEFAULT_FOUNDATION_COLORS.light,
-                        ...value.foundationColors.light
+                        ...light
                     },
                     dark: {
                         ...DEFAULT_FOUNDATION_COLORS.dark,
-                        ...value.foundationColors.dark
+                        ...dark
                     }
                 };
             }
             if (value.advancedTokens) {
+                const lightTokens = {
+                    ...value.advancedTokens.colors?.light
+                } as Record<string, string | undefined>;
+                const darkTokens = {
+                    ...value.advancedTokens.colors?.dark
+                } as Record<string, string | undefined>;
+                const { '--color-muted': _lightMuted, ...light } = lightTokens;
+                const { '--color-muted': _darkMuted, ...dark } = darkTokens;
+
                 advancedTokens = {
                     colors: {
-                        light: { ...value.advancedTokens.colors?.light },
-                        dark: { ...value.advancedTokens.colors?.dark }
+                        light,
+                        dark
                     },
                     spacing: { ...value.advancedTokens.spacing },
                     animation: { ...value.advancedTokens.animation }
                 };
             }
-            if (typeof value.shadows === 'boolean') {
-                shadows = value.shadows;
+            if (value.brandColors) {
+                brandColors = {
+                    light: value.brandColors.light ?? baseTheme.brand,
+                    dark: value.brandColors.dark ?? baseTheme.brand
+                };
+            }
+            const shadowsOff = (value as { shadows?: unknown }).shadows === false;
+            if (typeof value.surfaceShadows === 'boolean') {
+                surfaceShadows = value.surfaceShadows;
+            } else if (shadowsOff) {
+                surfaceShadows = false;
+            }
+            if (typeof value.controlShadows === 'boolean') {
+                controlShadows = value.controlShadows;
+            } else if (shadowsOff) {
+                controlShadows = false;
+            }
+            if (typeof value.dialogShadows === 'boolean') {
+                dialogShadows = value.dialogShadows;
+            } else if (shadowsOff) {
+                dialogShadows = false;
+            }
+            if (typeof value.travelingHighlight === 'boolean') {
+                travelingHighlight = value.travelingHighlight;
             }
             if (typeof value.primaryStroke === 'boolean') {
                 primaryStroke = value.primaryStroke;
@@ -679,6 +794,7 @@
             headerSize,
             headerWeight,
             roleWeights: { ...roleWeights },
+            brandColors: { ...brandColors },
             foundationColors: {
                 light: { ...foundationColors.light },
                 dark: { ...foundationColors.dark }
@@ -691,7 +807,10 @@
                 spacing: { ...advancedTokens.spacing },
                 animation: { ...advancedTokens.animation }
             },
-            shadows,
+            surfaceShadows,
+            controlShadows,
+            dialogShadows,
+            travelingHighlight,
             primaryStroke,
             interactiveCursor
         };
@@ -717,7 +836,13 @@
             dark: { ...DEFAULT_FOUNDATION_COLORS.dark }
         };
         advancedTokens = emptyAdvancedTokens();
-        shadows = true;
+        brandColors = { light: preset.brand, dark: preset.brand };
+        surfaceShadows =
+            preset.chrome?.shadows !== false && preset.chrome?.surfaceShadows !== false;
+        controlShadows =
+            preset.chrome?.shadows !== false && preset.chrome?.controlShadows !== false;
+        dialogShadows = preset.chrome?.shadows !== false && preset.chrome?.dialogShadows !== false;
+        travelingHighlight = preset.chrome?.travelingHighlight !== false;
         primaryStroke = false;
         interactiveCursor = 'default';
         syncFontSelections(theme);
@@ -738,14 +863,23 @@
             dark: { ...DEFAULT_FOUNDATION_COLORS.dark }
         };
         advancedTokens = emptyAdvancedTokens();
-        shadows = true;
+        brandColors = { light: baseTheme.brand, dark: baseTheme.brand };
+        surfaceShadows =
+            baseTheme.chrome?.shadows !== false && baseTheme.chrome?.surfaceShadows !== false;
+        controlShadows =
+            baseTheme.chrome?.shadows !== false && baseTheme.chrome?.controlShadows !== false;
+        dialogShadows =
+            baseTheme.chrome?.shadows !== false && baseTheme.chrome?.dialogShadows !== false;
+        travelingHighlight = baseTheme.chrome?.travelingHighlight !== false;
         primaryStroke = false;
         interactiveCursor = 'default';
         syncFontSelections(theme);
     }
 
     function updateBrand(value: string) {
-        theme = { ...theme, brand: value.toLowerCase() };
+        const next = value.toLowerCase();
+        brandColors = { ...brandColors, [appMode]: next };
+        theme = { ...theme, brand: brandColors.light };
     }
 
     function updateFoundationColor(key: keyof FoundationPalette, value: string) {
@@ -760,11 +894,6 @@
 
     function updateRoleWeight(key: keyof RoleWeights, value: FontWeight) {
         roleWeights = { ...roleWeights, [key]: value };
-    }
-
-    function openMoreOptions(tab: AdvancedTab) {
-        advancedTab = tab;
-        moreOptionsOpen = true;
     }
 
     function updateAdvancedColorToken(name: ColorTokenName, value: string) {
@@ -882,7 +1011,7 @@
             return parseDurationMs(raw);
         }
 
-        if (definition.kind === 'scale') {
+        if (definition.kind === 'scale' || definition.kind === 'opacity') {
             return parseScale(raw);
         }
 
@@ -894,7 +1023,7 @@
             return formatMs(value);
         }
 
-        if (definition.kind === 'scale') {
+        if (definition.kind === 'scale' || definition.kind === 'opacity') {
             return formatScale(value);
         }
 
@@ -907,7 +1036,7 @@
             return;
         }
 
-        if (definition.kind === 'scale') {
+        if (definition.kind === 'scale' || definition.kind === 'opacity') {
             updateAdvancedAnimationToken(definition.name, formatScale(value));
             return;
         }
@@ -946,25 +1075,6 @@
         selectedPreset = pendingPreset;
         applyPreset(pendingPreset);
         pendingPreset = null;
-    }
-
-    async function copyValue(value: string, key: 'css' | 'json', label: string) {
-        if (!navigator.clipboard) {
-            toast({ title: `${label} could not be copied`, type: 'error', duration: 1800 });
-            return;
-        }
-
-        await navigator.clipboard.writeText(value);
-        copiedKey = key;
-        toast({
-            title: `${label} copied`,
-            description: 'The draft is ready to paste into your project.',
-            type: 'success',
-            duration: 1600
-        });
-        window.setTimeout(() => {
-            if (copiedKey === key) copiedKey = null;
-        }, 1200);
     }
 
     function runDashboardAction(
@@ -1067,6 +1177,9 @@
             syncFontSelections(theme);
         }
         loadStudioExtensions();
+        previousRadius = theme.radius;
+        previousDensity = theme.density;
+        previousMotion = theme.motion;
         hydrated = true;
         const root = document.documentElement;
         appliedDark = root.classList.contains('dark');
@@ -1089,6 +1202,50 @@
         }
         previousPreset = nextPreset;
         applyPreset(nextPreset);
+    });
+
+    $effect(() => {
+        if (!hydrated) {
+            previousRadius = theme.radius;
+            previousDensity = theme.density;
+            previousMotion = theme.motion;
+            return;
+        }
+        const radiusChanged = theme.radius !== previousRadius;
+        const densityChanged = theme.density !== previousDensity;
+        const motionChanged = theme.motion !== previousMotion;
+        if (!radiusChanged && !densityChanged && !motionChanged) {
+            return;
+        }
+        previousRadius = theme.radius;
+        previousDensity = theme.density;
+        previousMotion = theme.motion;
+        const nextSpacing = { ...advancedTokens.spacing };
+        const nextAnimation = { ...advancedTokens.animation };
+        let changed = false;
+        if (radiusChanged) {
+            for (const name of radiusTokenNames) {
+                if (nextSpacing[name]?.trim()) {
+                    delete nextSpacing[name];
+                    changed = true;
+                }
+            }
+        }
+        if (densityChanged && nextSpacing['--sivir-space-unit']?.trim()) {
+            delete nextSpacing['--sivir-space-unit'];
+            changed = true;
+        }
+        if (motionChanged) {
+            for (const name of motionDurationTokenNames) {
+                if (nextAnimation[name]?.trim()) {
+                    delete nextAnimation[name];
+                    changed = true;
+                }
+            }
+        }
+        if (changed) {
+            advancedTokens = { ...advancedTokens, spacing: nextSpacing, animation: nextAnimation };
+        }
     });
 
     $effect(() => {
@@ -1127,15 +1284,15 @@
     <meta name="description" content="Build, preview, and export a Sivir theme." />
 </svelte:head>
 
-{#snippet moreOptionsButton(tab: AdvancedTab, label: string)}
+{#snippet advancedButton(label: string, onClick: () => void)}
     <Button
         variant="ghost"
-        size="icon"
-        class="size-7 shrink-0 text-foreground-muted"
-        onclick={() => openMoreOptions(tab)}
+        size="sm"
+        class="shrink-0 text-foreground-muted"
+        onclick={onClick}
         aria-label={label}
     >
-        <MoreHorizontal size={15} />
+        {label}
     </Button>
 {/snippet}
 
@@ -1147,7 +1304,7 @@
 )}
     {@const selection = valueBinding(value, onChange)}
     <div role="group" aria-label={label}>
-        <Tabs.Root bind:value={selection.value} variant="ghost" class="w-full">
+        <Tabs.Root bind:value={selection.value} variant="segmented" class="w-full">
             <Tabs.List
                 class={`grid w-full ${values.length === 2 ? 'grid-cols-2' : values.length === 4 ? 'grid-cols-4' : 'grid-cols-3'}`}
             >
@@ -1161,11 +1318,54 @@
     </div>
 {/snippet}
 
+{#snippet feelSelect(
+        label: string,
+        value: string,
+        options: readonly string[],
+        openAdvanced: () => void,
+        onChange: (value: string) => void
+    )}
+    <div class="flex min-w-0 flex-col gap-2">
+        <Typography.Metadata>{label}</Typography.Metadata>
+        <Select.Root
+            {value}
+            onValueChange={(next) => {
+                    if (next === 'advanced') {
+                        openAdvanced();
+                        return;
+                    }
+                    onChange(next);
+                }}
+        >
+            <Select.Trigger
+                class="h-[34px] min-w-0 px-[9px] text-[13px]"
+                variant="outline"
+                aria-label={label}
+            >
+                <span class="truncate">{formatChoice(value)}</span>
+            </Select.Trigger>
+            <Select.Content class="min-w-[max(16rem,var(--popover-trigger-width))]">
+                {#each options as option (option)}
+                    <Select.Item value={option} label={formatChoice(option)}>
+                        {formatChoice(option)}
+                    </Select.Item>
+                {/each}
+                {#if !options.includes(value)}
+                    <Select.Item {value} label={formatChoice(value)}>
+                        {formatChoice(value)}
+                    </Select.Item>
+                {/if}
+                <Select.Item value="advanced" label="Advanced…">Advanced…</Select.Item>
+            </Select.Content>
+        </Select.Root>
+    </div>
+{/snippet}
+
 {#snippet weightControl(
-    label: string,
-    value: FontWeight,
-    onChange: (value: FontWeight) => void
-)}
+        label: string,
+        value: FontWeight,
+        onChange: (value: FontWeight) => void
+    )}
     {@const selection = valueBinding(value, onChange)}
     <div class="flex items-center gap-2" role="group" aria-label={`${label} weight`}>
         <span class="w-[76px] shrink-0 text-[13px] font-medium text-foreground-muted">{label}</span>
@@ -1251,77 +1451,45 @@
     </div>
 {/snippet}
 
+{#snippet modalDoneFooter()}
+    <Modal.Footer class="shrink-0">
+        <Modal.Close>
+            Cancel
+            <Shortcut shortcut="esc" />
+        </Modal.Close>
+        <Modal.Confirm>
+            Done
+            <Shortcut shortcut="enter" />
+        </Modal.Confirm>
+    </Modal.Footer>
+{/snippet}
+
 {#snippet inspector()}
     <ScrollArea class="hide-scrollbar-all h-full min-h-0 flex-1 bg-background" showCues={false}>
-        <div class="flex min-h-full flex-col gap-8 px-2 py-4">
-            <div class="flex shrink-0 flex-col gap-3">
-                <div class="flex min-w-0 items-center gap-2">
-                    <span class="shrink-0 text-sm font-semibold tracking-[-0.015em]"
-                        >Theme studio</span
-                    >
-                    <span class="text-[var(--sivir-neutral-300)]" aria-hidden="true">/</span>
-                    <span class="truncate font-mono text-xs text-foreground-muted"
-                        >{theme.slug}</span
-                    >
-                </div>
-                <div class="grid grid-cols-2 gap-2">
-                    <Button
-                        variant="secondary"
-                        class="h-8"
-                        onclick={() => copyValue(generatedJson, 'json', 'JSON')}
-                    >
-                        {copiedKey === 'json' ? 'Copied' : 'Copy JSON'}
-                    </Button>
-                    <Button
-                        variant="secondary"
-                        class="h-8"
-                        onclick={() => copyValue(generatedCss, 'css', 'CSS')}
-                    >
-                        {copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
-                    </Button>
-                </div>
-            </div>
-
-            <div class="flex shrink-0 items-center gap-2">
-                <Select.Root bind:value={selectedPreset}>
-                    <Select.Trigger
-                        class="h-9 min-w-0 flex-1 px-3 text-sm"
-                        variant="outline"
-                        aria-label="Theme starting point"
-                    >
-                        <span class="truncate">
-                            {builtInThemePresets.find((preset) => preset.slug === selectedPreset)
-                                ?.name ?? 'Default'}
-                            · Sivir UI
-                        </span>
-                    </Select.Trigger>
-                    <Select.Content
-                        class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
-                    >
-                        {#each builtInThemePresets as preset (preset.slug)}
-                            <Select.Item value={preset.slug} label={preset.name}>
-                                {preset.name}
-                            </Select.Item>
-                        {/each}
-                    </Select.Content>
-                </Select.Root>
-                <Button
-                    variant="outline"
-                    size="icon"
-                    class="size-9 shrink-0"
-                    onclick={resetTheme}
-                    aria-label="Reset theme to selected preset"
-                >
-                    <RotateCcw size={15} />
-                </Button>
-            </div>
-
+        <div class="flex min-h-full flex-col gap-8 px-2 pb-4">
             <div class="flex flex-col gap-4">
                 <div class="flex items-center justify-between gap-2">
                     <Typography.Title level={3}>Color</Typography.Title>
-                    {@render moreOptionsButton('colors', 'More color options')}
+                    {@render advancedButton('Advanced', () => {
+                        colorsModalOpen = true;
+                    })}
                 </div>
-                {@render colorPickerControl('Brand', theme.brand, brandSwatches, updateBrand)}
+                <div class="grid grid-cols-2 gap-2">
+                    {@render colorPickerControl(
+                        'Brand',
+                        brandColors[appMode],
+                        brandSwatches,
+                        updateBrand
+                    )}
+                    {@render colorPickerControl(
+                        'On brand',
+                        foundationColors[appMode].onPrimary,
+                        onPrimarySwatches,
+                        (value) => {
+                            updateFoundationColor('onPrimary', value);
+                        }
+                    )}
+                </div>
                 <div class="grid grid-cols-2 gap-2">
                     {@render colorPickerControl(
                         'Base',
@@ -1358,52 +1526,59 @@
                         }
                     )}
                 </div>
-                {@render colorPickerControl(
-                    'Muted',
-                    foundationColors[appMode].muted,
-                    mutedSwatches,
-                    (value) => {
-                        updateFoundationColor('muted', value);
-                    }
-                )}
+                <div class="grid grid-cols-2 gap-2">
+                    {@render colorPickerControl(
+                        'Muted text',
+                        foundationColors[appMode].foregroundMuted,
+                        foregroundSwatches,
+                        (value) => {
+                            updateFoundationColor('foregroundMuted', value);
+                        }
+                    )}
+                    {@render colorPickerControl(
+                        'Foreground',
+                        foundationColors[appMode].foreground,
+                        foregroundSwatches,
+                        (value) => {
+                            updateFoundationColor('foreground', value);
+                        }
+                    )}
+                </div>
+                <div class="grid grid-cols-2 gap-2">
+                    {@render colorPickerControl(
+                        'Button text',
+                        foundationColors[appMode].buttonForeground,
+                        foregroundSwatches,
+                        (value) => {
+                            updateFoundationColor('buttonForeground', value);
+                        }
+                    )}
+                </div>
             </div>
 
             <div class="flex flex-col gap-4">
                 <div class="flex items-center justify-between gap-2">
                     <Typography.Title level={3}>Shape & density</Typography.Title>
-                    {@render moreOptionsButton('spacing', 'More shape and density options')}
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-baseline justify-between gap-2">
-                        <Typography.Metadata>Radius</Typography.Metadata>
-                        <Typography.Metadata>{radiusValues[theme.radius]}</Typography.Metadata>
-                    </div>
-                    {@render segmentedChoice(radiusScales, theme.radius, 'Radius scale', (value) => {
-                        if (radiusScales.includes(value as Theme['radius'])) {
-                            theme = { ...theme, radius: value as Theme['radius'] };
-                        }
-                    })}
-                </div>
-                <div class="flex flex-col gap-2">
-                    <div class="flex items-baseline justify-between gap-2">
-                        <Typography.Metadata>Density</Typography.Metadata>
-                        <Typography.Metadata>{densityValues[theme.density]}</Typography.Metadata>
-                    </div>
-                    {@render segmentedChoice(
-                        densities,
-                        theme.density,
-                        'Interface density',
-                        (value) => {
-                            if (densities.includes(value as Theme['density'])) {
-                                theme = { ...theme, density: value as Theme['density'] };
-                            }
-                        }
-                    )}
                 </div>
                 <Switch
-                    bind:checked={shadows}
-                    label="Shadows"
-                    description="Lift on cards, menus, and overlays."
+                    bind:checked={surfaceShadows}
+                    label="Card & menu shadows"
+                    description="Lift on cards, selects, dropdowns, and popovers."
+                />
+                <Switch
+                    bind:checked={controlShadows}
+                    label="Control shadows"
+                    description="Depth on inputs, buttons, and alerts."
+                />
+                <Switch
+                    bind:checked={dialogShadows}
+                    label="Dialog shadows"
+                    description="Lift on modals and sheets."
+                />
+                <Switch
+                    bind:checked={travelingHighlight}
+                    label="Traveling highlight"
+                    description="Slide the hover highlight between items. Off keeps the fill without the motion."
                 />
                 <Switch
                     bind:checked={primaryStroke}
@@ -1423,6 +1598,51 @@
                         }
                     )}
                 </div>
+            </div>
+
+            <div class="flex flex-col gap-4">
+                <div class="flex items-center justify-between gap-2">
+                    <Typography.Title level={3}>Feel</Typography.Title>
+                </div>
+                {@render feelSelect(
+                    'Radius',
+                    theme.radius,
+                    radiusScales,
+                    () => {
+                        spacingModalOpen = true;
+                    },
+                    (value) => {
+                        if (isRadiusScale(value)) {
+                            theme = { ...theme, radius: value };
+                        }
+                    }
+                )}
+                {@render feelSelect(
+                    'Density',
+                    theme.density,
+                    densities,
+                    () => {
+                        spacingModalOpen = true;
+                    },
+                    (value) => {
+                        if (isDensity(value)) {
+                            theme = { ...theme, density: value };
+                        }
+                    }
+                )}
+                {@render feelSelect(
+                    'Movement',
+                    theme.motion,
+                    movementPresets,
+                    () => {
+                        animationModalOpen = true;
+                    },
+                    (value) => {
+                        if (isMotionFeel(value)) {
+                            theme = { ...theme, motion: value };
+                        }
+                    }
+                )}
             </div>
 
             <div class="flex flex-col gap-4">
@@ -1545,16 +1765,89 @@
                 </div>
             </div>
 
-            <div class="flex flex-col gap-4">
-                <div class="flex items-center justify-between gap-2">
-                    <Typography.Title level={3}>Motion</Typography.Title>
-                    {@render moreOptionsButton('animation', 'More motion options')}
+            <div class="flex shrink-0 flex-col gap-2">
+                <div class="flex items-center gap-2">
+                    <Select.Root bind:value={selectedPreset}>
+                        <Select.Trigger
+                            class="h-[34px] min-w-0 flex-1 px-3 text-sm"
+                            variant="outline"
+                            aria-label="Theme starting point"
+                        >
+                            <span class="truncate">
+                                {builtInThemePresets.find(
+                                    (preset) => preset.slug === selectedPreset
+                                )?.name ?? 'Default'}
+                                · Sivir UI
+                            </span>
+                        </Select.Trigger>
+                        <Select.Content
+                            class="max-h-56 min-w-[max(16rem,var(--popover-trigger-width))]"
+                        >
+                            {#each builtInThemePresets as preset (preset.slug)}
+                                <Select.Item value={preset.slug} label={preset.name}>
+                                    {preset.name}
+                                </Select.Item>
+                            {/each}
+                        </Select.Content>
+                    </Select.Root>
+                    <Button
+                        variant="outline"
+                        size="icon"
+                        class="size-[34px] shrink-0"
+                        onclick={resetTheme}
+                        aria-label="Reset theme to selected preset"
+                    >
+                        <RotateCcw size={15} />
+                    </Button>
                 </div>
-                {@render segmentedChoice(motionFeels, theme.motion, 'Motion feel', (value) => {
-                    if (motionFeels.includes(value as Theme['motion'])) {
-                        theme = { ...theme, motion: value as Theme['motion'] };
-                    }
-                })}
+                <div class="grid grid-cols-2 gap-2">
+                    <CopyButton
+                        text={generatedJson}
+                        label="Copy JSON"
+                        variant="outline"
+                        size="md"
+                        class="w-full"
+                        oncopy={() => {
+                            copiedKey = 'json';
+                            toast({
+                                title: 'JSON copied',
+                                description: 'The draft is ready to paste into your project.',
+                                type: 'success',
+                                duration: 1600
+                            });
+                            window.setTimeout(() => {
+                                if (copiedKey === 'json') {
+                                    copiedKey = null;
+                                }
+                            }, 1200);
+                        }}
+                    >
+                        {copiedKey === 'json' ? 'Copied' : 'Copy JSON'}
+                    </CopyButton>
+                    <CopyButton
+                        text={generatedCss}
+                        label="Copy CSS"
+                        variant="outline"
+                        size="md"
+                        class="w-full"
+                        oncopy={() => {
+                            copiedKey = 'css';
+                            toast({
+                                title: 'CSS copied',
+                                description: 'The draft is ready to paste into your project.',
+                                type: 'success',
+                                duration: 1600
+                            });
+                            window.setTimeout(() => {
+                                if (copiedKey === 'css') {
+                                    copiedKey = null;
+                                }
+                            }, 1200);
+                        }}
+                    >
+                        {copiedKey === 'css' ? 'Copied' : 'Copy CSS'}
+                    </CopyButton>
+                </div>
             </div>
         </div>
     </ScrollArea>
@@ -1562,7 +1855,7 @@
 
 {#snippet dashboardPreview()}
     <ScrollArea class="h-full min-h-0" showCues={false}>
-        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 py-8">
+        <div class="mx-auto flex w-full max-w-4xl flex-col gap-8 px-6 pt-2 pb-8">
             <Toolbar class="gap-2 p-0">
                 <DropdownMenu.Root>
                     <DropdownMenu.Trigger variant="quiet" class="min-w-0 justify-start px-0">
@@ -2145,12 +2438,12 @@
     <section aria-label="Theme workspace" class="flex min-h-0 flex-1 bg-background">
         <aside
             aria-label="Theme configuration"
-            class="hidden min-h-0 w-[328px] shrink-0 px-4 py-3 min-[1100px]:flex min-[1100px]:flex-col"
+            class="hidden min-h-0 w-[328px] shrink-0 px-4 pb-3 min-[1100px]:flex min-[1100px]:flex-col"
         >
             {@render inspector()}
         </aside>
 
-        <div class="min-w-0 flex-1 py-3 pr-3 pl-0">
+        <div class="min-w-0 flex-1 pr-3 pb-3 pl-0">
             <div
                 class="h-full min-h-0 overflow-hidden rounded-[var(--radius-xl)] border border-border bg-background font-[var(--font-sans)] text-foreground"
                 id="theme-preview"
@@ -2172,191 +2465,185 @@
                 <Sheet.Title>Theme configuration</Sheet.Title>
                 <Sheet.Description>Configure the live Sivir theme preview.</Sheet.Description>
             </Sheet.Header>
-            <div class="-my-4 min-h-0 flex-1 overflow-hidden px-6">
+            <div class="-mb-4 min-h-0 flex-1 overflow-hidden px-6">
                 {@render inspector()}
             </div>
         </Sheet.Content>
     </Sheet.Root>
 
-    <Modal.Root bind:open={moreOptionsOpen} orientation="vertical">
+    <Modal.Root bind:open={colorsModalOpen} orientation="vertical">
         <Modal.Content
             size="xl"
             contentClass="!h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-w-5xl"
             surfaceClass="!overflow-hidden"
         >
             <Modal.Header class="shrink-0">
-                <Modal.Title>Advanced options</Modal.Title>
+                <Modal.Title>Colors</Modal.Title>
                 <Modal.Description>
-                    Fine-tune colors, spacing, and motion. Changes override the sidebar controls and
-                    the selected preset.
+                    Fine-tune every color token. Changes override the sidebar controls and the
+                    selected preset.
+                </Modal.Description>
+            </Modal.Header>
+            <Modal.Body class="flex min-h-0 flex-1 flex-col gap-3 overflow-hidden">
+                <div class="flex shrink-0 items-center justify-between gap-3">
+                    <p class="text-sm text-foreground-muted">
+                        Editing {formatChoice(appMode)} mode
+                    </p>
+                    <Tabs.Root bind:value={appModeBinding.value} variant="ghost">
+                        <Tabs.List>
+                            <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs"
+                                >Light</Tabs.Trigger
+                            >
+                            <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs"
+                                >Dark</Tabs.Trigger
+                            >
+                        </Tabs.List>
+                    </Tabs.Root>
+                </div>
+                <ScrollArea class="min-h-0 flex-1 pr-2">
+                    <div class="flex flex-col gap-5 pb-2">
+                        {#each colorTokenGroups as group (group.label)}
+                            <div class="flex flex-col gap-3">
+                                <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                                    {group.label}
+                                </h3>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                                    {#each group.tokens as definition (definition.name)}
+                                        {@const resolved = resolveColorToken(definition)}
+                                        {@render advancedColorField(
+                                            definition.label,
+                                            resolved.hex,
+                                            (hex) => {
+                                                updateAdvancedColorToken(
+                                                    definition.name,
+                                                    formatCssColor(hex, resolved.alpha)
+                                                );
+                                            }
+                                        )}
+                                    {/each}
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                </ScrollArea>
+            </Modal.Body>
+            {@render modalDoneFooter()}
+        </Modal.Content>
+    </Modal.Root>
+
+    <Modal.Root bind:open={spacingModalOpen} orientation="vertical">
+        <Modal.Content
+            size="xl"
+            contentClass="!h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-w-5xl"
+            surfaceClass="!overflow-hidden"
+        >
+            <Modal.Header class="shrink-0">
+                <Modal.Title>Spacing</Modal.Title>
+                <Modal.Description>
+                    Fine-tune spacing, controls, corners, and borders. Changes override the sidebar
+                    controls and the selected preset.
                 </Modal.Description>
             </Modal.Header>
             <Modal.Body class="min-h-0 flex-1 overflow-hidden">
-                <Tabs.Root
-                    bind:value={advancedTab}
-                    variant="ghost"
-                    class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                >
-                    <Tabs.List class="mb-3 w-full shrink-0">
-                        <Tabs.Trigger value="colors" class="flex-1">Colors</Tabs.Trigger>
-                        <Tabs.Trigger value="spacing" class="flex-1">Spacing</Tabs.Trigger>
-                        <Tabs.Trigger value="animation" class="flex-1">Animation</Tabs.Trigger>
-                    </Tabs.List>
-
-                    <Tabs.Content
-                        value="colors"
-                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                    >
-                        <div class="mb-3 flex shrink-0 items-center justify-between gap-3">
-                            <p class="text-sm text-foreground-muted">
-                                Editing {formatChoice(appMode)} mode
-                            </p>
-                            <Tabs.Root bind:value={appModeBinding.value} variant="ghost">
-                                <Tabs.List>
-                                    <Tabs.Trigger value="light" class="min-h-7 px-2 py-0 text-xs"
-                                        >Light</Tabs.Trigger
-                                    >
-                                    <Tabs.Trigger value="dark" class="min-h-7 px-2 py-0 text-xs"
-                                        >Dark</Tabs.Trigger
-                                    >
-                                </Tabs.List>
-                            </Tabs.Root>
-                        </div>
-                        <ScrollArea class="min-h-0 flex-1 pr-2">
-                            <div class="flex flex-col gap-5 pb-2">
-                                {#each colorTokenGroups as group (group.label)}
-                                    <div class="flex flex-col gap-3">
-                                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
-                                            {group.label}
-                                        </h3>
-                                        <div
-                                            class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"
-                                        >
-                                            {#each group.tokens as definition (definition.name)}
-                                                {@const resolved = resolveColorToken(definition)}
-                                                {@render advancedColorField(
-                                                    definition.label,
-                                                    resolved.hex,
-                                                    (hex) => {
-                                                        updateAdvancedColorToken(
-                                                            definition.name,
-                                                            formatCssColor(hex, resolved.alpha)
-                                                        );
-                                                    }
-                                                )}
-                                            {/each}
-                                        </div>
-                                    </div>
-                                {/each}
+                <ScrollArea class="min-h-0 flex-1 pr-2">
+                    <div class="flex flex-col gap-5 pb-2">
+                        {#each spacingTokenGroups as group (group.label)}
+                            <div class="flex flex-col gap-3">
+                                <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                                    {group.label}
+                                </h3>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                                    {#each group.tokens as definition (definition.name)}
+                                        {@const spacingValue =
+                                            resolveSpacingToken(definition)}
+                                        {@render sliderTokenField(
+                                            definition.label,
+                                            spacingValue,
+                                            definition.min,
+                                            definition.max,
+                                            definition.step,
+                                            formatPx(spacingValue),
+                                            (value) => {
+                                                updateAdvancedSpacingToken(
+                                                    definition.name,
+                                                    formatPx(value)
+                                                );
+                                            }
+                                        )}
+                                    {/each}
+                                </div>
                             </div>
-                        </ScrollArea>
-                    </Tabs.Content>
-
-                    <Tabs.Content
-                        value="spacing"
-                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                    >
-                        <ScrollArea class="min-h-0 flex-1 pr-2">
-                            <div class="flex flex-col gap-5 pb-2">
-                                {#each spacingTokenGroups as group (group.label)}
-                                    <div class="flex flex-col gap-3">
-                                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
-                                            {group.label}
-                                        </h3>
-                                        <div
-                                            class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"
-                                        >
-                                            {#each group.tokens as definition (definition.name)}
-                                                {@const spacingValue =
-                                                    resolveSpacingToken(definition)}
-                                                {@render sliderTokenField(
-                                                    definition.label,
-                                                    spacingValue,
-                                                    definition.min,
-                                                    definition.max,
-                                                    definition.step,
-                                                    formatPx(spacingValue),
-                                                    (value) => {
-                                                        updateAdvancedSpacingToken(
-                                                            definition.name,
-                                                            formatPx(value)
-                                                        );
-                                                    }
-                                                )}
-                                            {/each}
-                                        </div>
-                                    </div>
-                                {/each}
-                            </div>
-                        </ScrollArea>
-                    </Tabs.Content>
-
-                    <Tabs.Content
-                        value="animation"
-                        class="flex min-h-0 flex-1 flex-col overflow-hidden"
-                    >
-                        <ScrollArea class="min-h-0 flex-1 pr-2">
-                            <div class="flex flex-col gap-5 pb-2">
-                                {#each animationTokenGroups as group (group.label)}
-                                    <div class="flex flex-col gap-3">
-                                        <h3 class="text-sm font-semibold tracking-[-0.015em]">
-                                            {group.label}
-                                        </h3>
-                                        <div
-                                            class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3"
-                                        >
-                                            {#each group.tokens as definition (definition.name)}
-                                                {#if definition.kind === 'ease'}
-                                                    {@render easeTokenField(
-                                                        definition.label,
-                                                        animationEaseValue(definition),
-                                                        (value) => {
-                                                            updateAdvancedAnimationToken(
-                                                                definition.name,
-                                                                value
-                                                            );
-                                                        }
-                                                    )}
-                                                {:else}
-                                                    {@const motionValue =
-                                                        animationSliderValue(definition)}
-                                                    {@render sliderTokenField(
-                                                        definition.label,
-                                                        motionValue,
-                                                        definition.min,
-                                                        definition.max,
-                                                        definition.step,
-                                                        animationSliderDisplay(
-                                                            definition,
-                                                            motionValue
-                                                        ),
-                                                        (value) => {
-                                                            commitAnimationSlider(
-                                                                definition,
-                                                                value
-                                                            );
-                                                        }
-                                                    )}
-                                                {/if}
-                                            {/each}
-                                        </div>
-                                    </div>
-                                {/each}
-                            </div>
-                        </ScrollArea>
-                    </Tabs.Content>
-                </Tabs.Root>
+                        {/each}
+                    </div>
+                </ScrollArea>
             </Modal.Body>
-            <Modal.Footer class="shrink-0">
-                <Modal.Close>
-                    Cancel
-                    <Shortcut shortcut="esc" />
-                </Modal.Close>
-                <Modal.Confirm>
-                    Done
-                    <Shortcut shortcut="enter" />
-                </Modal.Confirm>
-            </Modal.Footer>
+            {@render modalDoneFooter()}
+        </Modal.Content>
+    </Modal.Root>
+
+    <Modal.Root bind:open={animationModalOpen} orientation="vertical">
+        <Modal.Content
+            size="xl"
+            contentClass="!h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-h-[min(44rem,calc(var(--sivir-viewport-height)-2rem))] !max-w-5xl"
+            surfaceClass="!overflow-hidden"
+        >
+            <Modal.Header class="shrink-0">
+                <Modal.Title>Motion</Modal.Title>
+                <Modal.Description>
+                    Fine-tune speeds and menu versus modal movement. Changes override the sidebar
+                    controls and the selected preset.
+                </Modal.Description>
+            </Modal.Header>
+            <Modal.Body class="min-h-0 flex-1 overflow-hidden">
+                <ScrollArea class="min-h-0 flex-1 pr-2">
+                    <div class="flex flex-col gap-5 pb-2">
+                        {#each animationTokenGroups as group (group.label)}
+                            <div class="flex flex-col gap-3">
+                                <h3 class="text-sm font-semibold tracking-[-0.015em]">
+                                    {group.label}
+                                </h3>
+                                <div class="grid grid-cols-1 gap-3 sm:grid-cols-2 md:grid-cols-3">
+                                    {#each group.tokens as definition (definition.name)}
+                                        {#if definition.kind === 'ease'}
+                                            {@render easeTokenField(
+                                                definition.label,
+                                                animationEaseValue(definition),
+                                                (value) => {
+                                                    updateAdvancedAnimationToken(
+                                                        definition.name,
+                                                        value
+                                                    );
+                                                }
+                                            )}
+                                        {:else}
+                                            {@const motionValue =
+                                                animationSliderValue(definition)}
+                                            {@render sliderTokenField(
+                                                definition.label,
+                                                motionValue,
+                                                definition.min,
+                                                definition.max,
+                                                definition.step,
+                                                animationSliderDisplay(
+                                                    definition,
+                                                    motionValue
+                                                ),
+                                                (value) => {
+                                                    commitAnimationSlider(
+                                                        definition,
+                                                        value
+                                                    );
+                                                }
+                                            )}
+                                        {/if}
+                                    {/each}
+                                </div>
+                            </div>
+                        {/each}
+                    </div>
+                </ScrollArea>
+            </Modal.Body>
+            {@render modalDoneFooter()}
         </Modal.Content>
     </Modal.Root>
 

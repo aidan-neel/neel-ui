@@ -5,7 +5,8 @@ export const checkbox = tv({
     variants: {
         variant: {
             default: '',
-            primary: 'rounded-lg border p-4 focus-within:bg-secondary hover:bg-secondary'
+            primary:
+                'rounded-lg border-[length:var(--border-size)] p-4 focus-within:bg-secondary hover:bg-secondary'
         },
         disabled: {
             true: 'opacity-60',
@@ -30,7 +31,7 @@ export const checkbox = tv({
 });
 
 export const checkboxBox = tv({
-    base: 'sivir-press flex size-4 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
+    base: 'sivir-press flex size-4 shrink-0 items-center justify-center rounded-[var(--radius-sm)] border-[length:var(--border-size)] p-0 transition-[background-color,border-color,box-shadow,transform,scale] [transition-duration:var(--motion-duration-press)] ease-[var(--ease-press)] motion-reduce:transition-none peer-focus-visible:shadow-[var(--focus-ring)]',
     variants: {
         checked: {
             true: 'border-primary bg-primary',
