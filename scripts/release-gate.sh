@@ -31,6 +31,7 @@ run() {
 
 run "format" bun run format:check
 run "lint" bun run lint
+run "audit" bun run audit
 run "typecheck" bun run check
 run "unit/ssr tests" bun run test
 run "browser tests" bun --cwd=apps/docs run test:browser

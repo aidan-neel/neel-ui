@@ -30,7 +30,7 @@ For a pre-release, invoke the `release-gate` skill or run:
 bun run release-gate
 ```
 
-That is the full publish bar: format, lint, typecheck, unit/SSR tests, docs
+That is the full publish bar: format, lint, audit, typecheck, unit/SSR tests, docs
 browser tests, build, and packed artifact verification. Do not skip steps.
 
 # Development Servers
