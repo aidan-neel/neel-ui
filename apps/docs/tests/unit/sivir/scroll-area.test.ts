@@ -138,6 +138,31 @@ describe('ScrollArea -- edge cues', () => {
             '[mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)]'
         );
     });
+
+    it('drops the backdrop blur for blur={false} while keeping the fade', async () => {
+        const { container } = render(ScrollArea, {
+            props: { blur: false, children: textSnippet('x') } as never
+        });
+        const viewport = queryRequired<HTMLElement>(container, '[data-ui="scroll-area-viewport"]');
+
+        Object.defineProperties(viewport, {
+            scrollHeight: { configurable: true, value: 1000 },
+            clientHeight: { configurable: true, value: 200 }
+        });
+        viewport.scrollTop = 100;
+        await fireEvent.scroll(viewport);
+
+        await waitFor(() => {
+            expect(viewport.querySelectorAll('[aria-hidden="true"] > div')).toHaveLength(2);
+        });
+
+        for (const cue of Array.from(
+            viewport.querySelectorAll<HTMLElement>('[aria-hidden="true"] > div')
+        )) {
+            expect(cue.className.split(/\s+/)).not.toContain('backdrop-blur-sm');
+            expect(cue.className).toContain('bg-[linear-gradient(');
+        }
+    });
 });
 
 describe('ScrollArea -- max-height scrolling without explicit height', () => {

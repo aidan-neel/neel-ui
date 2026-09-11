@@ -9,6 +9,7 @@
         children,
         orientation = 'vertical',
         showCues = true,
+        blur = true,
         element = $bindable(),
         onscroll,
         ...rest
@@ -22,6 +23,7 @@
     const atBottom = $derived(scrollTop + clientHeight >= scrollHeight - 1);
     const overflows = $derived(scrollHeight - clientHeight > 1);
     const cuesVisible = $derived(showCues && orientation === 'vertical' && overflows);
+    const blurClass = $derived(blur ? 'backdrop-blur-sm' : undefined);
 
     function measure() {
         if (!element) {
@@ -80,7 +82,8 @@
             <div aria-hidden="true" class="sticky top-0 z-10 h-0">
                 <div
                     class={cn(
-                        'pointer-events-none absolute inset-x-0 -top-px flex h-7 items-start justify-center rounded-t-[inherit] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] backdrop-blur-sm transition-opacity duration-150',
+                        'pointer-events-none absolute inset-x-0 -top-px flex h-7 items-start justify-center rounded-t-[inherit] bg-[linear-gradient(to_bottom,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_bottom,black_0%,black_40%,transparent_100%)] transition-opacity duration-150',
+                        blurClass,
                         atTop ? 'opacity-0' : 'opacity-100'
                     )}
                 >
@@ -96,7 +99,8 @@
             <div aria-hidden="true" class="sticky bottom-0 z-10 h-0">
                 <div
                     class={cn(
-                        'pointer-events-none absolute inset-x-0 -bottom-px flex h-7 items-end justify-center rounded-b-[inherit] bg-[linear-gradient(to_top,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] backdrop-blur-sm transition-opacity duration-150',
+                        'pointer-events-none absolute inset-x-0 -bottom-px flex h-7 items-end justify-center rounded-b-[inherit] bg-[linear-gradient(to_top,color-mix(in_srgb,var(--color-panel)_96%,transparent),transparent)] [-webkit-mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] [mask-image:linear-gradient(to_top,black_0%,black_40%,transparent_100%)] transition-opacity duration-150',
+                        blurClass,
                         atBottom ? 'opacity-0' : 'opacity-100'
                     )}
                 >

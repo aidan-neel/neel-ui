@@ -6,6 +6,7 @@ import ScrollArea from './scroll-area.svelte';
 export type ScrollAreaProps = {
     orientation?: 'vertical' | 'horizontal' | 'both';
     showCues?: boolean;
+    blur?: boolean;
     children?: Snippet;
     element?: HTMLDivElement;
 } & DefaultProps &

@@ -2,6 +2,7 @@
 <script lang="ts">
     import Check from '@lucide/svelte/icons/check';
     import * as Popover from '@sivir-ui/svelte/components/popover';
+    import { cn } from '@sivir-ui/svelte/utils';
     import { getColorPickerContext } from './context';
     import {
         hexToHsl,
@@ -299,7 +300,17 @@
     </div>
 
     <!-- Format channel sliders -->
-    <div class="flex flex-col gap-1.5 border-b-[length:var(--border-size)] border-border/60 p-2">
+    <!--
+      The divider only earns its keep when the swatch grid follows it. Without
+      options this is the last block in the surface, and an unconditional
+      border-b strands a hairline above the panel's rounded bottom edge.
+    -->
+    <div
+        class={cn(
+            'flex flex-col gap-1.5 p-2',
+            hasOptions && 'border-b-[length:var(--border-size)] border-border/60'
+        )}
+    >
         {#if ctx.format === 'hsl'}
             {#each [{ key: 'h', label: 'H', max: 360, value: hslH, unit: '°' }, { key: 's', label: 'S', max: 100, value: hslS, unit: '%' }, { key: 'l', label: 'L', max: 100, value: hslL, unit: '%' }] as channel (channel.key)}
                 {@const thumbBg =
