@@ -59,6 +59,20 @@
             lang="svelte"
             copy="overlay"
         />
+
+        <Typography.Text variant="supporting">
+            A vertical Scroll Area fades its overflowing edges with a blurred cue. Pass
+            <Typography.InlineCode>{'showCues={false}'}</Typography.InlineCode>
+            to drop the cues entirely, or
+            <Typography.InlineCode>{'cueBlur={false}'}</Typography.InlineCode>
+            to keep the fade and chevrons without the
+            <Typography.InlineCode>backdrop-filter</Typography.InlineCode>.
+        </Typography.Text>
+        <CodeBlock
+            code={`<ScrollArea class="h-48 w-64" cueBlur={false}>\n  <div>Your content here</div>\n</ScrollArea>`}
+            lang="svelte"
+            copy="overlay"
+        />
     </section>
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->

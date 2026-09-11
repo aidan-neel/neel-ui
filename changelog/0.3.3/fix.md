@@ -1,0 +1,1 @@
+- Make the Scroll Area edge-cue blur optional. `cueBlur` defaults to `true` and keeps the current look; set it to `false` to keep the fade and chevrons while dropping the `backdrop-filter`, which is expensive over large or animated content and smears text behind the cue on some GPUs.
