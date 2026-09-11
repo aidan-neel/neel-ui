@@ -99,6 +99,34 @@ describe('ColorPicker -- preset option selection', () => {
     });
 });
 
+describe('ColorPicker -- surface dividers', () => {
+    it('divides the slider block from the swatch grid when options exist', async () => {
+        render(ColorPickerFixture, { value: '#ff0000' });
+        await flush();
+        await openPicker();
+
+        const sliders = required(
+            document
+                .querySelector<HTMLElement>('[data-ui="popover-content"] input[type="range"]')
+                ?.closest('div.flex-col')
+        );
+        expect(sliders.className).toContain('border-b-[length:var(--border-size)]');
+    });
+
+    it('drops that divider without options so no hairline strands above the rounded edge', async () => {
+        render(ColorPickerFixture, { value: '#ff0000', options: [] });
+        await flush();
+        await openPicker();
+
+        const sliders = required(
+            document
+                .querySelector<HTMLElement>('[data-ui="popover-content"] input[type="range"]')
+                ?.closest('div.flex-col')
+        );
+        expect(sliders.className).not.toContain('border-b-[length:var(--border-size)]');
+    });
+});
+
 describe('ColorPicker -- SB drag (saturation/value)', () => {
     it('clicking the SB region center changes the value', async () => {
         let receivedValue: string | undefined;
