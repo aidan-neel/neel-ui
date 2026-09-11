@@ -139,9 +139,9 @@ describe('ScrollArea -- edge cues', () => {
         );
     });
 
-    it('drops the backdrop blur for cueBlur={false} while keeping the fade', async () => {
+    it('drops the backdrop blur for blur={false} while keeping the fade', async () => {
         const { container } = render(ScrollArea, {
-            props: { cueBlur: false, children: textSnippet('x') } as never
+            props: { blur: false, children: textSnippet('x') } as never
         });
         const viewport = queryRequired<HTMLElement>(container, '[data-ui="scroll-area-viewport"]');
 

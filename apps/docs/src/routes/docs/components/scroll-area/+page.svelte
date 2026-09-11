@@ -3,7 +3,8 @@
     import * as Typography from '@sivir-ui/svelte/components/typography';
     import { ComponentPreview, InstallCommand } from '$lib/components/docs';
     import DocsPager from '$lib/components/docs/docs-pager.svelte';
-
+    import Blur from './examples/blur.svelte';
+    import BlurSrc from './examples/blur.svelte?raw';
     import Hero from './examples/hero.svelte';
     import HeroSrc from './examples/hero.svelte?raw';
     import Horizontal from './examples/horizontal.svelte';
@@ -64,15 +65,10 @@
             A vertical Scroll Area fades its overflowing edges with a blurred cue. Pass
             <Typography.InlineCode>{'showCues={false}'}</Typography.InlineCode>
             to drop the cues entirely, or
-            <Typography.InlineCode>{'cueBlur={false}'}</Typography.InlineCode>
+            <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
             to keep the fade and chevrons without the
             <Typography.InlineCode>backdrop-filter</Typography.InlineCode>.
         </Typography.Text>
-        <CodeBlock
-            code={`<ScrollArea class="h-48 w-64" cueBlur={false}>\n  <div>Your content here</div>\n</ScrollArea>`}
-            lang="svelte"
-            copy="overlay"
-        />
     </section>
 
     <!-- ─── Examples ──────────────────────────────────────────────── -->
@@ -80,7 +76,7 @@
         <div>
             <Typography.H2 class="docs-section-heading">Examples</Typography.H2>
             <Typography.Text variant="supporting" class="mt-2">
-                Explore the Scroll Area in each orientation.
+                Explore the Scroll Area in each orientation, and with the edge cue blur turned off.
             </Typography.Text>
         </div>
 
@@ -88,6 +84,20 @@
             <Typography.H3 class="docs-subsection-heading">Horizontal</Typography.H3>
             <ComponentPreview code={HorizontalSrc}>
                 <Horizontal />
+            </ComponentPreview>
+        </div>
+
+        <div id="edge-cue-blur" class="scroll-mt-20 flex flex-col gap-3">
+            <Typography.H3 class="docs-subsection-heading">Edge cue blur</Typography.H3>
+            <Typography.Text variant="supporting">
+                The cue blurs the content passing under it. Pass
+                <Typography.InlineCode>{'blur={false}'}</Typography.InlineCode>
+                to keep the fade and chevrons without the
+                <Typography.InlineCode>backdrop-filter</Typography.InlineCode>, which is worth doing
+                over long or animated content.
+            </Typography.Text>
+            <ComponentPreview code={BlurSrc}>
+                <Blur />
             </ComponentPreview>
         </div>
     </section>
